@@ -89,7 +89,7 @@ class LawyerController extends Controller
      */
     public function updateNotis(Request $request)
     {
-        DB::table('law_data')
+        DB::table('law_datas')
           ->where('Law_id', $request->id)
           ->update([
             'Status_notis' => $request->notis
@@ -106,7 +106,7 @@ class LawyerController extends Controller
 
     public function ReportPDFIndex(Request $request)
     {
-        $dataReport = DB::table('law_data')
+        $dataReport = DB::table('law_datas')
         ->where('Law_id','=',$request->id)
         ->first();
 

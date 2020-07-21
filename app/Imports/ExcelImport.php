@@ -40,8 +40,9 @@ class ExcelImport implements ToCollection
                     'Service_charge' => $value[6],
                     'Total_amount' => $value[7],
                     'Balance_amount' => $value[8],
-                    'Date_upload' => $date,
-                    'Upload' => $upload
+                    'Upload' => $upload,
+                    'created_at' => $date,
+                    'updated_at' => $date
                     ]
                 );
             }
