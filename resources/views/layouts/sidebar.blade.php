@@ -58,11 +58,11 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-database"></i>
               <p>
-                Main Menu
+                ทะเบียนลูกหนี้
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" style="margin-left: 15px;">
               <li class="nav-item">
                 <a href="{{ route('lawyer',1) }}" class="nav-link {{ Request::is('lawyer/view/1') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
