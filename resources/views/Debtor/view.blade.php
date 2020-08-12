@@ -67,15 +67,39 @@
                             <th class="text-center" >ลำดับ</th>
                             <th class="text-center" >เลขที่สัญญา</th>
                             <th class="text-center" >ชื่อ - สกุล</th>
-                            <th class="text-center" >เลขที่สมาชิก</th>
+                            <!-- <th class="text-center" >เลขที่สมาชิก</th>
                             <th class="text-center" >วันทำสัญญา</th>
                             <th class="text-center" >งวดเเรก</th>
-                            <th class="text-center" >วงเงินอนุมัติ</th>
+                            <th class="text-center" >วงเงินอนุมัติ</th> -->
                             <th class="text-center" >สถานะ</th>
                             <th class="text-center" >Action</th>
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center">{{$key+1}}</td>
+                              <td class="text-center">{{$row->Number_Cus}}</td>
+                              <td>{{$row->Name_Cus}}</td>
+                              <td class="text-center">
+                                <button type="button" class="btn btn-success btn-xs">
+                                  <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
+                                </button>
+                              </td>
+                              <td class="text-right">
+                                <a href="#" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  <i class="far fa-edit"></i> แก้ไข
+                                </a>
+                                <form method="post" class="delete_form" action="" style="display:inline;">
+                                {{csrf_field()}}
+                                  <input type="hidden" name="_method" value="DELETE" />
+                                  <button type="submit" data-name="" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                    <i class="far fa-trash-alt"></i> ลบ
+                                  </button>
+                                </form>
+                              </td>
+                            </tr>
+                          @endforeach
 
                         </tbody>
                       </table>
@@ -93,7 +117,7 @@
   </section>
   
   <!-- pop up เพิ่มรายการ -->
-  <form action="{{ route('MasterLawyer.store') }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('MasterDeptor.store') }}" method="post" enctype="multipart/form-data">
     @csrf
       <div class="modal fade" id="modal-add" aria-hidden="true" style="display: none;">
           <div class="modal-dialog modal-xl">
@@ -109,7 +133,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้กู้:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namebuyer" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
+                            <input type="text" name="Namedeptor" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
                           </div>
                         </div>
                       </div>
@@ -117,7 +141,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">เลขที่สัญญา :</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Contractbuyer" class="form-control" placeholder="ป้อนเลขที่สัญญา"/>
+                            <input type="text" name="Contractdeptor" class="form-control" placeholder="ป้อนเลขที่สัญญา"/>
                           </div>
                         </div>
                       </div>
@@ -127,8 +151,7 @@
                         <div class="form-group row mb-1">
                           <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
-                            <!-- <input type="text" name="Addressbuyer" class="form-control" placeholder="ชื่อที่อยู่"/> -->
-                            <textarea class="form-control" name="Addressbuyer" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                            <textarea class="form-control" name="Addressdeptor" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
                         </div>
                       </div>
@@ -136,7 +159,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">จำนวนเงิน :</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Amountbuyer" class="form-control" placeholder="ป้อนจำนวนเงิน"/>
+                            <input type="text" name="Amountdeptor" class="form-control" placeholder="ป้อนจำนวนเงิน"/>
                           </div>
                         </div>
                         <div class="form-group row mb-1">
@@ -180,7 +203,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้ค้ำ:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้ค้ำ"/>
+                            <input type="text" name="Namesurety" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้ค้ำ"/>
                           </div>
                         </div>
                       </div>
@@ -189,7 +212,7 @@
                           <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
                             <!-- <input type="text" name="Addressbuyer" class="form-control" placeholder="ชื่อที่อยู่"/> -->
-                            <textarea class="form-control" name="Addressgarantee" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                            <textarea class="form-control" name="Addresssurety" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
                         </div>
                       </div>
@@ -207,11 +230,11 @@
                         <div class="form-group row mb-1">
                           <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้จำนอง:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
+                            <input type="text" name="Namemortgager" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
                           </div>
                           <label class="col-sm-4 col-form-label text-right">เลขที่โฉนด:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนเลขที่โฉนด"/>
+                            <input type="text" name="Noland" class="form-control" placeholder="ป้อนเลขที่โฉนด"/>
                           </div>
                         </div>
                       </div>
@@ -219,7 +242,7 @@
                         <div class="form-group row mb-1">
                           <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
-                            <textarea class="form-control" name="Addressgarantee" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                            <textarea class="form-control" name="Addressmortgager" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
                         </div>
                       </div>
@@ -230,6 +253,7 @@
               <div style="text-align: center;">
                   <button type="submit" class="btn btn-success text-center">บันทึก</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                  <input type="hidden" name="type" value="1"/>
               </div>
               <br>
             </div>

@@ -8,7 +8,7 @@ class DataMortgagers extends Model
 {
     protected $table = 'data_mortgagers';
     protected $primaryKey = 'DataCus_id';
-    protected $fillable = ['DataCus_id','Name_Mortgager','Address_Mortgager','NumberDeed_Mortgager','DateUser','DateUser'];
+    protected $fillable = ['DataCus_id','Name_Mortgager','Address_Mortgager','NumberDeed_Mortgager','NameUser','DateUser'];
 
     public function DataCus()
     {
