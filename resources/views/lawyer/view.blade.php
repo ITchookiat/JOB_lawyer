@@ -45,9 +45,9 @@
                             <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
                               <span class="fas fa-file-excel-o"></span> อัพโหลด
                             </a>
-                            <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
+                            <!-- <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
                               <span class="fas fa-plus"></span> เพิ่มรายการ
-                            </a>
+                            </a> -->
                             <button type="submit" class="btn bg-warning btn-app">
                               <span class="fas fa-search"></span> Search
                             </button>
@@ -267,12 +267,13 @@
   </form>
 
   <!-- pop up เพิ่มรายการ -->
-  <form action="#" method="post">
+  <form action="{{ route('MasterLawyer.store') }}" method="post" enctype="multipart/form-data">
+    @csrf
       <div class="modal fade" id="modal-add" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-body">
-                <div class="card card-info">
+                <div class="card card-gray">
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้กู้</h3>
                   </div>
@@ -280,17 +281,17 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-5 col-form-label text-right">เลขที่สัญญา :</label>
-                          <div class="col-sm-7">
-                            <input type="text" name="Namebuyer" class="form-control" placeholder="ชื่อลูกค้า"/>
+                        <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้กู้:</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="Namebuyer" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
                           </div>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">เลขที่สมาชิก :</label>
-                          <div class="col-sm-7">
-                            <input type="text" name="Nameagent" class="form-control" placeholder="ป้อนชื่อนายหน้า"/>
+                        <label class="col-sm-3 col-form-label text-right">เลขที่สัญญา :</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="Contractbuyer" class="form-control" placeholder="ป้อนเลขที่สัญญา"/>
                           </div>
                         </div>
                       </div>
@@ -298,17 +299,28 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-5 col-form-label text-right">ชื่อ-สกลุ ผู้กู้ :</label>
-                          <div class="col-sm-7">
-                            <input type="text" name="Namebuyer" class="form-control" placeholder="ชื่อลูกค้า"/>
+                          <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
+                          <div class="col-sm-8">
+                            <!-- <input type="text" name="Addressbuyer" class="form-control" placeholder="ชื่อที่อยู่"/> -->
+                            <textarea class="form-control" name="Addressbuyer" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">ชื่อนายหน้า :</label>
-                          <div class="col-sm-7">
-                            <input type="text" name="Nameagent" class="form-control" placeholder="ป้อนชื่อนายหน้า"/>
+                        <label class="col-sm-3 col-form-label text-right">จำนวนเงิน :</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="Amountbuyer" class="form-control" placeholder="ป้อนจำนวนเงิน"/>
+                          </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                        <label class="col-sm-3 col-form-label text-right">ประเภทสัญญา :</label>
+                          <div class="col-sm-8">
+                            <select id="Typecontract" name="Typecontract" class="form-control" required>
+                              <option value="" selected>--- เลือกประเภทสัญญา ---</option>
+                              <option value="กู้-บุคคล">กู้-บุคคล</option>
+                              <option value="กู้-ทรัพย์">กู้-ทรัพย์</option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -316,34 +328,80 @@
                   </div>
                 </div>
 
-                <div class="card card-warning">
+                <script>
+                  $('#Typecontract').change(function(){
+                    var value = document.getElementById('Typecontract').value;
+                    if(value == 'กู้-บุคคล'){
+                      $('#show1').show();
+                      $('#show2').hide();
+                    }else if(value == 'กู้-ทรัพย์'){
+                      $('#show2').show();
+                      $('#show1').hide();
+                    }else{
+                      $('#show1').hide();
+                      $('#show2').hide();
+                    }
+
+                  });
+                </script>
+
+                <div class="card card-gray" id="show1" style="display:none;">
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้ค้ำ</h3>
                   </div>
-                    <!-- /.card-header -->
                   <div class="card-body">
-                    The body of the card
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้ค้ำ:</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้ค้ำ"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                          <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
+                          <div class="col-sm-8">
+                            <!-- <input type="text" name="Addressbuyer" class="form-control" placeholder="ชื่อที่อยู่"/> -->
+                            <textarea class="form-control" name="Addressgarantee" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                    <!-- /.card-body -->
                 </div>
 
-                <div class="card card-danger">
+                <div class="card card-gray" id="show2" style="display:none;">
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้จำนอง</h3>
                   </div>
-                    <!-- /.card-header -->
                   <div class="card-body">
-                    The body of the card
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                          <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้จำนอง:</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
+                          </div>
+                          <label class="col-sm-4 col-form-label text-right">เลขที่โฉนด:</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนเลขที่โฉนด"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                          <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
+                          <div class="col-sm-8">
+                            <textarea class="form-control" name="Addressgarantee" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                    <!-- /.card-body -->
                 </div>
-
-                    <input type="hidden" name="Vatcar" value="7 %"/>
-                    <input type="hidden" name="evaluetionPrice" value="0"/>
-                    <input type="hidden" name="dutyPrice" value="1,500"/>
-                    <input type="hidden" name="marketingPrice" value="1,500"/>
               </div>
-              <br>
               <div style="text-align: center;">
                   <button type="submit" class="btn btn-success text-center">บันทึก</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>

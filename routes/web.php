@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/maindata/update/{id}', 'UserController@update')->name('maindata.update');
     Route::delete('/maindata/delete/{id}', 'UserController@destroy')->name('maindata.destroy');
 
+    Route::resource('MasterLawyer','LawyerController');
     Route::get('/lawyer/view/{type}', 'LawyerController@index')->name('lawyer');
     Route::get('/ExportPDFIndex', 'LawyerController@ReportPDFIndex');
     Route::get('/updateNotis', 'LawyerController@updateNotis');
