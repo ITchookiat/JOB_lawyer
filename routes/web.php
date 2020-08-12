@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/updateNotis', 'LawyerController@updateNotis');
     Route::post('/import_excel/import', 'LawyerController@import');
     Route::delete('/delete/{id}', 'LawyerController@destroy');
+
+    Route::get('/Debtor/view/{type}', 'DebtorController@index')->name('Debtor');
+
     
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
