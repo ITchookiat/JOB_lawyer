@@ -269,168 +269,74 @@
   <!-- pop up เพิ่มรายการ -->
   <form action="#" method="post">
       <div class="modal fade" id="modal-add" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
-              <div class="modal-header bg-info">
-                <div class="col text-center">
-                  <h4 class="modal-title">เพิ่มรายการลูกหนี้</h4>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
               <div class="modal-body">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                        <label class="col-sm-5 col-form-label text-right"><font color="red">*** ป้ายทะเบียน :</font> </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Licensecar" class="form-control" placeholder="ป้อนป้ายทะเบียน" required/>
+                <div class="card card-info">
+                  <div class="card-header">
+                      <h3 class="card-title">รายละเอียดผู้กู้</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                        <label class="col-sm-5 col-form-label text-right">เลขที่สัญญา :</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="Namebuyer" class="form-control" placeholder="ชื่อลูกค้า"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-right">เลขที่สมาชิก :</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="Nameagent" class="form-control" placeholder="ป้อนชื่อนายหน้า"/>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ยี่ห้อรถ : </label>
-                        <div class="col-sm-7">
-                          <select name="Brandcar" class="form-control">
-                            <option value="" selected>--- ยี่ห้อ ---</option>
-                            <option value="ISUZU">ISUZU</option>
-                            <option value="MITSUBISHI">MITSUBISHI</option>
-                            <option value="TOYOTA">TOYOTA</option>
-                            <option value="MAZDA">MAZDA</option>
-                            <option value="FORD">FORD</option>
-                            <option value="NISSAN">NISSAN</option>
-                            <option value="HONDA">HONDA</option>
-                            <option value="CHEVROLET">CHEVROLET</option>
-                            <option value="MG">MG</option>
-                            <option value="SUZUKI">SUZUKI</option>
-                          </select>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                        <label class="col-sm-5 col-form-label text-right">ชื่อ-สกลุ ผู้กู้ :</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="Namebuyer" class="form-control" placeholder="ชื่อลูกค้า"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group row mb-1">
+                        <label class="col-sm-4 col-form-label text-right">ชื่อนายหน้า :</label>
+                          <div class="col-sm-7">
+                            <input type="text" name="Nameagent" class="form-control" placeholder="ป้อนชื่อนายหน้า"/>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">รุ่นรถ : </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Modelcar" class="form-control" placeholder="ป้อนรุ่นรถ" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ประเภทรถ : </label>
-                        <div class="col-sm-7">
-                          <select id="Typecardetail" name="Typecardetail" class="form-control">
-                            <option value="" selected>--- ประเภทรถ ---</option>
-                            <option value="รถกระบะ">รถกระบะ</option>
-                            <option value="รถตอนเดียว">รถตอนเดียว</option>
-                            <option value="รถเก๋ง/7ที่นั่ง">รถเก๋ง/7ที่นั่ง</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                </div>
+
+                <div class="card card-warning">
+                  <div class="card-header">
+                      <h3 class="card-title">รายละเอียดผู้ค้ำ</h3>
                   </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right"><font color="red"> ยอดจัด : </font> </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Topcar" class="form-control" placeholder="ป้อนยอดจัด" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ปีรถ : </label>
-                        <div class="col-sm-7">
-                          <select id="Yearcar" name="Yearcar" class="form-control">
-                            <option value="" selected>--- เลือกปี ---</option>
-                              @php
-                                  $Year = date('Y');
-                              @endphp
-                              @for ($i = 0; $i < 20; $i++)
-                                <option value="{{ $Year }}">{{ $Year }}</option>
-                                @php
-                                    $Year -= 1;
-                                @endphp
-                              @endfor
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- /.card-header -->
+                  <div class="card-body">
+                    The body of the card
                   </div>
-                  <br>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">เบอร์ลูกค้า :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Phonebuyer" class="form-control" placeholder="ป้อนเบอร์ลูกค้า"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">เบอร์นายหน้า :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Tellagentcar" class="form-control" placeholder="ป้อนเบอร์นายหน้า"/>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+                <div class="card card-danger">
+                  <div class="card-header">
+                      <h3 class="card-title">รายละเอียดผู้จำนอง</h3>
                   </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">ที่มาของลูกค้า :</label>
-                        <div class="col-sm-7">
-                        <select id="News" name="News" class="form-control">
-                            <option value="" selected>--- เลือกแหล่งที่มา ---</option>
-                            <option value="นายหน้าแนะนำ">นายหน้าแนะนำ</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Line">Line</option>
-                            <option value="ป้ายโฆษณา">ป้ายโฆษณา</option>
-                            <option value="วิทยุ">วิทยุ</option>
-                            <option value="เพื่อนแนะนำ">เพื่อนแนะนำ</option>
-                          </select>
-                        </div>
-                        <br><br>
-                        <label class="col-sm-5 col-form-label text-right">ประเภทสินเชื่อ :</label>
-                        <div class="col-sm-7">
-                        <select id="TypeLeasing" name="TypeLeasing" class="form-control">
-                            <option value="" selected>--- เลือกประเภทสินเชื่อ ---</option>
-                            <option value="เช่าซื้อ">เช่าซื้อ</option>
-                            <option value="เงินกู้">เงินกู้</option>
-                        </select>
-                        </div>
-                        <br><br>
-                        <label class="col-sm-5 col-form-label text-right">สาขา :</label>
-                        <div class="col-sm-7">
-                          <select id="branchcar" name="branchcar" class="form-control">
-                                <option value="" selected>--- เลือกสาขา ---</option>
-                                <option value="ปัตตานี">ปัตตานี</option>
-                                <option value="ยะลา">ยะลา</option>
-                                <option value="นราธิวาส">นราธิวาส</option>
-                                <option value="สายบุรี">สายบุรี</option>
-                                <option value="โกลก">โกลก</option>
-                                <option value="เบตง">เบตง</option>
-                                <option value="admin">admin</option>
-                                <option value="วิเคราะห์">วิเคราะห์</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">หมายเหตุ :</label>
-                        <div class="col-sm-7">
-                          <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ..."></textarea>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- /.card-header -->
+                  <div class="card-body">
+                    The body of the card
                   </div>
+                    <!-- /.card-body -->
+                </div>
 
                     <input type="hidden" name="Vatcar" value="7 %"/>
                     <input type="hidden" name="evaluetionPrice" value="0"/>
