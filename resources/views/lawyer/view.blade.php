@@ -267,7 +267,8 @@
   </form>
 
   <!-- pop up เพิ่มรายการ -->
-  <form action="#" method="post">
+  <form action="{{ route('MasterLawyer.store') }}" method="post" enctype="multipart/form-data">
+    @csrf
       <div class="modal fade" id="modal-add" aria-hidden="true" style="display: none;">
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -282,7 +283,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้กู้:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namebuyer" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้"/>
+                            <input type="text" name="Namebuyer" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
                           </div>
                         </div>
                       </div>
@@ -385,7 +386,7 @@
                           </div>
                           <label class="col-sm-4 col-form-label text-right">เลขที่โฉนด:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
+                            <input type="text" name="Namegarantee" class="form-control" placeholder="ป้อนเลขที่โฉนด"/>
                           </div>
                         </div>
                       </div>
