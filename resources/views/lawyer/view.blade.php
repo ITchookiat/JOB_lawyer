@@ -43,9 +43,9 @@
                             <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
                               <span class="fas fa-file-excel-o"></span> อัพโหลด
                             </a>
-                            <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
+                            <!-- <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
                               <span class="fas fa-plus"></span> เพิ่มรายการ
-                            </a>
+                            </a> -->
                             <button type="submit" class="btn bg-warning btn-app">
                               <span class="fas fa-search"></span> Search
                             </button>
