@@ -18,6 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
+    //------------------Admin--------------------//
+    Route::get('/maindata/register', 'UserController@register')->name('regist');
+    Route::post('/maindata/saveregister', 'UserController@Saveregister')->name('Saveregist');
+    Route::get('/maindata/view', 'UserController@index')->name('ViewMaindata');
+    Route::get('/maindata/edit/{id}', 'UserController@edit')->name('maindata.edit');
+    Route::patch('/maindata/update/{id}', 'UserController@update')->name('maindata.update');
+    Route::delete('/maindata/delete/{id}', 'UserController@destroy')->name('maindata.destroy');
 
     Route::get('/lawyer/view/{type}', 'LawyerController@index')->name('lawyer');
     Route::get('/ExportPDFIndex', 'LawyerController@ReportPDFIndex');

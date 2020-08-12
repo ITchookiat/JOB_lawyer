@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('Saveregist') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -61,22 +61,45 @@
 
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
+                        
+                        <div class="form-inline form-group">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              สาขา</label>
+                              &nbsp;&nbsp;&nbsp;
+                            <select name="branch" class="form-control" style="width: 330px;">
+                              <option selected disabled value="" >เลือกสาขา</option>
+                              <option value="99" > Admin</option>
+                              <option value="01" > สาขา ปัตตานี</option>
+                              <option value="03" > สาขา ยะลา</option>
+                              <option value="04" > สาขา นราธิวาส</option>
+                              <option value="05" > สาขา สายบุรี</option>
+                              <option value="06" > สาขา โกลก</option>
+                              <option value="07" > สาขา เบตง</option>
+                              <option value="10" > สาขา รถบ้าน</option>
+                            </select>
+                          </div>
+
                         <div class="form-inline form-group">
                           <label for="password-confirm" class="col-md-4 col-form-label text-md-right">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            สิทธิ์การเข้าใช้งาน</label>
+                            แผนก</label>
                             &nbsp;&nbsp;&nbsp;
                           <select name="section_type" class="form-control" style="width: 330px;">
-                            <option selected disabled value="" >Select type</option>
-                            <option value="Admin" > Admin</option>
-                            <option value="Writer" > Writer</option>
-                            <option value="Reader" > Reader</option>
+                            <option selected disabled value="" >เลือกแผนก</option>
+                            <option value="Admin"> Admin</option>
+                            <option value="แผนก วิเคราะห์"> แผนก วิเคราะห์</option>
+                            <option value="แผนก จัดไฟแนนท์"> แผนก จัดไฟแนนท์</option>
+                            <option value="แผนก รถบ้าน"> แผนก รถบ้าน</option>
+                            <option value="แผนก กฏหมาย"> แผนก กฏหมาย</option>
+                            <option value="แผนก เร่งรัด"> แผนก เร่งรัด</option>
+                            <option value="แผนก การเงินนอก"> แผนก การเงินนอก</option>
+                            <option value="แผนก การเงินใน"> แผนก การเงินใน</option>
                           </select>
                         </div>
 
@@ -85,18 +108,22 @@
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               ตำแหน่ง</label>
                               &nbsp;&nbsp;&nbsp;
-                              <select name="branch" class="form-control" style="width: 330px;">
-                                <option selected disabled value="" >เลือกตำแหน่ง</option>
-                                <option value="Admin" > Admin</option>
-                                <option value="ผู้จัดการ" > ผู้จัดการ</option>
-                              </select>
+                            <select name="position" class="form-control" style="width: 330px;">
+                              <option selected disabled value="" >เลือกตำแหน่ง</option>
+                              <option value="ADMIN" > ADMIN</option>
+                              <option value="MANAGER" > MANAGER</option>
+                              <option value="AUDIT" > AUDIT</option>
+                              <option value="MASTER" > MASTER</option>
+                              <option value="STAFF" > STAFF</option>
+                            </select>
                           </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-4" align="center">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <a class="delete-modal btn btn-danger" href="{{ route('ViewMaindata') }}">ยกเลิก</a>
                             </div>
                         </div>
                     </form>

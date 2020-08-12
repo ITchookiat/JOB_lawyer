@@ -20,10 +20,14 @@ class LawyerController extends Controller
     {
         if ($request->type == 1) {
             $data = DB::table('law_datas')->limit(100)->get();
-        }
-        $type = $request->type;
 
-        return view('lawyer.view', compact('data','type'));
+            $type = $request->type;
+            return view('lawyer.view', compact('data','type'));
+        }elseif ($request->type == 2) {
+
+            $type = $request->type;
+            return view('lawyer.view', compact('type'));
+        }
     }
 
     /**

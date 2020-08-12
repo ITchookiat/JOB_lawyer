@@ -34,24 +34,24 @@
         <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          @if(auth::user()->type == 1)
-          <li class="nav-item has-treeview {{ Request::is('maindata/view*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-window-restore"></i>
-              <p>
-                ข้อมูลหลัก
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-id-badge text-red nav-icon"></i>
-                  <p>ข้อมูลผู้ใช้งานระบบ</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          @if(auth::user()->type == "Admin")
+            <li class="nav-item has-treeview {{ Request::is('maindata/view*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-window-restore"></i>
+                <p>
+                  ข้อมูลหลัก
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('ViewMaindata') }}" class="nav-link active">
+                    <i class="far fa-id-badge text-red nav-icon"></i>
+                    <p>ข้อมูลผู้ใช้งานระบบ</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           @endif
 
           <li class="nav-item has-treeview {{ Request::is('lawyer/view/1') ? 'menu-open' : '' }}">
@@ -64,9 +64,27 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left: 15px;">
               <li class="nav-item">
-                <a href="{{ route('lawyer',1) }}" class="nav-link {{ Request::is('lawyer/view/1') ? 'active' : '' }}">
+                <a href="{{ route('lawyer', 1) }}" class="nav-link {{ Request::is('lawyer/view/1') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>รายการเตรียมโนติส</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview {{ Request::is('lawyer/view/2') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-user-tag"></i>
+              <p>
+                ระบบติดตามลูกหนี้
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-left: 15px;">
+              <li class="nav-item">
+                <a href="{{ route('lawyer', 2) }}" class="nav-link {{ Request::is('lawyer/view/2') ? 'active' : '' }}">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>ติดตามลูกหนี้</p>
                 </a>
               </li>
             </ul>
