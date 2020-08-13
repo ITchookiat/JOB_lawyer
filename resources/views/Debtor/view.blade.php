@@ -60,6 +60,7 @@
                         </div>
                       </div>
                     </form>
+                    <hr>
                     <div class="table-responsive">
                       <table id="table1" class="table table-bordered table-striped">
                         <thead>
@@ -68,10 +69,10 @@
                             <th class="text-center" >เลขที่สัญญา</th>
                             <th class="text-center" >ชื่อ - สกุล</th>
                             <!-- <th class="text-center" >เลขที่สมาชิก</th>
-                            <th class="text-center" >วันทำสัญญา</th>
-                            <th class="text-center" >งวดเเรก</th>
-                            <th class="text-center" >วงเงินอนุมัติ</th> -->
-                            <th class="text-center" >สถานะ</th>
+                            <th class="text-center" >วันทำสัญญา</th>-->
+                            <th class="text-center" >จำนวนเงิน</th>
+                            <th class="text-center" >ประเภทสัญญา</th>
+                            <th class="text-center" >สถานะ</th> 
                             <th class="text-center" >Action</th>
                           </tr>
                         </thead>
@@ -81,19 +82,23 @@
                               <td class="text-center">{{$key+1}}</td>
                               <td class="text-center">{{$row->Number_Cus}}</td>
                               <td>{{$row->Name_Cus}}</td>
+                              <td class="text-center">{{number_format($row->Cash_Cus,2)}}</td>
                               <td class="text-center">
                                 <button type="button" class="btn btn-success btn-xs">
                                   <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
                                 </button>
                               </td>
+                              <td class="text-center">
+                                -
+                              </td>
                               <td class="text-right">
-                                <a href="#" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <a href="{{ action('DebtorController@edit',[$type,$row->Cus_id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <i class="far fa-edit"></i> แก้ไข
                                 </a>
-                                <form method="post" class="delete_form" action="" style="display:inline;">
+                                <form method="post" class="delete_form" action="{{ action('DebtorController@destroy',[$type,$row->Cus_id]) }}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" data-name="" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                  <button type="submit" data-name="เลขที่สัญญา : {{$row->Number_Cus}}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                     <i class="far fa-trash-alt"></i> ลบ
                                   </button>
                                 </form>
@@ -117,13 +122,13 @@
   </section>
   
   <!-- pop up เพิ่มรายการ -->
-  <form action="{{ route('MasterDeptor.store') }}" method="post" enctype="multipart/form-data">
+  <form name="form2" action="{{ route('MasterDeptor.store') }}" method="post" enctype="multipart/form-data">
     @csrf
       <div class="modal fade" id="modal-add" aria-hidden="true" style="display: none;">
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-body">
-                <div class="card card-gray">
+                <div class="card card-primary">
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้กู้</h3>
                   </div>
@@ -141,7 +146,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">เลขที่สัญญา :</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Contractdeptor" class="form-control" placeholder="ป้อนเลขที่สัญญา"/>
+                            <input type="text" name="Contractdeptor" class="form-control" placeholder="ป้อนเลขที่สัญญา" maxlength="17"/>
                           </div>
                         </div>
                       </div>
@@ -159,7 +164,7 @@
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">จำนวนเงิน :</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Amountdeptor" class="form-control" placeholder="ป้อนจำนวนเงิน"/>
+                            <input type="text" id="Amountdeptor" name="Amountdeptor" class="form-control" placeholder="ป้อนจำนวนเงิน" oninput="addcomma();"/>
                           </div>
                         </div>
                         <div class="form-group row mb-1">
@@ -193,7 +198,7 @@
                   });
                 </script>
 
-                <div class="card card-gray" id="show1" style="display:none;">
+                <div class="card card-primary" id="show1" style="display:none;">
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้ค้ำ</h3>
                   </div>
@@ -220,7 +225,7 @@
                   </div>
                 </div>
 
-                <div class="card card-gray" id="show2" style="display:none;">
+                <div class="card card-primary" id="show2" style="display:none;">
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้จำนอง</h3>
                   </div>
@@ -298,6 +303,25 @@
         "autoWidth": false,
       });
     });
+  </script>
+
+<script>
+    function addCommas(nStr){
+      nStr += '';
+      x = nStr.split('.');
+      x1 = x[0];
+      x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+      return x1 + x2;
+    }
+    function addcomma(){
+      var num11 = document.getElementById('Amountdeptor').value;
+      var num1 = num11.replace(",","");
+      document.form2.Amountdeptor.value = addCommas(num1);
+    }
   </script>
 
 @endsection

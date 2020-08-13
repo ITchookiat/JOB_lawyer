@@ -93,6 +93,13 @@
   <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  
+  <script src="{{asset('js/sweetAlert.js')}}"></script>
+  <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+  <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <script src="{{ asset('plugins/filterizr/jquery.filterizr.min.js') }}"></script>
+
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>

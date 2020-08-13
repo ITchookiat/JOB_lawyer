@@ -1,6 +1,6 @@
 
 <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-blue navbar-dark">
+  <nav class="main-header navbar navbar-expand navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
