@@ -72,7 +72,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Debtor/view/1') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Debtor/view/1') ? 'menu-open' : '' }}{{ Request::is('Debtor/edit/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-user-tag"></i>
               <p>
@@ -82,7 +82,7 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left: 15px;">
               <li class="nav-item">
-                <a href="{{ route('Debtor', 1) }}" class="nav-link {{ Request::is('Debtor/view/1') ? 'active' : '' }}">
+                <a href="{{ route('Debtor', 1) }}" class="nav-link {{ Request::is('Debtor/view/1') ? 'active' : '' }}{{ Request::is('Debtor/edit/*') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>ติดตามลูกหนี้</p>
                 </a>

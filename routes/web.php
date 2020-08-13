@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function(){
     
     Route::resource('MasterDeptor','DebtorController');
     Route::get('/Debtor/view/{type}', 'DebtorController@index')->name('Debtor');
+    Route::get('/Debtor/edit/{type}/{id}', 'DebtorController@edit');
+    Route::patch('/Debtor/update/{type}/{id}', 'DebtorController@update');
+    Route::delete('/Debtor/delete/{type}/{id}', 'DebtorController@destroy');
 
     
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
