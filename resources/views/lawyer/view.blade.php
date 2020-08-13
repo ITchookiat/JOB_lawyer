@@ -193,13 +193,13 @@
                     <div class="form-group row mb-1">
                       <label class="col-sm-4 col-form-label text-right"> เลือกไฟล์ Excel :</label>
                       <div class="col-sm-8">
-                      <!-- <input type="file" name="file" required/> -->
-                        <div class="input-group">
+                       <input type="file" name="file" required/> 
+                        <!--<div class="input-group">
                           <div class="custom-file">
                             <input type="file" class="custom-file-input" id="exampleInputFile">
                             <label class="custom-file-label" for="exampleInputFile"> *.xlx , *.xlxs </label>
                           </div>
-                        </div>
+                        </div>-->
                       </div>
                       
                     </div>
