@@ -14,7 +14,7 @@ class CreateDataCusesTable extends Migration
     public function up()
     {
         Schema::create('data_cuses', function (Blueprint $table) {
-            $table->bigIncrements('DataCus_id');
+            $table->bigIncrements('Cus_id');
             $table->string('Name_Cus')->nullable();     //ชื่อ-นามสกุล
             $table->string('Number_Cus')->nullable();   //เลขที่สัญญา
             $table->string('Cash_Cus')->nullable();     //จำนวนเงิน
