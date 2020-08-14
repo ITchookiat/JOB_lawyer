@@ -73,7 +73,7 @@
                             <th class="text-center" >จำนวนเงิน</th>
                             <th class="text-center" >ประเภทสัญญา</th>
                             <th class="text-center" >สถานะ</th> 
-                            <th class="text-center" >Action</th>
+                            <th class="text-center" ></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -105,7 +105,6 @@
                               </td>
                             </tr>
                           @endforeach
-
                         </tbody>
                       </table>
                     </div>
