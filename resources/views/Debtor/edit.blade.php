@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','ข้อมูลสัญญา')
 @section('content')
 
   @php
@@ -187,8 +187,8 @@
             <form name="form1" method="post" action="{{ action('DebtorController@update',[$Gettype,$data->Cus_id]) }}" enctype="multipart/form-data">
               @csrf
               @method('put')
-                <div class="card">
-                  <div class="card-header text-sm">
+                <div class="card text-sm">
+                  <div class="card-header">
                     <div class="row">
                       <div class="col-4">
                         <div class="form-inline">
@@ -206,44 +206,29 @@
                         </div>
                       </div>
                     </div>
-                    <p></p>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="info-box">
-                          <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
+                          <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
                           <div class="info-box-content">
-                            <div class="form-inline">
-                              <div class="col-md-3">
-                                <span class="info-box-number"><font style="font-size: 25px;">{{ $data->Number_Cus }}</font></span>
-                                <span class="info-box-text"><font style="font-size: 15px;">{{ $data->Name_Cus }}</font></span>
-                              </div>
-  
-                              <div class="col-md-5">
-                                <small class="badge badge-primary" style="font-size: 25px;">
-                                  <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                            <h5>{{ $data->Number_Cus }}</h5>
+                            <span class="info-box-number">{{ $data->Name_Cus }}</span>
+                          </div>
+                          <div class="info-box-content">
+                            <div class="form-inline float-right">
+                              <small class="badge badge-danger" style="font-size: 25px;">
+                                <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                                <select name="statusCus" class="form-control">
+                                  <option value="" selected>--------- status ----------</option>
+                                  <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
+                                  <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                                  <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
                                   @if($data->Status_Cus != Null)
-                                    {{$data->Status_Cus}}
+                                    <option disabled>------------------------------</option>
+                                    <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
                                   @endif
-                                </small>
-                                <div class="form-inline">
-                                  <label>สถานะ : </label>
-                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                    <option value="" selected>--------- status ----------</option>
-                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_Cus === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_Cus === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="หมดอายุความคดี" {{ ($data->Status_Cus === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                    @if($data->Status_Cus != Null)
-                                      <option disabled>------------------------------</option>
-                                      <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
-                                    @endif
-                                  </select>
-  
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="">
-                                </div>
-                              </div>
-  
-                              <div class="col-md-4">
-                              </div>
+                                </select>
+                              </small>
                             </div>
                           </div>
                         </div>
@@ -274,7 +259,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-body text-sm">
+                  <div class="card-body">
                     <script>
                       function comma(val){
                         while (/(\d+)(\d{3})/.test(val.toString())){
@@ -291,7 +276,7 @@
                       }
                     </script>
 
-                    <div class="row">
+                    <div class="row ">
                       <div class="col-md-6">
                         <div class="card card-primary">
                           <div class="card-header">
@@ -306,47 +291,34 @@
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-6">
-                                วันที่ลงสัญญา
-                                <div class="form-inline">
-                                  <input type="date" name="date" class="form-control"/>
-                                </div>
+                                วันที่ลงสัญญา :
+                                <input type="date" name="DateContract" class="form-control">
                               </div>
                               <div class="col-md-6">
-                                จำนวนเงินต้น
-                                <div class="form-inline">
-                                  <input type="text" name="Cash" class="form-control"/>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div class="row">
-                              <div class="col-md-6">
-                                ค่าบริการ
-                                <div class="form-inline">
-                                  <input type="text" name="service" class="form-control"/>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                ระยะเวลา (งวดต่อเดือน)
-                                <div class="form-inline">
-                                  <input type="text" name="service" class="form-control"/>
-                                </div>
+                                จำนวนเงินต้น :
+                                <input type="text" name="principle" class="form-control" placeholder="Enter ...">
                               </div>
                             </div>
 
                             <div class="row">
                               <div class="col-md-6">
-                                ยอดค้าง
-                                <div class="form-inline">
-                                  <input type="text" name="service" class="form-control"/>
-                                </div>
+                                ค่าบริการ :
+                                <input type="text" name="Service" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="col-md-6">
-                                รวม
-                                {{-- บวก 500 เข้าไปในรวม --}}
-                                <div class="form-inline">
-                                  <input type="text" name="service" class="form-control" readonly/>
-                                </div>
+                                ระยะเวลา (ต่อเดือน) :
+                                <input type="text" name="Timeperiod" class="form-control" placeholder="Enter ...">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                ยอดค้าง :
+                                <input type="text" name="overdue" class="form-control" placeholder="Enter ...">
+                              </div>
+                              <div class="col-md-6">
+                                รวม :
+                                <input type="text" name="Sum" class="form-control" placeholder="Enter ..." disabled>
                               </div>
                             </div>
                           </div>
@@ -364,7 +336,6 @@
                                 กู้-ทรัพย์ (จำนอง)
                               @endif
                             </h3>
-
                             <div class="card-tools">
                               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                               </button>
@@ -374,46 +345,32 @@
                           </div>
                           <div class="card-body">
                             @if($data->Type_Cus == "กู้-บุคคล")
-                              <div class="col-md-12">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    ชื่อ - สกุล
-                                    <div class="form-inline">
-                                      <input type="text" name="date" class="form-control"/>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    ที่อยู่
-                                    <div class="form-inline">
-                                      <textarea name="Legisnote" class="form-control" style="width:100%" rows="3"></textarea>
-                                    </div>
-                                  </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  ชื่อ - สกุล :
+                                  <input type="text" name="NameBorrower" class="form-control" placeholder="Enter ...">
+                                </div>
+                                <div class="col-md-6">
+                                  ที่อยู่ :
+                                  <textarea name="Legisnote" name="AddBorrower" class="form-control" style="width:100%" rows="3"></textarea>
                                 </div>
                               </div>
                             @else
-                              <div class="col-md-12">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    ชื่อ - สกุล
-                                    <div class="form-inline">
-                                      <input type="text" name="date" class="form-control"/>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    เลขที่โฉนด
-                                    <div class="form-inline">
-                                      <input type="text" name="date" class="form-control"/>
-                                    </div>
-                                  </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  ชื่อ - สกุล :
+                                  <input type="text" name="NameMortgage" class="form-control" placeholder="Enter ...">
                                 </div>
+                                <div class="col-md-6">
+                                  เลขที่โฉนด :
+                                  <input type="text" name="NumberDeed" class="form-control" placeholder="Enter ...">
+                                </div>
+                              </div>
 
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    ที่อยู่
-                                    <div class="form-inline">
-                                      <input type="text" name="date" class="form-control"/>
-                                    </div>
-                                  </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  ที่อยู่ :
+                                  <input type="text" name="AddMortgage" class="form-control" placeholder="Enter ...">
                                 </div>
                               </div>
                             @endif
@@ -427,7 +384,6 @@
                         <div class="card card-primary">
                           <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
-
                             <div class="card-tools">
                               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                               </button>
@@ -439,7 +395,7 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <div class="form-inline" align="left">
-                                  <textarea style="width:100%" name="Legisnote" class="form-control" rows="5"></textarea>
+                                  <textarea style="width:100%" name="Note" class="form-control" rows="3"></textarea>
                                 </div>
                               </div>
                             </div>
