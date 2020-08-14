@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','ชั้นศาล')
 @section('content')
 
   <style>
@@ -213,8 +213,8 @@
       <section class="content">
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
-            <div class="card">
-              <div class="card-header text-sm">
+            <div class="card text-sm">
+              <div class="card-header">
                 <div class="row">
                   <div class="col-4">
                     <div class="form-inline">
@@ -232,50 +232,34 @@
                     </div>
                   </div>
                 </div>
-                <p></p> 
                 <div class="row">
                   <div class="col-md-12">
                     <div class="info-box">
-                      <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
+                      <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
                       <div class="info-box-content">
-                        <div class="form-inline">
-                          <div class="col-md-3">
-                            <span class="info-box-number"><font style="font-size: 25px;">{{ $data->Number_Cus }}</font></span>
-                            <span class="info-box-text"><font style="font-size: 15px;">{{ $data->Name_Cus }}</font></span>
-                          </div>
-
-                          <div class="col-md-5">
-                            <small class="badge badge-primary" style="font-size: 25px;">
-                              <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                        <h5>{{ $data->Number_Cus }}</h5>
+                        <span class="info-box-number">{{ $data->Name_Cus }}</span>
+                      </div>
+                      <div class="info-box-content">
+                        <div class="form-inline float-right">
+                          <small class="badge badge-danger" style="font-size: 25px;">
+                            <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                            <select name="statusCus" class="form-control">
+                              <option value="" selected>--------- status ----------</option>
+                              <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
+                              <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                              <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
                               @if($data->Status_Cus != Null)
-                                {{$data->Status_Cus}}
+                                <option disabled>------------------------------</option>
+                                <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
                               @endif
-                            </small>
-                            <div class="form-inline">
-                              <label>สถานะ : </label>
-                              <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                <option value="" selected>--------- status ----------</option>
-                                <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_Cus === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_Cus === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                <option value="หมดอายุความคดี" {{ ($data->Status_Cus === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                @if($data->Status_Cus != Null)
-                                  <option disabled>------------------------------</option>
-                                  <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
-                                @endif
-                              </select>
-
-                              <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-4">
-                           
-                          </div>
+                            </select>
+                          </small>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>              
+                </div>        
                 <div class="card card-warning card-tabs">
                   <div class="card-header p-0 pt-1">
                     <div class="container-fluid">

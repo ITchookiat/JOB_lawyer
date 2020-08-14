@@ -1,14 +1,6 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','ชั้นบังคับคดี')
 @section('content')
-
-  <style>
-    input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
-    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
-    input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-    input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
-  </style>
 
   <!-- Main content -->
   <section class="content">
@@ -22,16 +14,58 @@
       <section class="content">
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
-            <div class="card">
+            <div class="card text-sm">
               <div class="card-header">
-                <h4 class="">
-                  ลูกหนี้งานฟ้อง
-                </h4>                  
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-inline">
+                      <h4>ลูกหนี้งานฟ้อง</h4>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="card-tools d-inline float-right">
+                      <button type="submit" class="delete-modal btn btn-success">
+                        <i class="fas fa-save"></i> บันทึก
+                      </button>
+                      <a class="delete-modal btn btn-danger" href="{{ route('Debtor', 1) }}">
+                        <i class="far fa-window-close"></i> ยกเลิก
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
+                      <div class="info-box-content">
+                        <h5>{{ $data->Number_Cus }}</h5>
+                        <span class="info-box-number">{{ $data->Name_Cus }}</span>
+                      </div>
+                      <div class="info-box-content">
+                        <div class="form-inline float-right">
+                          <small class="badge badge-danger" style="font-size: 25px;">
+                            <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                            <select name="statusCus" class="form-control">
+                              <option value="" selected>--------- status ----------</option>
+                              <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
+                              <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                              <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
+                              @if($data->Status_Cus != Null)
+                                <option disabled>------------------------------</option>
+                                <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
+                              @endif
+                            </select>
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>                 
                 <div class="card card-warning card-tabs">
                   <div class="card-header p-0 pt-1">
                     <div class="container-fluid">
                       <div class="row mb-2">
-                        <div class="col-sm-4">
+                        <div class="col-sm-12">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลผู้กู้</a>
@@ -40,85 +74,22 @@
                               <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link active" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
-                            </li>
-                            <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
                             </li>
+                            <li class="nav-item">
+                              <a class="nav-link active" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
+                            </li>
                           </ul>
-                        </div>
-                        <div class="col-sm-6">
-                          <!-- <div class="float-right form-inline">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <a class="nav-link" href="">สืบทรัพย์</a>
-                              <a class="nav-link" href="">ประนอมหนี้</a>
-                              <a class="nav-link" href="">รูปและแผนที่</a>
-                            </ul>
-                          </div> -->
                         </div>
                       </div>
                     </div>
                   </div>          
                 </div>
               </div>
-              <div class="card-body text-sm">
+              <div class="card-body">
                 <form name="form1" method="post" action="{{ action('DebtorController@update',[$Gettype,$data->Cus_id]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="info-box">
-                        <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
-          
-                        <div class="info-box-content">
-                          <div class="form-inline">
-                              <div class="col-md-3">
-                                <span class="info-box-number"><font style="font-size: 25px;">{{ $data->Number_Cus }}</font></span>
-                                <span class="info-box-text"><font style="font-size: 15px;">{{ $data->Name_Cus }}</font></span>
-                              </div>
-
-                              <div class="col-md-5">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <small class="badge badge-primary" style="font-size: 25px;">
-                                  <i class="fas fa-sign"></i>&nbsp; สถานะ :
-                                  @if($data->Status_Cus != Null)
-                                    {{$data->Status_Cus}}
-                                  @endif
-                                </small>
-                                <div class="form-inline">
-                                  <label>สถานะ : </label>
-                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                    <option value="" selected>--------- status ----------</option>
-                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_Cus === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_Cus === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="หมดอายุความคดี" {{ ($data->Status_Cus === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                    @if($data->Status_Cus != Null)
-                                      <option disabled>------------------------------</option>
-                                      <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
-                                    @endif
-                                  </select>
-
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="">
-                                </div>
-                              </div>
-
-                              <div class="col-md-4">
-                                <div class="float-right form-inline">
-                                  <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                                    <i class="fas fa-save"></i> บันทึก
-                                  </button>
-                                  <a class="btn btn-app" href="{{ route('Debtor',1) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                                    <i class="fas fa-times"></i> ยกเลิก
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
 
                   <h5 class="" align="left"><b>ขั้นตอนชั้นบังคับคดี</b></h5>
                   <div class="row">
@@ -132,9 +103,6 @@
                             <li class="nav-item">
                               <a class="nav-link" id="custom-tabs-2" data-toggle="pill" href="#tabs-2" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ตั้งเรื่องยึดทรัพย์(180 วัน)</a>
                             </li>
-                            {{-- <li class="nav-item">
-                              <a class="nav-link" id="custom-tabs-3" data-toggle="pill" href="#tabs-3" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> อัพโหลดเอกสาร</a>
-                            </li> --}}
                           </ul>
                         </div>
                         <div class="card-body">
@@ -145,10 +113,6 @@
                                   วันที่คัดโฉนด
                                   <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="" onchange="CourtcaseDate();" />
                                   <br>
-                                  <!-- <label>
-                                    <input type="checkbox" name="Flagcase" value="Y" />
-                                    <span><font color="red">โกงเจ้าหนี้</font></span>
-                                  </label> -->
                                 </div>
                                 <div class="col-md-6">
                                   หมายเหตุ
@@ -200,7 +164,7 @@
 
                               <div class="row">
                                 <div class="col-md-6">
-                                  สถานะบังคับคดี
+                                  {{-- สถานะบังคับคดี
                                   <select id="StatusCase" name="StatusCase" class="form-control">
                                     <option value="" selected>--- สถานะ ---</option>
                                     <option value="ถอนบังคับคดีปิดบัญชี">ถอนบังคับคดีปิดบัญชี</option>
@@ -208,7 +172,7 @@
                                     <option value="ประนอมหลังยึดทรัพย์">ประนอมหลังยึดทรัพย์</option>
                                     <option value="ถอนบังคับคดียอดเหลือน้อย">ถอนบังคับคดียอดเหลือน้อย</option>
                                     <option value="ถอนบังคับคดีขายเต็มจำนวน">ถอนบังคับคดีขายเต็มจำนวน</option>
-                                  </select>
+                                  </select> --}}
                                 
                                   <div id="StatusShow1" style="display:none;">
                                     <div class="form-inline">
@@ -375,11 +339,6 @@
                                 </div>
                               </div>
                             </div>
-                            {{-- <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-                              <div class="row">
-                                <input type="file" name="Upfile">
-                              </div>
-                            </div> --}}
                           </div>
                         </div>
                       </div>
@@ -395,89 +354,4 @@
       </section>
     </div>
   </section>
-
-{{--
-  <div class="modal fade" id="modal-printinfo">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
-          @csrf
-          <div class="card card-warning">
-            <div class="card-header">
-              <h4 class="card-title">ป้อนข้อมูลปิดบัญชี</h4>
-              <div class="card-tools">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-              </div>
-            </div>
-
-            <script type="text/javascript">
-              function addCommas(nStr){
-                  nStr += '';
-                  x = nStr.split('.');
-                  x1 = x[0];
-                  x2 = x.length > 1 ? '.' + x[1] : '';
-                  var rgx = /(\d+)(\d{3})/;
-                  while (rgx.test(x1)) {
-                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                  }
-                return x1 + x2;
-              }
-              function addcomma(){
-                var num11 = document.getElementById('TopCloseAccount').value;
-                var num1 = num11.replace(",","");
-                var num22 = document.getElementById('PriceAccount').value;
-                var num2 = num22.replace(",","");
-                var num33 = document.getElementById('DiscountAccount').value;
-                var num3 = num33.replace(",","");
-
-                document.form2.TopCloseAccount.value = addCommas(num1);
-                document.form2.PriceAccount.value = addCommas(num2);
-                document.form2.DiscountAccount.value = addCommas(num3);
-              }
-            </script>
-
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="float-right form-inline">
-                    <label>วันที่ปิดบัญชี : </label>
-                    <input type="date" name="DateCloseAccount" class="form-control" style="width: 180px;" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="float-right form-inline">
-                    <label>ยอดปิดบัญชี : </label>
-                    <input type="text" id="PriceAccount" name="PriceAccount" class="form-control" style="width: 180px;" placeholder="ป้อนยอดตั้งต้น" value="{{ number_format(($data->PriceStatus_legis !== Null) ?$data->PriceStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="float-right form-inline">
-                    <label>ยอดชำระ : </label>
-                    <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" style="width: 180px;" placeholder="ป้อนยอดชำระ" value="{{ number_format(($data->txtStatus_legis !== Null) ?$data->txtStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                    <input type="hidden" name="ContractNo" class="form-control" value="{{$data->Contract_legis}}"/>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="float-right form-inline">
-                    <label>ยอดส่วนลด : </label>
-                    <input type="text" id="DiscountAccount" name="DiscountAccount" class="form-control" style="width: 180px;" placeholder="ป้อนยอดส่วนลด" value="{{ number_format(($data->Discount_legis !== Null) ?$data->Discount_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div align="center">
-              <button id="submit" type="submit" class="btn btn-primary"><span class="fa fa-id-card-o"></span> พิมพ์</button>
-            </div>
-            <br>
-          </div>
-
-      </form>
-      </div>
-    </div>
-  </div>
---}}
 @endsection
