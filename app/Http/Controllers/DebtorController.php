@@ -30,6 +30,35 @@ class DebtorController extends Controller
             $type = $request->type;
             return view('Debtor.view', compact('data','type'));
         }
+        elseif ($request->type == 2){
+              $newfdate = '';
+              $newtdate = '';
+              $status = '';
+              if ($request->has('Fromdate')) {
+                $newfdate = $request->get('Fromdate');
+              }
+              if ($request->has('Todate')) {
+                $newtdate = $request->get('Todate');
+              }
+              if ($request->has('status')) {
+                $status = $request->get('status');
+              }
+              // dump($newfdate,$newtdate,$status);
+              $data = DB::table('data_cuses')
+              ->leftjoin('data_suretys','data_cuses.Cus_id','=','data_suretys.DataCus_id')
+              ->leftjoin('data_mortgagers','data_cuses.Cus_id','=','data_mortgagers.DataCus_id')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('data_cuses.DateUser',[$newfdate,$newtdate]);
+              })
+              ->when(!empty($status), function($q) use($status){
+                return $q->where('data_cuses.Type_Cus',$status);
+              })
+              ->orderBy('data_cuses.DateUser', 'ASC')
+              ->get();
+            
+            $type = $request->type;
+            return view('Debtor.view', compact('data','type','newfdate','newtdate','status'));
+        }
     }
 
     public function store(Request $request)

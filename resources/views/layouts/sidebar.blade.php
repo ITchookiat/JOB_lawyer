@@ -90,7 +90,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('lawyer/view/1') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Debtor/view/2') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>

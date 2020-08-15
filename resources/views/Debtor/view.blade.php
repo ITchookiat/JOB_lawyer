@@ -31,6 +31,8 @@
                 <div class="card-header">
                   @if($type == 1)
                     <h4 class="" style="text-align:center;"><b>ติดตามลูกหนี้</b></h4>
+                  @elseif($type == 2)
+                    <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้</b></h4>
                   @endif
                 </div>
                 <div class="card-body text-sm">
@@ -107,6 +109,74 @@
                         </tbody>
                       </table>
                     </div>
+                  
+                  @elseif($type == 2)
+                    <form method="get" action="{{ route('Debtor',2) }}">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="float-right form-inline">
+                            <a target="_blank" class="btn bg-blue btn-app" data-toggle="modal" data-target="#modal-report">
+                              <i class="fas fa-print"></i> ปริ้นรายงาน
+                            </a>
+                            <button type="submit" class="btn bg-warning btn-app">
+                              <span class="fas fa-search"></span> Search
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="float-right form-inline">
+                            <label>จากวันที่ : </label>
+                            <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                            <label>ถึงวันที่ : </label>
+                            <input type="date" name="Todate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                            <label>ประเภทสัญญา : </label>
+                            <select name="status" class="form-control" id="text">
+                              <option selected value="">--- เลือกประเภท ---</option>
+                              <option value="กู้-บุคคล" {{ ($status == 'กู้-บุคคล') ? 'selected' : '' }}>กู้-บุคคล</otion>
+                              <option value="กู้-ทรัพย์" {{ ($status == 'กู้-ทรัพย์') ? 'selected' : '' }}>กู้-ทรัพย์</otion>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <hr>
+                    <div class="table-responsive">
+                      <table id="table1" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center" >ลำดับ</th>
+                            <th class="text-center" >เลขที่สัญญา</th>
+                            <th class="text-center" >ชื่อ - สกุล</th>
+                            <!-- <th class="text-center" >เลขที่สมาชิก</th>
+                            <th class="text-center" >วันทำสัญญา</th>-->
+                            <th class="text-center" >จำนวนเงิน</th>
+                            <th class="text-center" >ประเภทสัญญา</th>
+                            <th class="text-center" >สถานะ</th> 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center">{{$key+1}}</td>
+                              <td class="text-left">{{$row->Number_Cus}}</td>
+                              <td class="text-left">{{$row->Name_Cus}}</td>
+                              <td class="text-right">{{number_format($row->Cash_Cus,2)}}</td>
+                              <td class="text-center">
+                                <button type="button" class="btn btn-success btn-xs">
+                                  <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
+                                </button>
+                              </td>
+                              <td class="text-center">
+                                -
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  
                   @endif
                 </div>
               </div>
@@ -252,6 +322,28 @@
           <!-- /.modal-dialog -->
       </div>
   </form>
+
+  <div class="modal fade" id="modal-report" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Default Modal</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 
   {{-- button-to-top --}}
   <script>

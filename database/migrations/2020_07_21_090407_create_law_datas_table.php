@@ -26,6 +26,7 @@ class CreateLawDatasTable extends Migration
             $table->string('Service_charge')->nullable();
             $table->string('Total_amount')->nullable();
             $table->string('Balance_amount')->nullable();
+            $table->string('Uploader')->nullable();
             $table->string('Guarantor_name')->nullable();
             $table->string('Status_notis')->nullable();
             $table->timestamps();
