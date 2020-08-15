@@ -1,14 +1,7 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','ชั้นศาล')
 @section('content')
 
-  <style>
-    input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
-    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
-    input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-    input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
-  </style>
 
   <style>
     #todo-list{
@@ -213,40 +206,76 @@
       <section class="content">
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
-            <div class="card">
+            <div class="card text-sm">
               <div class="card-header">
-                <h4 class="">
-                  ลูกหนี้งานฟ้อง
-                </h4>                  
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-inline">
+                      <h4>ลูกหนี้งานฟ้อง</h4>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="card-tools d-inline float-right">
+                      <button type="submit" class="delete-modal btn btn-success">
+                        <i class="fas fa-save"></i> บันทึก
+                      </button>
+                      <a class="delete-modal btn btn-danger" href="{{ route('Debtor', 1) }}">
+                        <i class="far fa-window-close"></i> ยกเลิก
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="info-box">
+                      <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
+                      <div class="info-box-content">
+                        <h5>{{ $data->Number_Cus }}</h5>
+                        <span class="info-box-number">{{ $data->Name_Cus }}</span>
+                      </div>
+                      <div class="info-box-content">
+                        <div class="form-inline float-right">
+                          <small class="badge badge-danger" style="font-size: 25px;">
+                            <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                            <select name="statusCus" class="form-control">
+                              <option value="" selected>--------- status ----------</option>
+                              <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
+                              <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                              <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
+                              @if($data->Status_Cus != Null)
+                                <option disabled>------------------------------</option>
+                                <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
+                              @endif
+                            </select>
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>        
                 <div class="card card-warning card-tabs">
                   <div class="card-header p-0 pt-1">
                     <div class="container-fluid">
                       <div class="row mb-2">
-                        <div class="col-sm-4">
+                        <div class="col-sm-12">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลผู้กู้</a>
+                              <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">ชั้นโนติส</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link active" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
+                              <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
+                              <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
                             </li>
                           </ul>
                         </div>
-                        <!-- <div class="col-sm-6">
-                          <div class="float-right form-inline">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <a class="nav-link" href="">สืบทรัพย์</a>
-                              <a class="nav-link" href="">ประนอมหนี้</a>
-                              <a class="nav-link" href="">รูปและแผนที่</a>
-                            </ul>
-                          </div>
-                        </div> -->
                       </div>
                     </div>
                   </div>          
@@ -563,59 +592,6 @@
                     }
                   </script>
 
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="info-box">
-                        <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
-                        <div class="info-box-content">
-                          <div class="form-inline">
-                            <div class="col-md-3">
-                              <span class="info-box-number"><font style="font-size: 25px;">{{ $data->Number_Cus }}</font></span>
-                              <span class="info-box-text"><font style="font-size: 15px;">{{ $data->Name_Cus }}</font></span>
-                            </div>
-
-                            <div class="col-md-5">
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <small class="badge badge-primary" style="font-size: 25px;">
-                                <i class="fas fa-sign"></i>&nbsp; สถานะ :
-                                @if($data->Status_Cus != Null)
-                                  {{$data->Status_Cus}}
-                                @endif
-                              </small>
-                              <div class="form-inline">
-                                <label>สถานะ : </label>
-                                <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                  <option value="" selected>--------- status ----------</option>
-                                  <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_Cus === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                  <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_Cus === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                  <option value="หมดอายุความคดี" {{ ($data->Status_Cus === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                  @if($data->Status_Cus != Null)
-                                    <option disabled>------------------------------</option>
-                                    <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
-                                  @endif
-                                </select>
-
-                                <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="">
-                              </div>
-                            </div>
-
-                            <div class="col-md-4">
-                              <div class="float-right form-inline">
-                                <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                                  <i class="fas fa-save"></i> บันทึก
-                                </button>
-                                <a class="btn btn-app" href="{{ route('Debtor',1) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                                  <i class="fas fa-times"></i> ยกเลิก
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
                   <h5 class="" align="left"><b>ขั้นตอนชั้นศาล</b></h5>
                   <div class="row">
                     <div class="col-12">
@@ -679,10 +655,6 @@
                                   ค่าฟ้อง
                                   <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="" oninput="CalculateCap();"/>
                                 </div>
-                                <div class="col-md-3">
-                                  ค่าทนาย
-                                  <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value=""/>
-                                </div>
                               </div>
                             </div>
                             <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
@@ -708,6 +680,12 @@
                                 <div class="col-md-6">
                                   วันที่ส่งจริง
                                   <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="" oninput="CourtDate();" />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  วันคัดคำพิพากษา
+                                  <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="" readonly/>
                                 </div>
                               </div>
                             </div>

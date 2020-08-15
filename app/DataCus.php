@@ -9,7 +9,8 @@ class DataCus extends Model
     protected $table = 'data_cuses';
     protected $primaryKey = 'Cus_id';
     protected $fillable = ['DataCus_id','Name_Cus','Number_Cus','Cash_Cus','Address_Cus','Type_Cus',
-                           'Status_Cus','DateStatus_Cus','NameUser','DateUser'];
+                            'DateCon_Cus','Principle_Cus','Service_cus','Timeperiod_Cus','overdue_Cus','Sum_Cus','Note_Cus',
+                            'Status_Cus','DateStatus_Cus','NameUser','DateUser'];
 
     public function DataSuretys()
     {
@@ -18,6 +19,10 @@ class DataCus extends Model
     public function DataMortgagers()
     {
         return $this->hasMany(DataMortgagers::class);
+    }
+    public function Uploadfile()
+    {
+        return $this->hasMany(DataUploadFile::class);
     }
 }
 

@@ -1,6 +1,11 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','ข้อมูลสัญญา')
 @section('content')
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
 
   @php
     function DateThai($strDate){
@@ -184,105 +189,82 @@
       <section class="content">
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="">
-                  ลูกหนี้งานฟ้อง
-                </h4>
-                <div class="card card-warning card-tabs">
-                  <div class="card-header p-0 pt-1">
-                    <div class="container-fluid">
-                      <div class="row mb-2">
-                        <div class="col-sm-4">
-                          <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                            <li class="nav-item">
-                              <a class="nav-link active" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลผู้กู้</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
-                            </li>
-                          </ul>
+            <form name="form1" method="post" action="{{ action('DebtorController@update',[$type,$data->Cus_id]) }}" enctype="multipart/form-data">
+              @csrf
+              @method('put')
+                <div class="card text-sm">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="form-inline">
+                          <h4>ลูกหนี้งานฟ้อง</h4>
                         </div>
-                        <div class="col-sm-6">
-                          <div class="float-right form-inline">
-                            <!-- <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <a class="nav-link" href="#">สืบทรัพย์</a>
-                              <a class="nav-link" href="#">ประนอมหนี้</a>
-                              <a class="nav-link" href="#">รูปและแผนที่</a>
-                            </ul> -->
-                          </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="card-tools d-inline float-right">
+                          <button type="submit" class="delete-modal btn btn-success">
+                            <i class="fas fa-save"></i> บันทึก
+                          </button>
+                          <a class="delete-modal btn btn-danger" href="{{ route('Debtor', 1) }}">
+                            <i class="far fa-window-close"></i> ยกเลิก
+                          </a>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body text-sm">
-
-                <form name="form1" method="post" action="{{ action('DebtorController@update',[$Gettype,$data->Cus_id]) }}" enctype="multipart/form-data">
-                  @csrf
-                  @method('put')
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="info-box">
-                        <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
-
-                        <div class="info-box-content">
-                          <div class="form-inline">
-                            <div class="col-md-3">
-                              <span class="info-box-number"><font style="font-size: 25px;">{{ $data->Number_Cus }}</font></span>
-                              <span class="info-box-text"><font style="font-size: 15px;">{{ $data->Name_Cus }}</font></span>
-                            </div>
-
-                            <div class="col-md-5">
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <small class="badge badge-primary" style="font-size: 25px;">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
+                          <div class="info-box-content">
+                            <h5>{{ $data->Number_Cus }}</h5>
+                            <span class="info-box-number">{{ $data->Name_Cus }}</span>
+                          </div>
+                          <div class="info-box-content">
+                            <div class="form-inline float-right">
+                              <small class="badge badge-danger" style="font-size: 25px;">
                                 <i class="fas fa-sign"></i>&nbsp; สถานะ :
-                                @if($data->Status_Cus != Null)
-                                  {{$data->Status_Cus}}
-                                @endif
-                              </small>
-                              <div class="form-inline">
-                                <label>สถานะ : </label>
-                                <select name="Statuslegis" class="form-control" style="width: 170px;">
+                                <select name="statusCus" class="form-control">
                                   <option value="" selected>--------- status ----------</option>
-                                  <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_Cus === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                  <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_Cus === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                  <option value="หมดอายุความคดี" {{ ($data->Status_Cus === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
+                                  <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
+                                  <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                                  <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
                                   @if($data->Status_Cus != Null)
                                     <option disabled>------------------------------</option>
                                     <option value="{{$data->Status_Cus}}" style="color:red" {{ ($data->Status_Cus === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_Cus}}</option>
                                   @endif
                                 </select>
-
-                                <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="">
-                              </div>
+                              </small>
                             </div>
-
-                            <div class="col-md-4">
-                              <div class="float-right form-inline">
-                                <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                                  <i class="fas fa-save"></i> บันทึก
-                                </button>
-                                <a class="btn btn-app" href="{{ route('Debtor',1) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                                  <i class="fas fa-times"></i> ยกเลิก
-                                </a>
-                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-warning card-tabs">
+                      <div class="card-header p-0 pt-1">
+                        <div class="container-fluid">
+                          <div class="row mb-2">
+                            <div class="col-sm-12">
+                              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                <li class="nav-item">
+                                  <a class="nav-link active" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
+                                </li>
+                              </ul>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
+                  <div class="card-body">
                     <script>
                       function comma(val){
                         while (/(\d+)(\d{3})/.test(val.toString())){
@@ -292,358 +274,237 @@
                       }
 
                       function AddComma(){
-                        var price = document.getElementById('txtStatuslegis').value;
-                        var Setprice = price.replace(",","");
+                        var principle = document.getElementById('principle').value;
+                        var Setprinciple = principle.replace(",","");
+                        var Service = document.getElementById('Service').value;
+                        var SetService = Service.replace(",","");
+                        var overdue = document.getElementById('overdue').value;
+                        var Setoverdue = overdue.replace(",","");
 
-                        document.form1.txtStatuslegis.value = comma(Setprice);
+                        document.form1.principle.value = comma(Setprinciple);
+                        document.form1.Service.value = comma(SetService);
+                        document.form1.overdue.value = comma(Setoverdue);
                       }
                     </script>
 
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="card card-primary">
-                        <div class="card-header">
-                          <h3 class="card-title"><i class="fas fa-user-tag"></i> ข้อมูลผู้กู้</h3>
-
-                          <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-md-4">
-                              เลขบัตรประชาชน
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Idcardlegis" class="form-control" style="width: 100%;" value="" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ป้ายทะเบียน
-                              <div class="form-inline" align="left">
-                                <input type="text" name="registerlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ยี่ห้อ
-                              <div class="form-inline" align="left">
-                                <input type="text" name="BrandCarlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
+                    <div class="row ">
+                      <div class="col-md-6">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-user-tag"></i> ข้อมูลผู้กู้</h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                              </button>
                             </div>
                           </div>
-
-                          <div class="row">
-                            <div class="col-md-4">
-                              ปีรถ
-                              <div class="form-inline" align="left">
-                                <input type="text" name="YearCarlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ประเภทรถ
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Categorylegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              เลขไมล์
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Milelegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-4">
-                              วันที่ทำสัญญา
-                              <div class="form-inline" align="left">
-                                <input type="text" name="DateDuelegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ยอดจัด
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Paylegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ค่าผ่อน
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Periodlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-4">
-                              จำนวนงวดทั้งหมด
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Countperiodlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ค้างจากงวดที่
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ถึงงวดที่
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-4">
-                              ชำระแล้ว
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ค้าง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ค้างงวดจริง
-                              <div class="form-inline" align="left">
-                                <input type="text" class="form-control" style="width: 40%;" value="" readonly/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control" style="width: 40%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ลูกหนี้คงเหลือ
-                              <div class="form-inline" align="left">
-                                <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                          </div>
-                          <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="" readonly/>
-
-                          <div class="row">
-                            <div class="col-md-4">
-                              วันที่หยุด Vat
-                              <div class="form-inline" align="left">
-                                <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              ชื่อผู้ค้ำ
-                              <div class="form-inline" align="left">
-                                <input type="text" name="NameGTlegis" class="form-control" style="width: 100%;" value="" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              เลขบัตรประชาชน
-                              <div class="form-inline" align="left">
-                                <input type="text" name="IdcardGTlegis" class="form-control" style="width: 100%;" value="" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="card card-primary">
-                        <div class="card-header">
-                          <h3 class="card-title"><i class="fas fa-tasks"></i> เอกสาร</h3>
-
-                          <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="card-body">
-                          <div class="col-md-12">
+                          <div class="card-body">
                             <div class="row">
                               <div class="col-md-6">
-                                <div class="" id="todo-list">
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="1" name="Certificatelist" value="on"/>
-                                    <label for="1" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือรับรอง
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="2" name="Authorizelist" value="on"/>
-                                    <label for="2" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือมอบอำนาจ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="3" name="Authorizecaselist" value="on"/>
-                                    <label for="3" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือมอบอำนาจช่วงคดี
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="4" name="Purchaselist" value="on"/>
-                                    <label for="4" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      สัญญาเช่าซื้อ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="5" name="Promiselist" value="on"/>
-                                    <label for="5" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      สัญญาค้ำ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="6" name="Titledeedlist" value="on"/>
-                                    <label for="6" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      โฉนดที่ดิน
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
+                                วันที่ลงสัญญา :
+                                <input type="date" name="DateContract" class="form-control">
+                              </div>
+                              <div class="col-md-6">
+                                จำนวนเงินต้น :
+                                <input type="text" id="principle" name="principle" value="{{ number_format($data->Principle_Cus,0) }}" class="form-control" oninput="AddComma();">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                ค่าบริการ :
+                                <input type="text" id="Service" name="Service" value="{{ number_format($data->Service_cus,0) }}" class="form-control" oninput="AddComma();">
+                              </div>
+                              <div class="col-md-6">
+                                ระยะเวลา (ต่อเดือน) :
+                                <input type="text" name="Timeperiod" value="{{ $data->Timeperiod_Cus }}" class="form-control" placeholder="Enter ...">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                ยอดค้าง :
+                                <input type="text" id="overdue" name="overdue" value="{{ number_format($data->overdue_Cus,0) }}" class="form-control" placeholder="Enter ..." oninput="AddComma();">
+                              </div>
+                              <div class="col-md-6">
+                                รวม :
+                                <input type="text" name="Sum" class="form-control" value="{{ number_format($data->Sum_Cus,0) }}" placeholder="Enter ..." disabled>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-tasks">
+                              </i>
+                              @if($data->Type_Cus == "กู้-บุคคล")
+                                กู้-บุคคล
+                              @else
+                                กู้-ทรัพย์ (จำนอง)
+                              @endif
+                            </h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            @if($data->Type_Cus == "กู้-บุคคล")
+                              <div class="row">
+                                <div class="col-md-6">
+                                  ชื่อ - สกุล :
+                                <input type="text" name="NameBorrower" value="{{ $data->Name_Surety }}" class="form-control" placeholder="Enter ...">
+                                </div>
+                                <div class="col-md-6">
+                                  ที่อยู่ :
+                                  <textarea name="AddBorrower" class="form-control" style="width:100%" rows="3">{{ $data->Address_Surety }}</textarea>
+                                </div>
+                              </div>
+                            @else
+                              <div class="row">
+                                <div class="col-md-6">
+                                  ชื่อ - สกุล :
+                                  <input type="text" name="NameMortgage" value="{{ $data->Name_Mortgager }}" class="form-control" placeholder="Enter ...">
+                                </div>
+                                <div class="col-md-6">
+                                  เลขที่โฉนด :
+                                  <input type="text" name="NumberDeed" value="{{ $data->NumberDeed_Mortgager }}" class="form-control" placeholder="Enter ...">
                                 </div>
                               </div>
 
-                              <div class="col-md-6">
-                                <div class="" id="todo-list">
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="7" name="Terminatebuyerlist" value="on"/>
-                                    <label for="7" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      สัญญาบอกเลิกผู้ซื้อ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="8" name="Terminatesupportlist" value="on"/>
-                                    <label for="8" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      สัญญาบอกเลิกผู้ค้ำ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="on"/>
-                                    <label for="9" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      ใบตอบรับผู้ซื้อ - ผู้ค้ำ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="10" name="Twoduelist" value="on"/>
-                                    <label for="10" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือ 2 งวด
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="11" name="AcceptTwoduelist" value="on"/>
-                                    <label for="11" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      ใบตอบรับหนังสือ 2 งวด
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="12" name="Confirmlist" value="on"/>
-                                    <label for="12" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือยืนยันการบอกเลิก
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    <input type="checkbox" id="13" name="Acceptlist" value="on"/>
-                                    <label for="13" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      ใบตอบรับ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  ที่อยู่ :
+                                  <textarea name="AddMortgage" class="form-control" style="width:100%" rows="3">{{ $data->Address_Mortgager }}</textarea>
                                 </div>
                               </div>
-                            </div>
+                            @endif
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="col-md-12">
-                      <div class="card card-primary">
-                        <div class="card-header">
-                          <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
-
-                          <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
-                            </button>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title">เอกสารประกอบ</h3>
+            
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                            </div>
                           </div>
-                        </div>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-inline" align="left">
-                                <textarea style="width:100%" name="Legisnote" class="form-control" rows="5"></textarea>
+                          <div class="card-body">
+                            <div class="form-group">
+                              <div class="file-loading">
+                                <input id="file_image" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
+                      <div class="col-md-6">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-inline" align="left">
+                                  <textarea style="width:100%" name="Note" class="form-control" rows="3">{{ $data->Note_Cus }}</textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <div class="card-title">
+                              รูปภาพผู้ค้ำ
+                            </div>
+                            {{-- @if($data->License_car != NULL)
+                              @php
+                                $Setlisence = $data->License_car;
+                              @endphp
+                            @endif --}}
+                            <div class="card-tools">
+                              <a href="#" class="pull-left DeleteImage">
+                                <i class="far fa-trash-alt"></i>
+                              </a>
+                            </div>
+                          </div>
+                          
+                          <div class="card-body">
+                            <div class="row">
+                              @foreach($dataImage as $key => $images)
+                                @if($images->Type_file == "1")
+                                  <div class="col-sm-2">
+                                    <a href="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" data-toggle="lightbox" data-title="ภาพผู้ค้ำ">
+                                      <img src="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" class="img-fluid mb-2" alt="white sample">
+                                    </a>
+                                  </div>
+                                @endif
+                              @endforeach
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      
                     </div>
                   </div>
-
-                  <input type="hidden" name="_method" value="PATCH"/>
-
-                </form>
-
-                <a id="button"></a>
-
-              </div>
-            </div>
+                </div>
+                <input type="hidden" name="_method" value="PATCH"/>
+            </form>
+            <a id="button"></a>
           </div>
         </div>
       </section>
     </div>
   </section>
+
+  {{-- แสดงกรอบรูป --}}
+  <script>
+    $(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+    })
+  </script>
+
+  {{-- image --}}
+  <script type="text/javascript">
+    $("#file_image").fileinput({
+      uploadUrl:"{{ route('MasterDeptor.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+  </script>
 
   {{-- back-to-top --}}
   <script>
@@ -661,12 +522,6 @@
       e.preventDefault();
       $('html, body').animate({scrollTop:0}, '300');
     });
-  </script>
-
-  <script>
-    $(function () {
-      $('[data-mask]').inputmask()
-    })
   </script>
 
   <script type="text/javascript">
