@@ -124,9 +124,6 @@
                               <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">ชั้นโนติส</a>
-                            </li>
-                            <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
                             </li>
                             <li class="nav-item">
