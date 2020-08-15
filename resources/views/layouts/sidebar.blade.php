@@ -90,6 +90,24 @@
             </ul>
           </li>
 
+          <li class="nav-item has-treeview {{ Request::is('lawyer/view/1') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                รายงานลูกหนี้
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-left: 15px;">
+              <li class="nav-item">
+                <a href="{{ route('lawyer', 1) }}" class="nav-link {{ Request::is('lawyer/view/1') ? 'active' : '' }}">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>ลูกหนี้แยกตามประเภท</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link active">
               <i class="nav-icon far fa-handshake"></i>
