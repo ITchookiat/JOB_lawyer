@@ -64,18 +64,11 @@ class DebtorController extends Controller
     public function store(Request $request)
     {
         if($request->type == 1){
-
-          if ($request->get('Amountdeptor') != Null) {
-            $SetAmountdeptor = str_replace (",","",$request->get('Amountdeptor'));
-          }else {
-            $SetAmountdeptor = 0;
-          }
-
           $DataCus = new DataCus([
               'Name_Cus' => $request->get('Namedeptor'),
               'Number_Cus' => $request->get('Contractdeptor'),
-              'Cash_Cus' => $SetAmountdeptor,
               'Type_Cus' => $request->get('Typecontract'),
+
               'NameUser' => auth()->user()->name,
               'DateUser' => date('Y-m-d'),
             ]);
@@ -166,6 +159,9 @@ class DebtorController extends Controller
             $DataCus->Status_Cus = $request->get('statusCus');
             $DataCus->DateStatus_Cus = date('Y-m-d');
           }
+          $DataCus->Name_Cus = $request->get('Namedeptor');
+          $DataCus->Number_Cus = $request->get('Contractdeptor');
+          $DataCus->Address_Cus = $request->get('Addressdeptor');
           $DataCus->DateCon_Cus = $request->get('DateContract');
           $DataCus->Principle_Cus = $Setprinciple;
           $DataCus->Service_cus = $SetService;
