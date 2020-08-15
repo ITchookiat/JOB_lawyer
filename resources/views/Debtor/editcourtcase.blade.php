@@ -68,7 +68,7 @@
                         <div class="col-sm-12">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลผู้กู้</a>
+                              <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
@@ -111,7 +111,7 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่คัดโฉนด
-                                  <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="" onchange="CourtcaseDate();" />
+                                  <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control form-control-sm" value="" onchange="CourtcaseDate();" />
                                   <br>
                                 </div>
                                 <div class="col-md-6">
@@ -124,12 +124,12 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
-                                  <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control" value="" />
+                                  <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control form-control-sm" value="" />
                                 </div>
                                 
                                 <div class="col-md-6">
                                   ประกาศขาย
-                                  <select id="ResultSequester" name="ResultSequester" class="form-control">
+                                  <select id="ResultSequester" name="ResultSequester" class="form-control form-control-sm">
                                     <option value="" selected>--- เลือกผลการประกาศขาย ---</option>
                                     <option value="ขายได้">ขายได้</option>
                                     <option value="ขายไม่ได้">ขายไม่ได้</option>
@@ -222,31 +222,50 @@
 
                                 <div class="col-md-6">
                                   <div id="ShowDetail1" style="display:none;">
-                                    <div class="col-md-12">
-                                      วันที่จ่ายเงิน
-                                      <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control" value="" />
-                                      <br>
-                                      <div class="form-inline">
-                                        <div class="col-md-7">
-                                          จำนวนครั้งประกาศขาย
-                                          <input type="number" id="CountSeliing" name="CountSeliing" class="form-control" min="1" style="width: 130px;" value="" />
-                                        </div>
-                                        <div class="col-md-5">
-                                          เงินค่าใช้จ่าย
-                                          <input type="text" id="Paidseguester" name="Paidseguester" class="form-control" style="width: 130px;" value="" />
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        วันที่จ่ายเงิน
+                                        <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control form-control-sm" value="" />
+                                      </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-inline">
+                                          <div class="col-md-7">
+                                            จำนวนครั้งประกาศขาย
+                                            <input type="number" id="CountSeliing" name="CountSeliing" class="form-control form-control-sm" min="1" style="width: 130px;" value="" />
+                                          </div>
+                                          <div class="col-md-5">
+                                            เงินค่าใช้จ่าย
+                                            <input type="text" id="Paidseguester" name="Paidseguester" class="form-control form-control-sm" style="width: 130px;" value="" />
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
 
                                   <div id="ShowDetail2" style="display:none;">
-                                    <div class="col-md-12">
-                                      ผลจากการขาย
-                                      <select id="ResultSell" name="ResultSell" class="form-control">
-                                        <option value="" selected>--- เลือกผลจากการขาย ---</option>
-                                        <option value="เต็มจำนวน">เต็มจำนวน</option>
-                                        <option value="ไม่เต็มจำนวน">ไม่เต็มจำนวน</option>
-                                      </select>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        ผลจากการขาย
+                                        <select id="ResultSell" name="ResultSell" class="form-control form-control-sm">
+                                          <option value="" selected>--- เลือกผลจากการขาย ---</option>
+                                          <option value="เต็มจำนวน">เต็มจำนวน</option>
+                                          <option value="ไม่เต็มจำนวน">ไม่เต็มจำนวน</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div id="ShowSellDetail1" style="display:none;">
+                                            วันที่ขายได้
+                                            <input type="date" id="Datesoldout" name="Datesoldout" class="form-control form-control-sm" value="" />
+                                        </div>
+      
+                                        <div id="ShowSellDetail2" style="display:none;">
+                                            จำนวนเงิน
+                                            <input type="text" id="Amountsequester" name="Amountsequester" class="form-control form-control-sm" value="" />
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
 
@@ -322,20 +341,6 @@
                                       }
                                     });
                                   </script>
-
-                                  <div id="ShowSellDetail1" style="display:none;">
-                                    <div class="col-md-6">
-                                      วันที่ขายได้
-                                      <input type="date" id="Datesoldout" name="Datesoldout" class="form-control" value="" />
-                                    </div>
-                                  </div>
-
-                                  <div id="ShowSellDetail2" style="display:none;">
-                                    <div class="col-md-6">
-                                      จำนวนเงิน
-                                      <input type="text" id="Amountsequester" name="Amountsequester" class="form-control" value="" />
-                                    </div>
-                                  </div>
                                 </div>
                               </div>
                             </div>

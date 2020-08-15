@@ -17,7 +17,6 @@ class CreateDataCusesTable extends Migration
             $table->bigIncrements('Cus_id');
             $table->string('Name_Cus')->nullable();     //ชื่อ-นามสกุล
             $table->string('Number_Cus')->nullable();   //เลขที่สัญญา
-            $table->string('Cash_Cus')->nullable();     //จำนวนเงิน
             $table->string('Address_Cus')->nullable();  //ที่อยู่
             $table->string('Type_Cus')->nullable();     //ประเภทสัญญา
 

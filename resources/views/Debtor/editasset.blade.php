@@ -179,24 +179,31 @@
                             <div class="tab-pane fade active show" id="tabs-1" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                               <div class="row">
                                 <div class="col-md-6">
-                                  วันสืบทรัพย์
-                                  <input type="date" id="Dateasset" name="Dateasset" class="form-control" value="" readonly/>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      วันสืบทรัพย์
+                                      <input type="date" id="Dateasset" name="Dateasset" class="form-control form-control-sm" value="" readonly/>
+                                    </div>
+                                    <div class="col-md-6">
+                                      วันครบกำหนดสืบ
+                                      <input type="date" id="" name="" class="form-control form-control-sm" value="" readonly/>
+                                    </div>
+                                  </div>
+                                  
                                   ผลสืบ :
-                                  <select id="sendsequesterasset" name="sendsequesterasset" class="form-control">
+                                  <select id="sendsequesterasset" name="sendsequesterasset" class="form-control form-control-sm">
                                     <option value="" selected>--- เลือกผล ---</option>
                                     <option value="สืบทรัพย์เจอ" >สืบทรัพย์เจอ</option>
                                     <option value="สืบทรัพย์ไม่เจอ" >สืบทรัพย์ไม่เจอ</option>
-                                    <option value="หมดอายุความคดี" >หมดอายุความคดี</option>
-                                    <option value="จบงานสืบทรัพย์" >จบงานสืบทรัพย์</option>
                                   </select>
                                   ค่าใช้จ่าย
-                                  <input type="text" id="Priceasset" name="Priceasset" class="form-control" value=""  placeholder="3,000.00" oninput="Comma();"/>
+                                  <input type="text" id="Priceasset" name="Priceasset" class="form-control form-control-sm" value=""  placeholder="3,000.00" oninput="Comma();"/>
                                   วันที่สืบทรัพย์ใหม่
-                                  <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control" value=""/>
+                                  <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control form-control-sm" value=""/>
                                 </div>
                                 <div class="col-md-6">
                                   หมายเหตุ
-                                  <textarea name="Notepursueasset" class="form-control" rows="11"></textarea>
+                                  <textarea name="Notepursueasset" class="form-control" rows="7"></textarea>
                                 </div>
                               </div>
                             </div>

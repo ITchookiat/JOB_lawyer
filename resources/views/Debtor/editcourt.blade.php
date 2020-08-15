@@ -2,7 +2,6 @@
 @section('title','ชั้นศาล')
 @section('content')
 
-
   <style>
     #todo-list{
     width:100%;
@@ -261,9 +260,6 @@
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">ชั้นโนติส</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link active" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
@@ -608,13 +604,10 @@
                               <a class="nav-link" id="custom-tabs-3" data-toggle="pill" href="#tabs-3" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false"><i class="fas fa-toggle-on"></i> ส่งคำบังคับ(45 วัน)</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="custom-tabs-4" data-toggle="pill" href="#tabs-4" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="true"><i class="fas fa-toggle-on"></i> ตรวจผลหมาย(45 วัน)</a>
+                              <a class="nav-link" id="custom-tabs-4" data-toggle="pill" href="#tabs-4" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="true"><i class="fas fa-toggle-on"></i> ตั้งเจ้าพนักงาน(45 วัน)</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="custom-tabs-5" data-toggle="pill" href="#tabs-5" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="true"><i class="fas fa-toggle-on"></i> ตั้งเจ้าพนักงาน(45 วัน)</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="custom-tabs-6" data-toggle="pill" href="#tabs-6" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="true"><i class="fas fa-toggle-on"></i> ตรวจผลหมายตั้ง(45 วัน)</a>
+                              <a class="nav-link" id="custom-tabs-5" data-toggle="pill" href="#tabs-5" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="true"><i class="fas fa-toggle-on"></i> ตรวจผลหมายตั้ง(30 วัน)</a>
                             </li>
                           </ul>
                         </div>
@@ -624,11 +617,11 @@
                               <div class="row">
                                 <div class="col-md-3">
                                   วันที่ฟ้อง
-                                  <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="" required/>
+                                  <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control form-control-sm" value="" required/>
                                 </div>
                                 <div class="col-md-3">
                                   ศาล
-                                  <select name="lawcourt" class="form-control">
+                                  <select name="lawcourt" class="form-control form-control-sm">
                                     <option value="" selected>--- ศาล ---</option>
                                     <option value="ศาลปัตตานี">ศาลปัตตานี</option>
                                     <option value="ศาลยะลา" >ศาลยะลา</option>
@@ -639,21 +632,21 @@
                                 </div>
                                 <div class="col-md-3">
                                   เลขคดีดำ
-                                  <input type="text" name="bnumbercourt" class="form-control" value="" />
+                                  <input type="text" name="bnumbercourt" class="form-control form-control-sm" value="" />
                                 </div>
                                 <div class="col-md-3">
                                   เลขคดีแดง
-                                  <input type="text" name="rnumbercourt" class="form-control" value=""  />
+                                  <input type="text" name="rnumbercourt" class="form-control form-control-sm" value=""  />
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-3">
                                   ทุนทรัพย์
-                                  <input type="text" id="capitalcourt" name="capitalcourt" class="form-control" value="" oninput="CalculateCap();"/>
+                                  <input type="text" id="capitalcourt" name="capitalcourt" class="form-control form-control-sm" value="" oninput="CalculateCap();"/>
                                 </div>
                                 <div class="col-md-3">
                                   ค่าฟ้อง
-                                  <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="" oninput="CalculateCap();"/>
+                                  <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control form-control-sm" value="" oninput="CalculateCap();"/>
                                 </div>
                               </div>
                             </div>
@@ -661,100 +654,59 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่สืบพยาน
-                                  <input type="date" id="examidaycourt" name="examidaycourt" class="form-control" value="" oninput="CourtDate();" />
+                                  <input type="date" id="examidaycourt" name="examidaycourt" class="form-control form-control-sm" value="" oninput="CourtDate();" />
                                 </div>
                                 <div class="col-md-6">
                                   วันที่เลือน
-                                  <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control" value="" oninput="CourtDate();" />
+                                  <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control form-control-sm" value="" oninput="CourtDate();" />
                                 </div>
                               </div>
                               หมายเหตุ
-                              <textarea name="examinotecourt" class="form-control" rows="5"></textarea>
+                              <textarea name="examinotecourt" class="form-control" rows="4"></textarea>
                             </div>
                             <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่ดึงจากระบบ
-                                  <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="" readonly/>
+                                  <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control form-control-sm" value="" readonly/>
                                 </div>
                                 <div class="col-md-6">
                                   วันที่ส่งจริง
-                                  <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="" oninput="CourtDate();" />
+                                  <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control form-control-sm" value="" oninput="CourtDate();" />
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-6">
                                   วันคัดคำพิพากษา
-                                  <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="" readonly/>
+                                  <input type="date" id="" name="" class="form-control form-control-sm" value=""/>
+                                </div>
+                                <div class="col-md-6">
+                                  หมายเหตุ
+                                  <textarea name="" class="form-control" style="width:100%" rows="3"></textarea>
                                 </div>
                               </div>
                             </div>
                             <div class="tab-pane fade" id="tabs-4" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                               <div class="row">
-                                <div class="col-md-3">
-                                  วันที่ตรวจผลหมาย
-                                  <input type="date" id="checkdaycourt" name="checkdaycourt" class="form-control" value="" oninput="CourtDate2();" readonly/>
+                                <div class="col-md-6">
+                                  วันทีตั้งเจ้าพนักงาน
+                                  <input type="date" id="setofficecourt" name="setofficecourt" class="form-control form-control-sm" value="" readonly/>
                                 </div>
-                                <div class="col-md-3">
-                                  วันทีผู้เช่าซื้อได้รับ
-                                  <input type="date" id="buyercourt" name="buyercourt" class="form-control" value="" oninput="CheckMessege();"/>
-                                </div>
-                                <div class="col-md-3">
-                                  วันทีผู้ค้ำได้รับ
-                                  <input type="date" id="supportcourt" name="supportcourt" class="form-control" value="" oninput="CheckMessege();"/>
-                                </div>
-                                <div class="col-md-3">
-                                  วันที่ตรวจผลหมายจริง
-                                  <input type="date" id="checksendcourt" name="checksendcourt" class="form-control" value="" onchange="CourtDate2();" />
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-9">
-                                  หมายเหตุ
-                                  <textarea name="notecourt" class="form-control" value="" rows="4" ></textarea>
-                                </div>
-                                <div class="col-md-3">
-                                  <p></p>
-                                  <span class="todo-wrap">
-                                      <input type="checkbox" id="1" name="socialflag" value="infomation" onclick="CourtDate2()"/>
-                                    <label for="1" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      ประกาศสื่ออิเล็กทรอนิกส์
-                                    </label>
-                                  </span>
-
-                                  <span class="todo-wrap">
-                                      <input type="checkbox" id="4" name="socialflag" value="success" onclick="CourtDate2()"/>
-                                    <label for="4" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      ได้รับผลหมายทั้งคู่
-                                    </label>
-                                  </span>
+                                <div class="col-md-6">
+                                  วันที่ส่งจริง
+                                  <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control form-control-sm" value="" oninput="CheckMessege();CourtDate2();"/>
                                 </div>
                               </div>
                             </div>
                             <div class="tab-pane fade" id="tabs-5" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                               <div class="row">
-                                <div class="col-md-6">
-                                  วันทีตั้งเจ้าพนักงาน
-                                  <input type="date" id="setofficecourt" name="setofficecourt" class="form-control" value="" readonly/>
-                                </div>
-                                <div class="col-md-6">
-                                  วันที่ส่งจริง
-                                  <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control" value="" oninput="CheckMessege();CourtDate2();"/>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="tab-pane fade" id="tabs-6" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-                              <div class="row">
                                 <div class="col-md-3">
                                   วันที่ตรวจผลหมายตั้ง
-                                  <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control" value="" readonly/>
+                                  <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control form-control-sm" value="" readonly/>
                                 </div>
                                 <div class="col-md-3">
                                   วันที่ตรวจจริง
-                                  <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="" oninput="Datesuccess();"/>
+                                  <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control form-control-sm" value="" oninput="Datesuccess();"/>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="row"  align="center">
@@ -778,9 +730,9 @@
                                         <div id="myDIV" style="display:none;">
   
                                           วันทีโทร
-                                          <input type="date" id="telresultscourt" name="telresultscourt" class="form-control" value="" />
+                                          <input type="date" id="telresultscourt" name="telresultscourt" class="form-control form-control-sm" value="" />
                                           วันทีไปรับ
-                                          <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="" oninput="Datesuccess()"/>
+                                          <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control form-control-sm" value="" oninput="Datesuccess()"/>
   
                                        </div>
                                     </div>
@@ -803,89 +755,6 @@
       </section>
     </div>
   </section>
-
-  {{--<div class="modal fade" id="modal-printinfo">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
-          @csrf
-          <div class="card card-warning">
-            <div class="card-header">
-              <h4 class="card-title">ป้อนข้อมูลปิดบัญชี</h4>
-              <div class="card-tools">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-              </div>
-            </div>
-
-            <script type="text/javascript">
-              function addCommas(nStr){
-                  nStr += '';
-                  x = nStr.split('.');
-                  x1 = x[0];
-                  x2 = x.length > 1 ? '.' + x[1] : '';
-                  var rgx = /(\d+)(\d{3})/;
-                  while (rgx.test(x1)) {
-                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                  }
-                return x1 + x2;
-              }
-              function addcomma(){
-                var num11 = document.getElementById('TopCloseAccount').value;
-                var num1 = num11.replace(",","");
-                var num22 = document.getElementById('PriceAccount').value;
-                var num2 = num22.replace(",","");
-                var num33 = document.getElementById('DiscountAccount').value;
-                var num3 = num33.replace(",","");
-
-                document.form2.TopCloseAccount.value = addCommas(num1);
-                document.form2.PriceAccount.value = addCommas(num2);
-                document.form2.DiscountAccount.value = addCommas(num3);
-              }
-            </script>
-
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="float-right form-inline">
-                    <label>วันที่ปิดบัญชี : </label>
-                    <input type="date" name="DateCloseAccount" class="form-control" style="width: 180px;" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="float-right form-inline">
-                    <label>ยอดปิดบัญชี : </label>
-                    <input type="text" id="PriceAccount" name="PriceAccount" class="form-control" style="width: 180px;" placeholder="ป้อนยอดตั้งต้น" value="{{ number_format(($data->PriceStatus_legis !== Null) ?$data->PriceStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="float-right form-inline">
-                    <label>ยอดชำระ : </label>
-                    <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" style="width: 180px;" placeholder="ป้อนยอดชำระ" value="{{ number_format(($data->txtStatus_legis !== Null) ?$data->txtStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                    <input type="hidden" name="ContractNo" class="form-control" value="{{$data->Contract_legis}}"/>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="float-right form-inline">
-                    <label>ยอดส่วนลด : </label>
-                    <input type="text" id="DiscountAccount" name="DiscountAccount" class="form-control" style="width: 180px;" placeholder="ป้อนยอดส่วนลด" value="{{ number_format(($data->Discount_legis !== Null) ?$data->Discount_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div align="center">
-              <button id="submit" type="submit" class="btn btn-primary"><span class="fa fa-id-card-o"></span> พิมพ์</button>
-            </div>
-            <br>
-          </div>
-
-      </form>
-      </div>
-    </div>
-  </div>--}}
 
   <script>
     function FunctionRadio2() {
