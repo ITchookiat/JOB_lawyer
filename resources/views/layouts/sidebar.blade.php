@@ -100,7 +100,7 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left: 15px;">
               <li class="nav-item">
-                <a href="{{ route('lawyer', 1) }}" class="nav-link {{ Request::is('lawyer/view/1') ? 'active' : '' }}">
+                <a href="{{ route('Debtor', 2) }}" class="nav-link {{ Request::is('Debtor/view/2') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>ลูกหนี้แยกตามประเภท</p>
                 </a>
