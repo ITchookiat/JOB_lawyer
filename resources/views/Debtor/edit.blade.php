@@ -385,7 +385,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   ที่อยู่ :
-                                  <textarea name="AddBorrower" class="form-control form-control-sm" style="width:100%" rows="3">{{ $data->Address_Surety }}</textarea>
+                                  <textarea name="AddBorrower" class="form-control form-control-sm" style="width:100%" rows="2">{{ $data->Address_Surety }}</textarea>
                                 </div>
                               </div>
                             @else
@@ -403,15 +403,35 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   ที่อยู่ :
-                                  <textarea name="AddMortgage" class="form-control" style="width:100%" rows="3">{{ $data->Address_Mortgager }}</textarea>
+                                  <textarea name="AddMortgage" class="form-control" style="width:100%" rows="2">{{ $data->Address_Mortgager }}</textarea>
                                 </div>
                               </div>
                             @endif
                           </div>
                         </div>
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-inline" align="left">
+                                  <textarea style="width:100%" name="Note" class="form-control" rows="3">{{ $data->Note_Cus }}</textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-
+                    <hr>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="card card-primary">
@@ -434,7 +454,7 @@
                       </div>
 
                       <div class="col-md-6">
-                        <div class="card card-primary">
+                        <!-- <div class="card card-primary">
                           <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
                             <div class="card-tools">
@@ -453,7 +473,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                         
                         <div class="card card-primary">
                           <div class="card-header">
