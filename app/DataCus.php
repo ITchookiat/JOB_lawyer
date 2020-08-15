@@ -20,5 +20,9 @@ class DataCus extends Model
     {
         return $this->hasMany(DataMortgagers::class);
     }
+    public function Uploadfile()
+    {
+        return $this->hasMany(DataUploadFile::class);
+    }
 }
 

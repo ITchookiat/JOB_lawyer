@@ -11,7 +11,6 @@
     $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
     $strMonthThai=$strMonthCut[$strMonth];
     return "$strDay $strMonthThai $strYear";
-    //return "$strDay-$strMonthThai-$strYear";
     }
 @endphp
 
@@ -80,9 +79,9 @@
                           @foreach($data as $key => $row)
                             <tr>
                               <td class="text-center">{{$key+1}}</td>
-                              <td class="text-center">{{$row->Number_Cus}}</td>
-                              <td>{{$row->Name_Cus}}</td>
-                              <td class="text-center">{{number_format($row->Cash_Cus,2)}}</td>
+                              <td class="text-left">{{$row->Number_Cus}}</td>
+                              <td class="text-left">{{$row->Name_Cus}}</td>
+                              <td class="text-right">{{number_format($row->Cash_Cus,2)}}</td>
                               <td class="text-center">
                                 <button type="button" class="btn btn-success btn-xs">
                                   <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
