@@ -305,34 +305,53 @@
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-6">
+                                ชื่อ - นามสกุล :
+                                <input type="text" name="Namedeptor" value="{{ $data->Name_Cus }}" class="form-control form-control-sm">
+                              </div>
+                              <div class="col-md-6">
+                                เลขที่สัญญา :
+                                <input type="text" name="Contractdeptor" value="{{ $data->Number_Cus }}" class="form-control form-control-sm">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                ที่อยู่ :
+                                <textarea name="Addressdeptor" class="form-control" style="width:100%" rows="3">{{ $data->Address_Mortgager }}</textarea>
+                              </div>
+                            </div>
+                            <p></p>
+
+                            <div class="row">
+                              <div class="col-md-6">
                                 วันที่ลงสัญญา :
-                                <input type="date" name="DateContract" class="form-control">
+                                <input type="date" name="DateContract" class="form-control form-control-sm">
                               </div>
                               <div class="col-md-6">
                                 จำนวนเงินต้น :
-                                <input type="text" id="principle" name="principle" value="{{ number_format($data->Principle_Cus,0) }}" class="form-control" oninput="AddComma();">
+                                <input type="text" id="principle" name="principle" value="{{ number_format($data->Principle_Cus,0) }}" class="form-control form-control-sm" oninput="AddComma();">
                               </div>
                             </div>
 
                             <div class="row">
                               <div class="col-md-6">
                                 ค่าบริการ :
-                                <input type="text" id="Service" name="Service" value="{{ number_format($data->Service_cus,0) }}" class="form-control" oninput="AddComma();">
+                                <input type="text" id="Service" name="Service" value="{{ number_format($data->Service_cus,0) }}" class="form-control form-control-sm" oninput="AddComma();">
                               </div>
                               <div class="col-md-6">
                                 ระยะเวลา (ต่อเดือน) :
-                                <input type="text" name="Timeperiod" value="{{ $data->Timeperiod_Cus }}" class="form-control" placeholder="Enter ...">
+                                <input type="text" name="Timeperiod" value="{{ $data->Timeperiod_Cus }}" class="form-control form-control-sm" placeholder="Enter ...">
                               </div>
                             </div>
 
                             <div class="row">
                               <div class="col-md-6">
                                 ยอดค้าง :
-                                <input type="text" id="overdue" name="overdue" value="{{ number_format($data->overdue_Cus,0) }}" class="form-control" placeholder="Enter ..." oninput="AddComma();">
+                                <input type="text" id="overdue" name="overdue" value="{{ number_format($data->overdue_Cus,0) }}" class="form-control form-control-sm" placeholder="Enter ..." oninput="AddComma();">
                               </div>
                               <div class="col-md-6">
                                 รวม :
-                                <input type="text" name="Sum" class="form-control" value="{{ number_format($data->Sum_Cus,0) }}" placeholder="Enter ..." disabled>
+                                <input type="text" name="Sum" class="form-control form-control-sm" value="{{ number_format($data->Sum_Cus,0) }}" placeholder="Enter ..." disabled>
                               </div>
                             </div>
                           </div>
@@ -362,22 +381,22 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   ชื่อ - สกุล :
-                                <input type="text" name="NameBorrower" value="{{ $data->Name_Surety }}" class="form-control" placeholder="Enter ...">
+                                <input type="text" name="NameBorrower" value="{{ $data->Name_Surety }}" class="form-control form-control-sm" placeholder="Enter ...">
                                 </div>
                                 <div class="col-md-6">
                                   ที่อยู่ :
-                                  <textarea name="AddBorrower" class="form-control" style="width:100%" rows="3">{{ $data->Address_Surety }}</textarea>
+                                  <textarea name="AddBorrower" class="form-control form-control-sm" style="width:100%" rows="3">{{ $data->Address_Surety }}</textarea>
                                 </div>
                               </div>
                             @else
                               <div class="row">
                                 <div class="col-md-6">
                                   ชื่อ - สกุล :
-                                  <input type="text" name="NameMortgage" value="{{ $data->Name_Mortgager }}" class="form-control" placeholder="Enter ...">
+                                  <input type="text" name="NameMortgage" value="{{ $data->Name_Mortgager }}" class="form-control form-control-sm" placeholder="Enter ...">
                                 </div>
                                 <div class="col-md-6">
                                   เลขที่โฉนด :
-                                  <input type="text" name="NumberDeed" value="{{ $data->NumberDeed_Mortgager }}" class="form-control" placeholder="Enter ...">
+                                  <input type="text" name="NumberDeed" value="{{ $data->NumberDeed_Mortgager }}" class="form-control form-control-sm" placeholder="Enter ...">
                                 </div>
                               </div>
 

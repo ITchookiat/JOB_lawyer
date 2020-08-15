@@ -83,7 +83,7 @@
                               <td class="text-center">{{$key+1}}</td>
                               <td class="text-left">{{$row->Number_Cus}}</td>
                               <td class="text-left">{{$row->Name_Cus}}</td>
-                              <td class="text-right">{{number_format($row->Cash_Cus,2)}}</td>
+                              <td class="text-right">{{number_format($row->Principle_Cus,2)}}</td>
                               <td class="text-center">
                                 <button type="button" class="btn btn-success btn-xs">
                                   <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
@@ -220,21 +220,8 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-6"></div>
                       <div class="col-6">
-                        <div class="form-group row mb-1">
-                          <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
-                          <div class="col-sm-8">
-                            <textarea class="form-control" name="Addressdeptor" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="form-group row mb-1">
-                        <label class="col-sm-3 col-form-label text-right">จำนวนเงิน :</label>
-                          <div class="col-sm-8">
-                            <input type="text" id="Amountdeptor" name="Amountdeptor" class="form-control" placeholder="ป้อนจำนวนเงิน" oninput="addcomma();"/>
-                          </div>
-                        </div>
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">ประเภทสัญญา :</label>
                           <div class="col-sm-8">

@@ -139,8 +139,6 @@ class DebtorController extends Controller
         $Gettype = $type;
         return view('Debtor.editasset',compact('data','Gettype'));
       }
-
-
     }
 
     public function update(Request $request, $type, $id)
