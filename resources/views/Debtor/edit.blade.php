@@ -2,6 +2,11 @@
 @section('title','ข้อมูลสัญญา')
 @section('content')
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+
   @php
     function DateThai($strDate){
       $strYear = date("Y",strtotime($strDate))+543;
@@ -184,7 +189,7 @@
       <section class="content">
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
-            <form name="form1" method="post" action="{{ action('DebtorController@update',[$Gettype,$data->Cus_id]) }}" enctype="multipart/form-data">
+            <form name="form1" method="post" action="{{ action('DebtorController@update',[$type,$data->Cus_id]) }}" enctype="multipart/form-data">
               @csrf
               @method('put')
                 <div class="card text-sm">
@@ -269,10 +274,16 @@
                       }
 
                       function AddComma(){
-                        var price = document.getElementById('txtStatuslegis').value;
-                        var Setprice = price.replace(",","");
+                        var principle = document.getElementById('principle').value;
+                        var Setprinciple = principle.replace(",","");
+                        var Service = document.getElementById('Service').value;
+                        var SetService = Service.replace(",","");
+                        var overdue = document.getElementById('overdue').value;
+                        var Setoverdue = overdue.replace(",","");
 
-                        document.form1.txtStatuslegis.value = comma(Setprice);
+                        document.form1.principle.value = comma(Setprinciple);
+                        document.form1.Service.value = comma(SetService);
+                        document.form1.overdue.value = comma(Setoverdue);
                       }
                     </script>
 
@@ -296,29 +307,29 @@
                               </div>
                               <div class="col-md-6">
                                 จำนวนเงินต้น :
-                                <input type="text" name="principle" class="form-control" placeholder="Enter ...">
+                                <input type="text" id="principle" name="principle" value="{{ number_format($data->Principle_Cus,0) }}" class="form-control" oninput="AddComma();">
                               </div>
                             </div>
 
                             <div class="row">
                               <div class="col-md-6">
                                 ค่าบริการ :
-                                <input type="text" name="Service" class="form-control" placeholder="Enter ...">
+                                <input type="text" id="Service" name="Service" value="{{ number_format($data->Service_cus,0) }}" class="form-control" oninput="AddComma();">
                               </div>
                               <div class="col-md-6">
                                 ระยะเวลา (ต่อเดือน) :
-                                <input type="text" name="Timeperiod" class="form-control" placeholder="Enter ...">
+                                <input type="text" name="Timeperiod" value="{{ $data->Timeperiod_Cus }}" class="form-control" placeholder="Enter ...">
                               </div>
                             </div>
 
                             <div class="row">
                               <div class="col-md-6">
                                 ยอดค้าง :
-                                <input type="text" name="overdue" class="form-control" placeholder="Enter ...">
+                                <input type="text" id="overdue" name="overdue" value="{{ number_format($data->overdue_Cus,0) }}" class="form-control" placeholder="Enter ..." oninput="AddComma();">
                               </div>
                               <div class="col-md-6">
                                 รวม :
-                                <input type="text" name="Sum" class="form-control" placeholder="Enter ..." disabled>
+                                <input type="text" name="Sum" class="form-control" value="{{ number_format($data->Sum_Cus,0) }}" placeholder="Enter ..." disabled>
                               </div>
                             </div>
                           </div>
@@ -348,29 +359,29 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   ชื่อ - สกุล :
-                                  <input type="text" name="NameBorrower" class="form-control" placeholder="Enter ...">
+                                <input type="text" name="NameBorrower" value="{{ $data->Name_Surety }}" class="form-control" placeholder="Enter ...">
                                 </div>
                                 <div class="col-md-6">
                                   ที่อยู่ :
-                                  <textarea name="Legisnote" name="AddBorrower" class="form-control" style="width:100%" rows="3"></textarea>
+                                  <textarea name="AddBorrower" class="form-control" style="width:100%" rows="3">{{ $data->Address_Surety }}</textarea>
                                 </div>
                               </div>
                             @else
                               <div class="row">
                                 <div class="col-md-6">
                                   ชื่อ - สกุล :
-                                  <input type="text" name="NameMortgage" class="form-control" placeholder="Enter ...">
+                                  <input type="text" name="NameMortgage" value="{{ $data->Name_Mortgager }}" class="form-control" placeholder="Enter ...">
                                 </div>
                                 <div class="col-md-6">
                                   เลขที่โฉนด :
-                                  <input type="text" name="NumberDeed" class="form-control" placeholder="Enter ...">
+                                  <input type="text" name="NumberDeed" value="{{ $data->NumberDeed_Mortgager }}" class="form-control" placeholder="Enter ...">
                                 </div>
                               </div>
 
                               <div class="row">
                                 <div class="col-md-12">
                                   ที่อยู่ :
-                                  <input type="text" name="AddMortgage" class="form-control" placeholder="Enter ...">
+                                  <textarea name="AddMortgage" class="form-control" style="width:100%" rows="3">{{ $data->Address_Mortgager }}</textarea>
                                 </div>
                               </div>
                             @endif
@@ -380,7 +391,27 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title">เอกสารประกอบ</h3>
+            
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="form-group">
+                              <div class="file-loading">
+                                <input id="file_image" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
                         <div class="card card-primary">
                           <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
@@ -395,13 +426,47 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <div class="form-inline" align="left">
-                                  <textarea style="width:100%" name="Note" class="form-control" rows="3"></textarea>
+                                  <textarea style="width:100%" name="Note" class="form-control" rows="3">{{ $data->Note_Cus }}</textarea>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <div class="card-title">
+                              รูปภาพผู้ค้ำ
+                            </div>
+                            {{-- @if($data->License_car != NULL)
+                              @php
+                                $Setlisence = $data->License_car;
+                              @endphp
+                            @endif --}}
+                            <div class="card-tools">
+                              <a href="#" class="pull-left DeleteImage">
+                                <i class="far fa-trash-alt"></i>
+                              </a>
+                            </div>
+                          </div>
+                          
+                          <div class="card-body">
+                            <div class="row">
+                              @foreach($dataImage as $key => $images)
+                                @if($images->Type_file == "1")
+                                  <div class="col-sm-2">
+                                    <a href="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" data-toggle="lightbox" data-title="ภาพผู้ค้ำ">
+                                      <img src="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" class="img-fluid mb-2" alt="white sample">
+                                    </a>
+                                  </div>
+                                @endif
+                              @endforeach
+                            </div>
+                          </div>
+                        </div>
+                        
                       </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -413,6 +478,33 @@
       </section>
     </div>
   </section>
+
+  {{-- แสดงกรอบรูป --}}
+  <script>
+    $(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+    })
+  </script>
+
+  {{-- image --}}
+  <script type="text/javascript">
+    $("#file_image").fileinput({
+      uploadUrl:"{{ route('MasterDeptor.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+  </script>
 
   {{-- back-to-top --}}
   <script>
@@ -430,12 +522,6 @@
       e.preventDefault();
       $('html, body').animate({scrollTop:0}, '300');
     });
-  </script>
-
-  <script>
-    $(function () {
-      $('[data-mask]').inputmask()
-    })
   </script>
 
   <script type="text/javascript">

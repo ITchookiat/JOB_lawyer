@@ -2,13 +2,6 @@
 @section('title','ชั้นศาล')
 @section('content')
 
-  <style>
-    input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
-    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
-    input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-    input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
-  </style>
 
   <style>
     #todo-list{
@@ -268,6 +261,9 @@
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">ชั้นโนติส</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link active" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
@@ -659,10 +655,6 @@
                                   ค่าฟ้อง
                                   <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="" oninput="CalculateCap();"/>
                                 </div>
-                                <div class="col-md-3">
-                                  ค่าทนาย
-                                  <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value=""/>
-                                </div>
                               </div>
                             </div>
                             <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
@@ -688,6 +680,12 @@
                                 <div class="col-md-6">
                                   วันที่ส่งจริง
                                   <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="" oninput="CourtDate();" />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  วันคัดคำพิพากษา
+                                  <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="" readonly/>
                                 </div>
                               </div>
                             </div>

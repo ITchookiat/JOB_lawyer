@@ -21,7 +21,7 @@ class CreateDataCusesTable extends Migration
             $table->string('Address_Cus')->nullable();  //ที่อยู่
             $table->string('Type_Cus')->nullable();     //ประเภทสัญญา
 
-            $table->string('DateCon_Cus')->nullable();     //วันที่ลงสัญญา
+            $table->date('DateCon_Cus')->nullable();       //วันที่ลงสัญญา
             $table->string('Principle_Cus')->nullable();   //เงินต้น
             $table->string('Service_cus')->nullable();     //ค่าบริการ
             $table->string('Timeperiod_Cus')->nullable();  //ระยะเวลา
