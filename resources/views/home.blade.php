@@ -73,10 +73,10 @@
                                             <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Samsung TV
-                                                <span class="badge badge-warning float-right">$1800</span></a>
+                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 1
+                                                <span class="badge badge-warning float-right">ชั้นศาล</span></a>
                                             <span class="product-description">
-                                                Samsung 32" 1080p 60Hz LED Smart HDTV.
+                                                นาย ก
                                             </span>
                                             </div>
                                         </li>
@@ -86,10 +86,10 @@
                                             <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Bicycle
-                                                <span class="badge badge-info float-right">$700</span></a>
+                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 2
+                                                <span class="badge badge-info float-right">สืบทรัพย์</span></a>
                                             <span class="product-description">
-                                                26" Mongoose Dolomite Men's 7-speed, Navy Blue.
+                                                นาย ข
                                             </span>
                                             </div>
                                         </li>
@@ -99,13 +99,11 @@
                                             <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">
-                                                Xbox One <span class="badge badge-danger float-right">
-                                                $350
-                                            </span>
+                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 3
+                                                <span class="badge badge-danger float-right">ชั้นศาล</span>
                                             </a>
                                             <span class="product-description">
-                                                Xbox One Console Bundle with Halo Master Chief Collection.
+                                                นาย ค
                                             </span>
                                             </div>
                                         </li>
@@ -115,10 +113,10 @@
                                             <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">PlayStation 4
-                                                <span class="badge badge-success float-right">$399</span></a>
+                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 4
+                                                <span class="badge badge-success float-right">บังคับคดี</span></a>
                                             <span class="product-description">
-                                                PlayStation 4 500GB Console (PS4)
+                                                นาย ง
                                             </span>
                                             </div>
                                         </li>
@@ -128,10 +126,10 @@
                                             <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">PlayStation 5
-                                                <span class="badge badge-success float-right">$399</span></a>
+                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 5
+                                                <span class="badge badge-success float-right">สืบทรัพย์</span></a>
                                             <span class="product-description">
-                                                PlayStation 5 1TB Console (PS5)
+                                                นายห้า
                                             </span>
                                             </div>
                                         </li>

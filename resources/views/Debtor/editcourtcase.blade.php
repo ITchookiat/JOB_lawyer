@@ -68,7 +68,10 @@
                         <div class="col-sm-12">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลผู้กู้</a>
+                              <a class="nav-link" href="{{ action('DebtorController@edit',[1,$data->Cus_id]) }}">ข้อมูลสัญญา</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">ชั้นโนติส</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>

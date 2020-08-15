@@ -90,6 +90,24 @@
             </ul>
           </li>
 
+          <li class="nav-item has-treeview {{ Request::is('Debtor/view/2') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                รายงานลูกหนี้
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-left: 15px;">
+              <li class="nav-item">
+                <a href="{{ route('Debtor', 2) }}" class="nav-link {{ Request::is('Debtor/view/2') ? 'active' : '' }}{{ Request::is('Debtor/edit/*') ? 'active' : '' }}">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>รายงานลูกหนี้</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link active">
               <i class="nav-icon far fa-handshake"></i>
