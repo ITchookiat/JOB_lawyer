@@ -30,7 +30,7 @@
               <div class="card">
                 <div class="card-header">
                   @if($type == 1)
-                    <h4 class="" style="text-align:center;"><b>ติดตามลูกหนี้</b></h4>
+                    <h5 class="" style="text-align:center;"><b>ติดตามลูกหนี้หลังฟ้อง</b></h5>
                   @elseif($type == 2)
                     <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้</b></h4>
                   @endif
@@ -38,41 +38,32 @@
                 <div class="card-body text-sm">
                   @if($type == 1)
                     <form method="get" action="#">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="float-right form-inline">
-                            <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
-                              <span class="fas fa-plus"></span> เพิ่มรายการ
-                            </a>
-                            <button type="submit" class="btn bg-warning btn-app">
-                              <span class="fas fa-search"></span> Search
-                            </button>
-                          </div>
-                        </div>
+                      <div class="float-right form-inline">
+                        <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
+                          <span class="fas fa-plus"></span> เพิ่มรายการ
+                        </a>
+                        <button type="submit" class="btn bg-warning btn-app">
+                          <span class="fas fa-search"></span> Search
+                        </button>
                       </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="float-right form-inline">
-                            <label>จากวันที่ : </label>
-                            <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control" />
-                            <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control" />
-                          </div>
-                        </div>
+                      <div class="float-right form-inline">
+                        <label>จากวันที่ : </label>
+                        <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control" />
+                        <label>ถึงวันที่ : </label>
+                        <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control" />
                       </div>
                     </form>
-                    <hr>
                     <div class="table-responsive">
                       <table id="table1" class="table table-bordered table-striped">
                         <thead>
                           <tr>
                             <th class="text-center" >ลำดับ</th>
                             <th class="text-center" >เลขที่สัญญา</th>
-                            <th class="text-center" >ชื่อ - สกุล</th>
+                            <th class="text-center" >ชื่อ - นามสกุล</th>
                             <!-- <th class="text-center" >เลขที่สมาชิก</th>
                             <th class="text-center" >วันทำสัญญา</th>-->
                             <th class="text-center" >จำนวนเงิน</th>
-                            <th class="text-center" >ประเภทสัญญา</th>
+                            {{-- <th class="text-center" >ประเภทสัญญา</th> --}}
                             <th class="text-center" >สถานะ</th> 
                             <th class="text-center" width="70px"></th>
                           </tr>
@@ -81,14 +72,16 @@
                           @foreach($data as $key => $row)
                             <tr>
                               <td class="text-center">{{$key+1}}</td>
-                              <td class="text-left">{{$row->Number_Cus}}</td>
+                              <td class="text-left">
+                                {{$row->Number_Cus}}
+                                @if($row->Type_Cus == "กู้-บุคคล")
+                                  <span class="badge bg-warning prem">กู้-บุคคล</span>
+                                @elseif($row->Type_Cus == "กู้-ทรัพย์")
+                                  <span class="badge bg-info prem">กู้-ทรัพย์</span>
+                                @endif
+                              </td>
                               <td class="text-left">{{$row->Name_Cus}}</td>
                               <td class="text-right">{{number_format($row->Principle_Cus,2)}}</td>
-                              <td class="text-center">
-                                <button type="button" class="btn btn-success btn-xs">
-                                  <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
-                                </button>
-                              </td>
                               <td class="text-center">
                                 -
                               </td>
@@ -193,7 +186,7 @@
   <form name="form2" action="{{ route('MasterDeptor.store') }}" method="post" enctype="multipart/form-data">
     @csrf
       <div class="modal fade" id="modal-add" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-body">
                 <div class="card card-primary">
@@ -204,7 +197,7 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้กู้:</label>
+                        <label class="col-sm-3 col-form-label text-right">ชื่อ-สกุล :</label>
                           <div class="col-sm-8">
                             <input type="text" name="Namedeptor" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
                           </div>
@@ -212,18 +205,13 @@
                       </div>
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-3 col-form-label text-right">เลขที่สัญญา :</label>
+                          <label class="col-sm-4 col-form-label text-right">เลขที่สัญญา :</label>
                           <div class="col-sm-8">
                             <input type="text" name="Contractdeptor" class="form-control" placeholder="ป้อนเลขที่สัญญา" maxlength="17"/>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-6"></div>
-                      <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-3 col-form-label text-right">ประเภทสัญญา :</label>
+                          <label class="col-sm-4 col-form-label text-right">ประเภทสัญญา</label>
                           <div class="col-sm-8">
                             <select id="Typecontract" name="Typecontract" class="form-control" required>
                               <option value="" selected>--- เลือกประเภทสัญญา ---</option>
@@ -261,7 +249,7 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้ค้ำ:</label>
+                        <label class="col-sm-3 col-form-label text-right">ชื่อ-สกุลผู้ค้ำ:</label>
                           <div class="col-sm-8">
                             <input type="text" name="Namesurety" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้ค้ำ"/>
                           </div>
@@ -269,7 +257,7 @@
                       </div>
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                          <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
+                          <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
                             <!-- <input type="text" name="Addressbuyer" class="form-control" placeholder="ชื่อที่อยู่"/> -->
                             <textarea class="form-control" name="Addresssurety" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
@@ -288,11 +276,11 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                          <label class="col-sm-4 col-form-label text-right">ชื่อ-สกุลผู้จำนอง:</label>
+                          <label class="col-sm-3 col-form-label text-right">ชื่อ-สกุลผู้จำนอง:</label>
                           <div class="col-sm-8">
                             <input type="text" name="Namemortgager" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
                           </div>
-                          <label class="col-sm-4 col-form-label text-right">เลขที่โฉนด:</label>
+                          <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด:</label>
                           <div class="col-sm-8">
                             <input type="text" name="Noland" class="form-control" placeholder="ป้อนเลขที่โฉนด"/>
                           </div>
@@ -300,7 +288,7 @@
                       </div>
                       <div class="col-6">
                         <div class="form-group row mb-1">
-                          <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
+                          <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
                             <textarea class="form-control" name="Addressmortgager" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
@@ -401,12 +389,6 @@
   </script>
 
   <script>
-    $(".alert").fadeTo(3000, 500).slideUp(500, function(){
-    $(".alert").alert('close');
-    });
-  </script>
-
-  <script>
     $(function () {
       $('#table1').DataTable({
         "paging": true,
@@ -436,6 +418,14 @@
       var num1 = num11.replace(",","");
       document.form2.Amountdeptor.value = addCommas(num1);
     }
+  </script>
+
+  <script>
+    function blinker() {
+    $('.prem').fadeOut(1500);
+    $('.prem').fadeIn(1500);
+    }
+    setInterval(blinker, 1500);
   </script>
 
 @endsection

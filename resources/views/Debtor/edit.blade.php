@@ -19,164 +19,6 @@
     }
   @endphp
 
-  <style>
-    #todo-list{
-    width:100%;
-    margin:0 auto 50px auto;
-    padding:5px;
-    background:white;
-    position:relative;
-    /*box-shadow*/
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    /*border-radius*/
-    -webkit-border-radius:5px;
-     -moz-border-radius:5px;
-          border-radius:5px;
-    }
-    #todo-list:before{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    /*box-shadow*/
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-          box-shadow:0 0 20px rgba(0,0,0,0.4);
-    top:50%;
-    bottom:0;
-    left:10px;
-    right:10px;
-    /*border-radius*/
-    -webkit-border-radius:100px / 10px;
-     -moz-border-radius:100px / 10px;
-          border-radius:100px / 10px;
-    }
-    .todo-wrap{
-    display:block;
-    position:relative;
-    padding-left:35px;
-    /*box-shadow*/
-    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-     -moz-box-shadow:0 2px 0 -1px #ebebeb;
-          box-shadow:0 2px 0 -1px #ebebeb;
-    }
-    .todo-wrap:last-of-type{
-    /*box-shadow*/
-    -webkit-box-shadow:none;
-     -moz-box-shadow:none;
-          box-shadow:none;
-    }
-    input[type="checkbox"]{
-    position:absolute;
-    height:0;
-    width:0;
-    opacity:0;
-    /* top:-600px; */
-    }
-    .todo{
-    display:inline-block;
-    font-weight:200;
-    padding:10px 5px;
-    height:37px;
-    position:relative;
-    }
-    .todo:before{
-    content:'';
-    display:block;
-    position:absolute;
-    top:calc(50% + 2px);
-    left:0;
-    width:0%;
-    height:1px;
-    background:#cd4400;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    }
-    .todo:after{
-    content:'';
-    display:block;
-    position:absolute;
-    z-index:0;
-    height:18px;
-    width:18px;
-    top:9px;
-    left:-25px;
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-          box-shadow:inset 0 0 0 2px #d8d8d8;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    /*border-radius*/
-    -webkit-border-radius:4px;
-     -moz-border-radius:4px;
-          border-radius:4px;
-    }
-    .todo:hover:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #949494;
-     -moz-box-shadow:inset 0 0 0 2px #949494;
-          box-shadow:inset 0 0 0 2px #949494;
-    }
-    .todo .fa-check{
-    position:absolute;
-    z-index:1;
-    left:-31px;
-    top:0;
-    font-size:1px;
-    line-height:36px;
-    width:36px;
-    height:36px;
-    text-align:center;
-    color:transparent;
-    text-shadow:1px 1px 0 white, -1px -1px 0 white;
-    }
-    :checked + .todo{
-    color:#717171;
-    }
-    :checked + .todo:before{
-    width:100%;
-    }
-    :checked + .todo:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-          box-shadow:inset 0 0 0 2px #0eb0b7;
-    }
-    :checked + .todo .fa-check{
-    font-size:20px;
-    line-height:35px;
-    color:#0eb0b7;
-    }
-    /* Delete Items */
-
-    .delete-item{
-    display:block;
-    position:absolute;
-    height:36px;
-    width:36px;
-    line-height:36px;
-    right:0;
-    top:0;
-    text-align:center;
-    color:#d8d8d8;
-    opacity:0;
-    }
-    .todo-wrap:hover .delete-item{
-    opacity:1;
-    }
-    .delete-item:hover{
-    color:#cd4400;
-    }
-  </style>
-
   <!-- Main content -->
   <section class="content">
     <div class="content-header">
@@ -225,8 +67,7 @@
                                 <i class="fas fa-sign"></i>&nbsp; สถานะ :
                                 <select name="statusCus" class="form-control">
                                   <option value="" selected>--------- status ----------</option>
-                                  <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
-                                  <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                                  <option value="ปิดบัญชี" {{ ($data->Status_Cus === 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</option>
                                   <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
                                   @if($data->Status_Cus != Null)
                                     <option disabled>------------------------------</option>
@@ -264,7 +105,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body text-sm">
                     <script>
                       function comma(val){
                         while (/(\d+)(\d{3})/.test(val.toString())){
@@ -356,7 +197,7 @@
                       </div>
 
                       <div class="col-md-6">
-                        <div class="card card-primary">
+                        <div class="card card-success">
                           <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-tasks">
                               </i>
@@ -406,7 +247,8 @@
                             @endif
                           </div>
                         </div>
-                        <div class="card card-primary">
+                        
+                        <div class="card card-success">
                           <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
                             <div class="card-tools">
@@ -431,10 +273,10 @@
                     <hr>
                     <div class="row">
                       <div class="col-md-6">
-                        <div class="card card-primary">
+                        <div class="card card-warning">
                           <div class="card-header">
-                            <h3 class="card-title">เอกสารประกอบ</h3>
-            
+                            <h3 class="card-title">เอกสารสัญญา</h3>
+
                             <div class="card-tools">
                               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                               <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
@@ -451,31 +293,10 @@
                       </div>
 
                       <div class="col-md-6">
-                        <!-- <div class="card card-primary">
-                          <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
-                            <div class="card-tools">
-                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                              </button>
-                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="form-inline" align="left">
-                                  <textarea style="width:100%" name="Note" class="form-control" rows="3">{{ $data->Note_Cus }}</textarea>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div> -->
-                        
-                        <div class="card card-primary">
+                        <div class="card card-warning">
                           <div class="card-header">
                             <div class="card-title">
-                              รูปภาพผู้ค้ำ
+                              เอกสารสัญญา
                             </div>
                             {{-- @if($data->License_car != NULL)
                               @php
@@ -494,7 +315,7 @@
                               @foreach($dataImage as $key => $images)
                                 @if($images->Type_file == "1")
                                   <div class="col-sm-2">
-                                    <a href="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" data-toggle="lightbox" data-title="ภาพผู้ค้ำ">
+                                    <a href="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" data-toggle="lightbox" data-title="เอกสารสัญญา">
                                       <img src="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" class="img-fluid mb-2" alt="white sample">
                                     </a>
                                   </div>
