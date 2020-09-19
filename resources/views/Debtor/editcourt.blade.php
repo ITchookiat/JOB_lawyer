@@ -3,144 +3,6 @@
 @section('content')
 
   <style>
-    #todo-list{
-    width:100%;
-    margin:0 auto 50px auto;
-    padding:5px;
-    background:white;
-    position:relative;
-    /*box-shadow*/
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    /*border-radius*/
-    -webkit-border-radius:5px;
-     -moz-border-radius:5px;
-          border-radius:5px;
-    }
-    #todo-list:before{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    /*box-shadow*/
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-          box-shadow:0 0 20px rgba(0,0,0,0.4);
-    top:50%;
-    bottom:0;
-    left:10px;
-    right:10px;
-    /*border-radius*/
-    -webkit-border-radius:100px / 10px;
-     -moz-border-radius:100px / 10px;
-          border-radius:100px / 10px;
-    }
-    .todo-wrap{
-    display:block;
-    position:relative;
-    padding-left:35px;
-    /*box-shadow*/
-    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-     -moz-box-shadow:0 2px 0 -1px #ebebeb;
-          box-shadow:0 2px 0 -1px #ebebeb;
-    }
-    .todo-wrap:last-of-type{
-    /*box-shadow*/
-    -webkit-box-shadow:none;
-     -moz-box-shadow:none;
-          box-shadow:none;
-    }
-    input[type="checkbox"]{
-    position:absolute;
-    height:0;
-    width:0;
-    opacity:0;
-    /* top:-600px; */
-    }
-    .todo{
-    display:inline-block;
-    font-weight:200;
-    padding:10px 5px;
-    height:37px;
-    position:relative;
-    }
-    .todo:before{
-    content:'';
-    display:block;
-    position:absolute;
-    top:calc(50% + 2px);
-    left:0;
-    width:0%;
-    height:1px;
-    background:#cd4400;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    }
-    .todo:after{
-    content:'';
-    display:block;
-    position:absolute;
-    z-index:0;
-    height:18px;
-    width:18px;
-    top:9px;
-    left:-25px;
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-          box-shadow:inset 0 0 0 2px #d8d8d8;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    /*border-radius*/
-    -webkit-border-radius:4px;
-     -moz-border-radius:4px;
-          border-radius:4px;
-    }
-    .todo:hover:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #949494;
-     -moz-box-shadow:inset 0 0 0 2px #949494;
-          box-shadow:inset 0 0 0 2px #949494;
-    }
-    .todo .fa-check{
-    position:absolute;
-    z-index:1;
-    left:-31px;
-    top:0;
-    font-size:1px;
-    line-height:36px;
-    width:36px;
-    height:36px;
-    text-align:center;
-    color:transparent;
-    text-shadow:1px 1px 0 white, -1px -1px 0 white;
-    }
-    :checked + .todo{
-    color:#717171;
-    }
-    :checked + .todo:before{
-    width:100%;
-    }
-    :checked + .todo:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-          box-shadow:inset 0 0 0 2px #0eb0b7;
-    }
-    :checked + .todo .fa-check{
-    font-size:20px;
-    line-height:35px;
-    color:#0eb0b7;
-    }
-  </style>
-
-  <style>
     [type="radio"]:checked,
     [type="radio"]:not(:checked) {
         position: absolute;
@@ -238,8 +100,7 @@
                             <i class="fas fa-sign"></i>&nbsp; สถานะ :
                             <select name="statusCus" class="form-control">
                               <option value="" selected>--------- status ----------</option>
-                              <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
-                              <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                              <option value="ปิดบัญชี" {{ ($data->Status_Cus === 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</option>
                               <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
                               @if($data->Status_Cus != Null)
                                 <option disabled>------------------------------</option>
@@ -646,7 +507,11 @@
                                 </div>
                                 <div class="col-md-3">
                                   ค่าฟ้อง
-                                  <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control form-control-sm" value="" oninput="CalculateCap();"/>
+                                  <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control form-control-sm" value="" placeholder="5,000.00"  oninput="CalculateCap();"/>
+                                </div>
+                                <div class="col-md-6">
+                                  บันทึกเหตุขัดข้อง
+                                  <textarea name="" class="form-control" style="width:100%" rows="2"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -661,13 +526,13 @@
                                   <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control form-control-sm" value="" oninput="CourtDate();" />
                                 </div>
                               </div>
-                              หมายเหตุ
-                              <textarea name="examinotecourt" class="form-control" rows="4"></textarea>
+                              บันทึกเหตุขัดข้อง
+                              <textarea name="examinotecourt" class="form-control" rows="2"></textarea>
                             </div>
                             <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                               <div class="row">
                                 <div class="col-md-6">
-                                  วันที่ดึงจากระบบ
+                                  วันที่ส่งคำบังคับ
                                   <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control form-control-sm" value="" readonly/>
                                 </div>
                                 <div class="col-md-6">
@@ -681,8 +546,8 @@
                                   <input type="date" id="" name="" class="form-control form-control-sm" value=""/>
                                 </div>
                                 <div class="col-md-6">
-                                  หมายเหตุ
-                                  <textarea name="" class="form-control" style="width:100%" rows="3"></textarea>
+                                  บันทึกเหตุขัดข้อง
+                                  <textarea name="" class="form-control" style="width:100%" rows="2"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -697,20 +562,33 @@
                                   <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control form-control-sm" value="" oninput="CheckMessege();CourtDate2();"/>
                                 </div>
                               </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  บันทึกเหตุขัดข้อง
+                                  <textarea name="" class="form-control" style="width:100%" rows="2"></textarea>
+                                </div>
+                              </div>
                             </div>
                             <div class="tab-pane fade" id="tabs-5" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                               <div class="row">
-                                <div class="col-md-3">
-                                  วันที่ตรวจผลหมายตั้ง
-                                  <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control form-control-sm" value="" readonly/>
-                                </div>
-                                <div class="col-md-3">
-                                  วันที่ตรวจจริง
-                                  <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control form-control-sm" value="" oninput="Datesuccess();"/>
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      วันที่ตรวจผลหมายตั้ง
+                                      <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control form-control-sm" value="" readonly/>
+                                    </div>
+                                    <div class="col-md-6">
+                                      วันที่ตรวจจริง
+                                      <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control form-control-sm" value="" oninput="Datesuccess();"/>
+                                    </div>
+                                    <div class="col-md-12">
+                                      บันทึกเหตุขัดข้อง
+                                      <textarea name="" class="form-control" style="width:100%" rows="2"></textarea>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="col-md-6">
-                                  <div class="row"  align="center">
-                                    <br>
+                                  <div class="row" align="center">
                                     <div class="col-md-6">
                                       <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" />
                                       <label for="test3">ได้รับ</label>
@@ -720,24 +598,17 @@
                                       <label for="test4">ไม่ได้รับ</label>
                                     </div>
                                   </div>
-                                </div>
-                              </div>
-                              
-                              <div class="row">
-                                    <div class="col-md-7"></div>
-                                    <div class="col-md-5">
-
-                                        <div id="myDIV" style="display:none;">
-  
-                                          วันทีโทร
-                                          <input type="date" id="telresultscourt" name="telresultscourt" class="form-control form-control-sm" value="" />
-                                          วันทีไปรับ
-                                          <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control form-control-sm" value="" oninput="Datesuccess()"/>
-  
-                                       </div>
+                                  <div class="col-md-12">
+                                    <div id="myDIV" style="display:none;">
+                                      วันทีโทร
+                                      <input type="date" id="telresultscourt" name="telresultscourt" class="form-control form-control-sm" value="" />
+                                      วันทีไปรับ
+                                      <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control form-control-sm" value="" oninput="Datesuccess()"/>
                                     </div>
+                                  </div>
+                                </div>
+
                               </div>
-                              
                             </div>
                           </div>
                         </div>
