@@ -65,7 +65,7 @@
                             <th class="text-center" >จำนวนเงิน</th>
                             {{-- <th class="text-center" >ประเภทสัญญา</th> --}}
                             <th class="text-center" >สถานะ</th> 
-                            <th class="text-center" style="width: 150px"></th>
+                            <th class="text-center" width="70px"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -87,13 +87,13 @@
                               </td>
                               <td class="text-right">
                                 <a href="{{ action('DebtorController@edit',[$type,$row->Cus_id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                  <i class="far fa-edit"></i> ดูรายการ
+                                  <i class="far fa-edit"></i>
                                 </a>
                                 <form method="post" class="delete_form" action="{{ action('DebtorController@destroy',[$type,$row->Cus_id]) }}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
                                   <button type="submit" data-name="เลขที่สัญญา : {{$row->Number_Cus}}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                    <i class="far fa-trash-alt"></i> ลบ
+                                    <i class="far fa-trash-alt"></i>
                                   </button>
                                 </form>
                               </td>
@@ -124,12 +124,12 @@
                             <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
                             <label>ถึงวันที่ : </label>
                             <input type="date" name="Todate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-                            <label>ประเภทสัญญา : </label>
+                            <!-- <label>ประเภทสัญญา : </label>
                             <select name="status" class="form-control" id="text">
                               <option selected value="">--- เลือกประเภท ---</option>
                               <option value="กู้-บุคคล" {{ ($status == 'กู้-บุคคล') ? 'selected' : '' }}>กู้-บุคคล</otion>
                               <option value="กู้-ทรัพย์" {{ ($status == 'กู้-ทรัพย์') ? 'selected' : '' }}>กู้-ทรัพย์</otion>
-                            </select>
+                            </select> -->
                           </div>
                         </div>
                       </div>
@@ -314,18 +314,55 @@
   <div class="modal fade" id="modal-report" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Default Modal</h4>
+        <div class="modal-header bg-primary">
+          <h4 class="modal-title">รายงานฟ้อง</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>One fine body…</p>
+          <div class="row">
+            <div class="col-md-6">
+              <label>จากวันที่ : </label>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control" />
+            </div>
+            <div class="col-md-6">
+              <label>ถึงวันที่ : </label>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control" />
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <label>สถานะ </label>
+              <div class="form-inline" style="border: 1px solid #D0D0CB; border-radius: 5px; padding:10px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" id="customCheckbox10" type="checkbox" name="Typetransfer[]" value="โอนจัดไฟแนนซ์">
+                  <label class="custom-control-label" for="customCheckbox10"></label> ชั้นศาล
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" id="customCheckbox11" type="checkbox" name="Typetransfer[]" value="โอนออก">
+                  <label class="custom-control-label" for="customCheckbox11"></label> สืบทรัพย์
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" id="customCheckbox12" type="checkbox" name="Typetransfer[]" value="จดทะเบียนรถใหม่">
+                  <label class="custom-control-label" for="customCheckbox12"></label> ชั้นบังคับคดี
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" id="customCheckbox13" type="checkbox" name="Typetransfer[]" value="อื่นๆ">
+                  <label class="custom-control-label" for="customCheckbox13"></label> จบงาน
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">Print</button>
         </div>
       </div>
       <!-- /.modal-content -->

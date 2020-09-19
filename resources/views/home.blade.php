@@ -14,7 +14,7 @@
                         @endif
                         <div class="row">
                             <section class="col-lg-8 connectedSortable ui-sortable">
-                                <div class="card">
+                                <div class="card card-primary">
                                     <div class="card-header ui-sortable-handle" style="cursor: move;">
                                         <h3 class="card-title">
                                         <i class="fas fa-chart-pie mr-1"></i>
@@ -39,10 +39,10 @@
                                         <div class="card-body">
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="tab_1">
-                                                    <div id="donutchart" align="center" style="width: 750px; height: 420px;"></div>
+                                                    <div id="donutchart" align="center" style="width: 700px; height: 400px;"></div>
                                                 </div>
                                                 <div class="tab-pane" id="tab_2">
-                                                    <div id="columnchart_values" style="width: 750px; height: 420px;"></div>
+                                                    <div id="columnchart_values" style="width: 700px; height: 400px;"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -50,11 +50,11 @@
                                 </div>          
                             </section>
                             <section class="col-lg-4 connectedSortable ui-sortable">
-                                <div class="card">
+                                <div class="card card-warning">
                                     <div class="card-header">
                                         <h3 class="card-title">
                                         <i class="fas fa-chart-bar mr-1"></i>
-                                            รายการล่าสุด
+                                            รายการฟ้องล่าสุด
                                         </h3>
 
                                         <div class="card-tools">
@@ -68,76 +68,30 @@
                                     </div>
                                     <div class="card-body p-0" style="display: block;">
                                         <ul class="products-list product-list-in-card pl-2 pr-2">
-                                        <li class="item">
-                                            <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 1
-                                                <span class="badge badge-warning float-right">ชั้นศาล</span></a>
-                                            <span class="product-description">
-                                                นาย ก
-                                            </span>
-                                            </div>
-                                        </li>
-                                        <!-- /.item -->
-                                        <li class="item">
-                                            <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 2
-                                                <span class="badge badge-info float-right">สืบทรัพย์</span></a>
-                                            <span class="product-description">
-                                                นาย ข
-                                            </span>
-                                            </div>
-                                        </li>
-                                        <!-- /.item -->
-                                        <li class="item">
-                                            <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 3
-                                                <span class="badge badge-danger float-right">ชั้นศาล</span>
-                                            </a>
-                                            <span class="product-description">
-                                                นาย ค
-                                            </span>
-                                            </div>
-                                        </li>
-                                        <!-- /.item -->
-                                        <li class="item">
-                                            <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 4
-                                                <span class="badge badge-success float-right">บังคับคดี</span></a>
-                                            <span class="product-description">
-                                                นาย ง
-                                            </span>
-                                            </div>
-                                        </li>
-                                        <!-- /.item -->
-                                        <li class="item">
-                                            <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                            </div>
-                                            <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">ลูกหนี้ที่ 5
-                                                <span class="badge badge-success float-right">สืบทรัพย์</span></a>
-                                            <span class="product-description">
-                                                นายห้า
-                                            </span>
-                                            </div>
-                                        </li>
-                                        <!-- /.item -->
+                                        @foreach($data as $key => $row)
+                                            <li class="item">
+                                                <div class="product-img text-center">
+                                                <!-- <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50"> -->
+                                                    @if($row->Type_Cus == 'กู้-บุคคล')
+                                                        <i class="fas fa-address-book fa-3x" title="กู้-บุคคล"></i>
+                                                    @elseif($row->Type_Cus == 'กู้-ทรัพย์')
+                                                        <i class="fas fa-suitcase fa-3x" title="กู้-ทรัพย์"></i>
+                                                    @endif
+                                                </div>
+                                                <div class="product-info">
+                                                <a href="javascript:void(0)" class="product-title">{{$row->Number_Cus}}
+                                                    <span class="badge badge-warning float-right">ชั้นศาล</span></a>
+                                                <span class="product-description">
+                                                {{$row->Name_Cus}}
+                                                </span>
+                                                </div>
+                                            </li>
+                                            <!-- /.item -->
+                                        @endforeach
                                         </ul>
                                     </div>
                                     <div class="card-footer text-center" style="display: block;">
-                                        <a href="javascript:void(0)" class="uppercase">View All Products</a>
+                                        <a href="{{ route('Debtor', 1) }}" class="uppercase">ดูทั้งหมด</a>
                                     </div>
                                 </div> 
                             </section>

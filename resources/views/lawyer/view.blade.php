@@ -191,24 +191,23 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right"> เลือกไฟล์ Excel :</label>
-                      <div class="col-sm-8">
-                        <input type="file" name="file" required/>
-                        <!-- <div class="form-group">
-                          <label for="exampleInputFile">File input</label>
+                      <!-- <label class="col-sm-4 col-form-label text-right"> เลือกไฟล์ Excel :</label> -->
+                      <label class="col-sm-4 col-form-label text-right" for="exampleInputFile">เลือกไฟล์ Excel :</label>
+                      <div class="col-sm-7">
+                        <!-- <input type="file" name="file" required/> -->
+                        <div class="form-group">
                           <div class="input-group">
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" id="exampleInputFile">
                               <label class="custom-file-label" for="exampleInputFile"> </label>
                             </div>
                           </div>
-                        </div> -->
+                        </div>
                       </div>
                       
                     </div>
                   </div>
                 </div>
-                <br/>
             </div>
             <div style="text-align: center;">
                 <button type="submit" class="btn btn-success text-center">อัพโหลด</button>
@@ -256,6 +255,12 @@
         "info": true,
         "autoWidth": false,
       });
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      bsCustomFileInput.init();
     });
   </script>
 

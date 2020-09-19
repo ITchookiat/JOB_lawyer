@@ -32,15 +32,16 @@ class HomeController extends Controller
         $date = $Y.'-'.$m.'-'.$d;
         $newdate = date('Y-m-d', strtotime('+3 days'));
 
-        // ระบบรถบ้าน
-        $data1 = 6; //รถในสต็อกทั้งหมด
-        $data2 = 2; //ระหว่างทำสี
-        $data3 = 3; //รอซ่อม
-        $data4 = 4; //ระหว่างซ่อม
-        $data5 = 5; //พร้อมขาย
-        $data6 = 1; //ขายแล้ว
-        // $data6 = data_car::where('car_type', '=', 6 )->count(); //ขายแล้ว
-        
-        return view($name, compact('data1','data2','data3','data4','data5','data6'));
+        $data = DB::table('data_cuses')
+              ->leftjoin('data_suretys','data_cuses.Cus_id','=','data_suretys.DataCus_id')
+              ->leftjoin('data_mortgagers','data_cuses.Cus_id','=','data_mortgagers.DataCus_id')
+            //   ->where('cardetails.Date_Appcar','=',Null)
+              ->orderBy('data_cuses.DateUser', 'DESC')
+              ->limit(5)
+              ->get();
+            
+        // $type = $request->type;
+        // return view('Debtor.view', compact('data','type'));
+        return view($name, compact('data'));
     }
 }
