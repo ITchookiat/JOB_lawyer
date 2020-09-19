@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('MasterDeptor','DebtorController');
     Route::get('/Debtor/view/{type}', 'DebtorController@index')->name('Debtor');
     Route::get('/Debtor/edit/{type}/{id}', 'DebtorController@edit');
+
+    Route::resource('MasterReport','ReportController');
+    Route::get('/Report/view/{type}', 'ReportController@index')->name('Report');
     
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
