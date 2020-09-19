@@ -84,7 +84,11 @@
               <li class="nav-item">
                 <a href="{{ route('Debtor', 1) }}" class="nav-link {{ Request::is('Debtor/view/1') ? 'active' : '' }}{{ Request::is('Debtor/edit/*') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
-                  <p>ติดตามลูกหนี้</p>
+                  <p>ติดตามลูกหนี้หลังฟ้อง</p>
+                </a>
+                <a href="#" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>สรุปผลลูกหนี้หลังฟ้อง</p>
                 </a>
               </li>
             </ul>
@@ -100,9 +104,29 @@
             </a>
             <ul class="nav nav-treeview" style="margin-left: 15px;">
               <li class="nav-item">
-                <a href="{{ route('Debtor', 2) }}" class="nav-link {{ Request::is('Debtor/view/2') ? 'active' : '' }}">
+                {{-- <a href="{{ route('Debtor', 2) }}" class="nav-link {{ Request::is('Debtor/view/2') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>ลูกหนี้แยกตามประเภท</p>
+                </a> --}}
+                <a href="#" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>รายงานลูกหนี้ กู้-บุคคล</p>
+                </a>
+                <a href="#" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>รายงานลูกหนี้ กู้-ทรัพย์</p>
+                </a>
+                <a href="#" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>รายงานลูกหนี้สืบทรัพย์</p>  
+                </a>
+                <a href="#" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>รายงานเบิกค่าใช้จ่ายลูกหนี้</p>  
+                </a>
+                <a href="#" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>รายงานลูกหนี้ปิดจบงาน</p>  
                 </a>
               </li>
             </ul>

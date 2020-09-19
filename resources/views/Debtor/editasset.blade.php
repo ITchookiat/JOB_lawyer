@@ -100,8 +100,7 @@
                             <i class="fas fa-sign"></i>&nbsp; สถานะ :
                             <select name="statusCus" class="form-control">
                               <option value="" selected>--------- status ----------</option>
-                              <option value="ประนอมหนี้" {{ ($data->Status_Cus === 'ประนอมหนี้') ? 'selected' : '' }}>ประนอมหนี้</option>
-                              <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Cus === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                              <option value="ปิดบัญชี" {{ ($data->Status_Cus === 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</option>
                               <option value="ถอนฟ้อง" {{ ($data->Status_Cus === 'ถอนฟ้อง') ? 'selected' : '' }}>ถอนฟ้อง</option>
                               @if($data->Status_Cus != Null)
                                 <option disabled>------------------------------</option>
@@ -197,7 +196,7 @@
                                     <option value="สืบทรัพย์ไม่เจอ" >สืบทรัพย์ไม่เจอ</option>
                                   </select>
                                   ค่าใช้จ่าย
-                                  <input type="text" id="Priceasset" name="Priceasset" class="form-control form-control-sm" value=""  placeholder="3,000.00" oninput="Comma();"/>
+                                  <input type="text" id="Priceasset" name="Priceasset" class="form-control form-control-sm" value="" placeholder="3,000.00" oninput="Comma();"/>
                                   วันที่สืบทรัพย์ใหม่
                                   <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control form-control-sm" value=""/>
                                 </div>
