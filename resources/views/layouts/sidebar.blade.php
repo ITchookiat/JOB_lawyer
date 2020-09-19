@@ -94,7 +94,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Debtor/view/2') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Report/view/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
@@ -108,23 +108,23 @@
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>ลูกหนี้แยกตามประเภท</p>
                 </a> --}}
-                <a href="#" class="nav-link">
+                <a href="{{ route('Report', 1) }}" class="nav-link {{ Request::is('Report/view/1') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>รายงานลูกหนี้ กู้-บุคคล</p>
                 </a>
-                <a href="#" class="nav-link">
+                <a href="{{ route('Report', 2) }}" class="nav-link {{ Request::is('Report/view/2') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>รายงานลูกหนี้ กู้-ทรัพย์</p>
                 </a>
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link {{ Request::is('Report/view/3') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>รายงานลูกหนี้สืบทรัพย์</p>  
                 </a>
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link {{ Request::is('Report/view/4') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>รายงานเบิกค่าใช้จ่ายลูกหนี้</p>  
                 </a>
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link {{ Request::is('Report/view/5') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>รายงานลูกหนี้ปิดจบงาน</p>  
                 </a>
