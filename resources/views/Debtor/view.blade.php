@@ -89,7 +89,7 @@
                                 <a href="{{ action('DebtorController@edit',[$type,$row->Cus_id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <i class="far fa-edit"></i>
                                 </a>
-                                <form method="post" class="delete_form" action="{{ action('DebtorController@destroy',[$type,$row->Cus_id]) }}" style="display:inline;">
+                                <form method="post" class="delete_form" action="{{ route('MasterDeptor.destroy',[$row->Cus_id]) }}?type={{1}}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
                                   <button type="submit" data-name="เลขที่สัญญา : {{$row->Number_Cus}}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">

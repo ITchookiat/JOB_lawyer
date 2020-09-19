@@ -31,9 +31,11 @@
       <section class="content">
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
-            <form name="form1" method="post" action="{{ action('DebtorController@update',[$type,$data->Cus_id]) }}" enctype="multipart/form-data">
+            <form name="form1" method="post" action="{{ route('MasterDeptor.update',[$data->Cus_id]) }}" enctype="multipart/form-data">
               @csrf
               @method('put')
+              <input type="hidden" name="type" value="1">
+
                 <div class="card text-sm">
                   <div class="card-header">
                     <div class="row">
@@ -283,45 +285,75 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="form-group">
-                              <div class="file-loading">
-                                <input id="file_image" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                            <div class="row">
+                              <div class="col-md-12">
+                                เลือกไฟล์ :
+                                <div class="input-group">
+                                  <div class="custom-file">
+                                    <input type="file" name="filePDF" class="custom-file-input" id="exampleInputFile" value="">
+                                    <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
 
+              <input type="hidden" name="_method" value="PATCH"/>
+            </form>
                       <div class="col-md-6">
                         <div class="card card-warning">
                           <div class="card-header">
                             <div class="card-title">
                               เอกสารสัญญา
                             </div>
-                            {{-- @if($data->License_car != NULL)
-                              @php
-                                $Setlisence = $data->License_car;
-                              @endphp
-                            @endif --}}
                             <div class="card-tools">
                               <a href="#" class="pull-left DeleteImage">
                                 <i class="far fa-trash-alt"></i>
                               </a>
                             </div>
                           </div>
-                          
                           <div class="card-body">
-                            <div class="row">
-                              @foreach($dataImage as $key => $images)
-                                @if($images->Type_file == "1")
-                                  <div class="col-sm-2">
-                                    <a href="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" data-toggle="lightbox" data-title="เอกสารสัญญา">
-                                      <img src="{{ asset('upload-image/'.$data->Number_Cus.'/'.$images->Name_file) }}" class="img-fluid mb-2" alt="white sample">
-                                    </a>
-                                  </div>
-                                @endif
-                              @endforeach
-                            </div>
+                              <div class="row">
+                                <div class="table-responsive">
+                                  <table class="table table-striped table-valign-middle" id="table1">
+                                    <thead>
+                                      <tr>
+                                        <th class="text-center"  style="width: 50px;">No.</th>
+                                        <th class="text-center">File Name</th>
+                                        <th class="text-center">Date Upload</th>
+                                        <th class="text-center">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($dataImage as $key => $row)
+                                        <tr>
+                                          <td class="text-center"> {{$key+1}}</td>
+                                          <td class="text-left"> 
+                                              {{-- <i class="fas fa-file-pdf-o text-red"></i> --}}
+                                            &nbsp;{{$row->Name_file}}
+                                          </td>
+                                          <td class="text-left">{{DateThai($row->Date_file)}}</td>
+                                          <td class="text-right">
+                                            <a target="_blank" href="{{ route('MasterDeptor.show',[$row->File_id]) }}?type={{1}}&Con={{$data->Number_Cus}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                              <i class="far fa-eye"></i>
+                                            </a>
+                                            <form method="post" class="delete_form" action="{{ route('MasterDeptor.destroy',[$row->File_id]) }}?Con={{$data->Number_Cus}}" style="display:inline;">
+                                              {{csrf_field()}}
+                                              <input type="hidden" name="type" value="2" />
+                                              <input type="hidden" name="_method" value="DELETE" />
+                                              <button type="submit" data-name="{{$row->Name_file}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
+                                                <i class="far fa-trash-alt"></i>
+                                              </button>
+                                            </form>
+                                          </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
                           </div>
                         </div>
                         
@@ -330,8 +362,7 @@
                     </div>
                   </div>
                 </div>
-                <input type="hidden" name="_method" value="PATCH"/>
-            </form>
+
             <a id="button"></a>
           </div>
         </div>
@@ -351,19 +382,10 @@
     })
   </script>
 
-  {{-- image --}}
   <script type="text/javascript">
-    $("#file_image").fileinput({
-      uploadUrl:"{{ route('MasterDeptor.store') }}",
-      theme:'fa',
-      uploadExtraData:function(){
-        return{
-          _token:"{{csrf_token()}}",
-        }
-      },
-      allowedFileExtensions:['jpg','png','gif'],
-      maxFileSize:10240
-    })
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
   </script>
 
   {{-- back-to-top --}}

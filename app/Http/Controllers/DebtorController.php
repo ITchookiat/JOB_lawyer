@@ -9,6 +9,7 @@ use App\DataCus;
 use App\DataMortgagers;
 use App\DataSuretys;
 use App\DataUploadFile;
+use App\ClassCourt;
 
 use DB;
 use Storage;
@@ -109,15 +110,24 @@ class DebtorController extends Controller
             ->leftjoin('data_mortgagers','data_cuses.Cus_id','=','data_mortgagers.DataCus_id')
             ->where('data_cuses.Cus_id',$id)->first();
 
-        $dataImage = DB::table('data_upload_files')->where('DataCus_id',$data->Cus_id)->get();
+        $dataImage = DB::table('data_upload_files')
+                ->where('DataCus_id',$data->Cus_id)
+                ->where('Type_file','=','fileCus')
+                ->get();
 
         return view('Debtor.edit',compact('data','type','dataImage'));
       }
       elseif ($type == 2) {
         $data = DB::table('data_cuses')
               ->where('data_cuses.Cus_id',$id)->first();
+
+        $dataImage = DB::table('data_upload_files')
+              ->where('DataCus_id',$data->Cus_id)
+              ->where('Type_file','=','fileCourt')
+              ->get();
+
         $Gettype = $type;
-        return view('Debtor.editcourt',compact('data','Gettype'));
+        return view('Debtor.editcourt',compact('data','Gettype','dataImage'));
       }
       elseif ($type == 3) {
         $data = DB::table('data_cuses')
@@ -133,9 +143,19 @@ class DebtorController extends Controller
       }
     }
 
-    public function update(Request $request, $type, $id)
+    public function show(Request $request, $id)
     {
-      if ($type == 1) {
+        if ($request->type == '1') {   //แสดงรูแ และเอกสาร
+            $dataFile = DataUploadFile::where('File_id', $id)->first();
+            $path = $request->Con;
+
+          return view('Debtor.preview',compact('dataFile','path'));
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+      if ($request->type == 1) {
         if ($request->get('principle') != Null) {
           $Setprinciple = str_replace (",","",$request->get('principle'));
         }else {
@@ -183,49 +203,80 @@ class DebtorController extends Controller
           $Mortgagers->update();
         }
 
-        $image_new_name = "";
-        if ($request->hasFile('file_image')) {
-          $image_array = $request->file('file_image');
-          $array_len = count($image_array);
-  
-          for ($i=0; $i < $array_len; $i++) {
-            $image_size = $image_array[$i]->getClientSize();
-            $image_lastname = $image_array[$i]->getClientOriginalExtension();
-            $image_new_name = Str::random(32).'.'.$image_array[$i]->getClientOriginalExtension();
-  
+        if ($request->hasFile('filePDF')) {
+          $image_array = $request->file('filePDF');
+
+            $image_size = $image_array->getClientSize();
+            $image_lastname = $image_array->getClientOriginalExtension();
+            $image_new_name = $image_array->getClientOriginalName();
+
             $destination_path = public_path().'/upload-image/'.$DataCus->Number_Cus;
-            Storage::makeDirectory($destination_path, 0777, true, true);
-            
-            $image_array[$i]->move($destination_path,$image_new_name);
-  
-            $SetType = 1; //ประเภทรูปภาพ รูปประกอบ
+            $image_array->move($destination_path,$image_new_name);
+
             $Uploaddb = new DataUploadFile([
               'DataCus_id' => $DataCus->Cus_id,
-              'Type_file' => $SetType,
+              'Type_file' => "fileCus",
               'Name_file' => $image_new_name,
               'Size_file' => $image_size,
               'Date_file' => date('Y-m-d'),
             ]);
             $Uploaddb ->save();
-          }
         }
+      }
+      elseif ($request->type == 2) {
+        $DataCourt = new ClassCourt([
+          'DataCus_id' => $id,
+          'Datefilling' => $request->get('Datefilling'),
+          'Branch' => $request->get('Branch'),
+          'NumBlack' => $request->get('NumBlack'),
+          'NumRed' => $request->get('NumRed'),
+          'Principal' => $request->get('Principal'),
+          'Sue' => $request->get('Sue'),
+          'Notefilling' => $request->get('Notefilling'),
+          'DateExamine' => $request->get('DateExamine'),
+          'NextExamine' => $request->get('NextExamine'),
+          'NoteExamine' => $request->get('NoteExamine'),
+          'DateCompulsory' => $request->get('DateCompulsory'),
+          'NextCompulsory' => $request->get('NextCompulsory'),
+          'DateSentence' => $request->get('DateSentence'),
+          'NoteCompulsory' => $request->get('NoteCompulsory'),
+          'DateSetofficer' => $request->get('DateSetofficer'),
+          'NextSetofficer' => $request->get('NextSetofficer'),
+          'NoteSetofficer' => $request->get('NoteSetofficer'),
+          'DateWarrant' => $request->get('DateWarrant'),
+          'NextWarrant' => $request->get('NextWarrant'),
+          'NoteWarrant' => $request->get('NoteWarrant'),
+          'Warrant_Flag' => $request->get('radio-receivedflag'),
+          'DateCall' => $request->get('DateCall'),
+          'UpdateCall' => $request->get('UpdateCall'),
+        ]);
+        $DataCourt->save();
       }
       return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
-    public function destroy(Request $request, $id, $type)
+    public function destroy(Request $request, $id)
     {
-      // dd($id,$type);
-      $item1 = DataCus::find($id);
-      if($item1->Type_Cus == 'กู้-บุคคล'){
-        $item2 = DataSuretys::where('DataCus_id',$id);
-        $item2->Delete();
-      }elseif($item1->Type_Cus == 'กู้-ทรัพย์'){
-        $item3 = DataMortgagers::where('DataCus_id',$id);
-        $item3->Delete();
+      // dd($request->type,$id);
+      if ($request->type == 1) {
+        $item1 = DataCus::find($id);
+        if($item1->Type_Cus == 'กู้-บุคคล'){
+          $item2 = DataSuretys::where('DataCus_id',$id);
+          $item2->Delete();
+        }elseif($item1->Type_Cus == 'กู้-ทรัพย์'){
+          $item3 = DataMortgagers::where('DataCus_id',$id);
+          $item3->Delete();
+        }
+        $item1->Delete();
+
+      }elseif ($request->type == 2) {
+        $item1 = DataUploadFile::where('File_id', $id)->first();
+        $itemPath = public_path().'/upload-image/'.$request->Con.'/'.$item1->Name_file;
+
+        File::delete($itemPath);
+        $item1->Delete();
       }
 
-      $item1->Delete();
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 }

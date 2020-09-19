@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataUploadFile extends Model
 {
     protected $table = 'data_upload_files';
-    protected $primaryKey = 'DataCus_id';
+    protected $primaryKey = 'File_id';
     protected $fillable = ['DataCus_id','Type_file','Name_file','Size_file','Date_file'];
 
     public function DataCus()
