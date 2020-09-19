@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   ที่อยู่ :
-                                  <textarea name="AddBorrower" class="form-control form-control-sm" style="width:100%" rows="3">{{ $data->Address_Surety }}</textarea>
+                                  <textarea name="AddBorrower" class="form-control form-control-sm" style="width:100%" rows="2">{{ $data->Address_Surety }}</textarea>
                                 </div>
                               </div>
                             @else
@@ -241,12 +241,13 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   ที่อยู่ :
-                                  <textarea name="AddMortgage" class="form-control" style="width:100%" rows="3">{{ $data->Address_Mortgager }}</textarea>
+                                  <textarea name="AddMortgage" class="form-control" style="width:100%" rows="2">{{ $data->Address_Mortgager }}</textarea>
                                 </div>
                               </div>
                             @endif
                           </div>
                         </div>
+                        
                         <div class="card card-success">
                           <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
@@ -269,7 +270,7 @@
                         </div>
                       </div>
                     </div>
-
+                    <hr>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="card card-warning">
