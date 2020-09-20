@@ -64,7 +64,7 @@
                             <th class="text-center" >วันทำสัญญา</th>-->
                             <th class="text-center" >จำนวนเงิน</th>
                             {{-- <th class="text-center" >ประเภทสัญญา</th> --}}
-                            <th class="text-center" >สถานะ</th> 
+                            <th class="text-center" width="200px">สถานะ</th> 
                             <th class="text-center" width="70px"></th>
                           </tr>
                         </thead>
@@ -83,7 +83,19 @@
                               <td class="text-left">{{$row->Name_Cus}}</td>
                               <td class="text-right">{{number_format($row->Principle_Cus,2)}}</td>
                               <td class="text-center">
-                                -
+                                @if($row->DateAssets != NULL)
+                                  <button type="button" class="btn btn-warning btn-xs">
+                                    <i class="fas fa-map-marked-alt prem"></i> ลูกหนี้ชั้นสืบทรัพย์
+                                  </button>
+                                @elseif($row->Datefilling != NULL)
+                                  <button type="button" class="btn btn-warning btn-xs">
+                                    <i class="fas fa-balance-scale prem"></i> ลูกหนี้ชั้นศาล
+                                  </button>
+                                @else
+                                  <button type="button" class="btn btn-danger btn-xs">
+                                    <i class="fas fa-user-lock prem"></i> รอดำเนินการ
+                                  </button>
+                                @endif
                               </td>
                               <td class="text-right">
                                 <a href="{{ action('DebtorController@edit',[$type,$row->Cus_id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -193,27 +205,33 @@
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้กู้</h3>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body text-sm">
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">ชื่อ-สกุล :</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namedeptor" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
+                            <input type="text" name="Namedeptor" class="form-control form-control-sm" placeholder="ป้อนชื่อ-สกุลผู้กู้" required/>
                           </div>
                         </div>
+                        <div class="form-group row mb-1">
+                          <label class="col-sm-3 col-form-label text-right">สาขา :</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="BranchCus" class="form-control form-control-sm" placeholder="ป้อนสาขา" required/>
+                            </div>
+                          </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group row mb-1">
                           <label class="col-sm-4 col-form-label text-right">เลขที่สัญญา :</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Contractdeptor" class="form-control" placeholder="ป้อนเลขที่สัญญา" maxlength="17"/>
+                            <input type="text" name="Contractdeptor" class="form-control form-control-sm" placeholder="ป้อนเลขที่สัญญา" maxlength="17"/>
                           </div>
                         </div>
                         <div class="form-group row mb-1">
                           <label class="col-sm-4 col-form-label text-right">ประเภทสัญญา</label>
                           <div class="col-sm-8">
-                            <select id="Typecontract" name="Typecontract" class="form-control" required>
+                            <select id="Typecontract" name="Typecontract" class="form-control form-control-sm" required>
                               <option value="" selected>--- เลือกประเภทสัญญา ---</option>
                               <option value="กู้-บุคคล">กู้-บุคคล</option>
                               <option value="กู้-ทรัพย์">กู้-ทรัพย์</option>
@@ -245,13 +263,13 @@
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้ค้ำ</h3>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body text-sm">
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
                         <label class="col-sm-3 col-form-label text-right">ชื่อ-สกุลผู้ค้ำ:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namesurety" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้ค้ำ"/>
+                            <input type="text" name="Namesurety" class="form-control form-control-sm" placeholder="ป้อนชื่อ-สกุลผู้ค้ำ"/>
                           </div>
                         </div>
                       </div>
@@ -259,8 +277,8 @@
                         <div class="form-group row mb-1">
                           <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
-                            <!-- <input type="text" name="Addressbuyer" class="form-control" placeholder="ชื่อที่อยู่"/> -->
-                            <textarea class="form-control" name="Addresssurety" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                            <!-- <input type="text" name="Addressbuyer" class="form-control form-control-sm" placeholder="ชื่อที่อยู่"/> -->
+                            <textarea class="form-control form-control-sm" name="Addresssurety" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
                         </div>
                       </div>
@@ -272,17 +290,17 @@
                   <div class="card-header">
                       <h3 class="card-title">รายละเอียดผู้จำนอง</h3>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body text-sm">
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row mb-1">
                           <label class="col-sm-3 col-form-label text-right">ชื่อ-สกุลผู้จำนอง:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Namemortgager" class="form-control" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
+                            <input type="text" name="Namemortgager" class="form-control form-control-sm" placeholder="ป้อนชื่อ-สกุลผู้จำนอง"/>
                           </div>
                           <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด:</label>
                           <div class="col-sm-8">
-                            <input type="text" name="Noland" class="form-control" placeholder="ป้อนเลขที่โฉนด"/>
+                            <input type="text" name="Noland" class="form-control form-control-sm" placeholder="ป้อนเลขที่โฉนด"/>
                           </div>
                         </div>
                       </div>
@@ -290,7 +308,7 @@
                         <div class="form-group row mb-1">
                           <label class="col-sm-4 col-form-label text-right">ที่อยู่ :</label>
                           <div class="col-sm-8">
-                            <textarea class="form-control" name="Addressmortgager" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
+                            <textarea class="form-control form-control-sm" name="Addressmortgager" rows="3" placeholder="ป้อนที่อยู่..."></textarea>
                           </div>
                         </div>
                       </div>
