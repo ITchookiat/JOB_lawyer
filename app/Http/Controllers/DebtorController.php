@@ -10,6 +10,7 @@ use App\DataMortgagers;
 use App\DataSuretys;
 use App\DataUploadFile;
 use App\ClassCourt;
+use App\ClassAssets;
 
 use DB;
 use Storage;
@@ -23,10 +24,11 @@ class DebtorController extends Controller
           $data = DB::table('data_cuses')
             ->leftjoin('data_suretys','data_cuses.Cus_id','=','data_suretys.DataCus_id')
             ->leftjoin('data_mortgagers','data_cuses.Cus_id','=','data_mortgagers.DataCus_id')
-          //   ->where('cardetails.Date_Appcar','=',Null)
+            ->leftjoin('class_courts','data_cuses.Cus_id','=','class_courts.DataCus_id')
+            ->leftjoin('class_assets','data_cuses.Cus_id','=','class_assets.DataCus_id')
             ->orderBy('data_cuses.DateUser', 'ASC')
             ->get();
-          
+
           $type = $request->type;
           return view('Debtor.view', compact('data','type'));
       }
@@ -79,6 +81,7 @@ class DebtorController extends Controller
         $DataCus = new DataCus([
             'Name_Cus' => $request->get('Namedeptor'),
             'Number_Cus' => $request->get('Contractdeptor'),
+            'Branch_Cus' => $request->get('BranchCus'),
             'Type_Cus' => $request->get('Typecontract'),
 
             'NameUser' => auth()->user()->name,
@@ -131,7 +134,8 @@ class DebtorController extends Controller
       }
       elseif ($type == 2) {
         $data = DB::table('data_cuses')
-              ->where('data_cuses.Cus_id',$id)->first();
+            ->leftjoin('class_courts','data_cuses.Cus_id','=','class_courts.DataCus_id')
+            ->where('data_cuses.Cus_id',$id)->first();
 
         $dataImage = DB::table('data_upload_files')
               ->where('DataCus_id',$data->Cus_id)
@@ -141,17 +145,19 @@ class DebtorController extends Controller
         $Gettype = $type;
         return view('Debtor.editcourt',compact('data','Gettype','dataImage'));
       }
-      elseif ($type == 3) {
+      elseif ($type == 3) {   //สืบทรัพย์
         $data = DB::table('data_cuses')
-              ->where('data_cuses.Cus_id',$id)->first();
+            ->leftjoin('class_assets','data_cuses.Cus_id','=','class_assets.DataCus_id')
+            ->where('data_cuses.Cus_id',$id)->first();
+
         $Gettype = $type;
-        return view('Debtor.editcourtcase',compact('data','Gettype'));
+        return view('Debtor.editasset',compact('data','Gettype'));
       }
       elseif ($type == 4) {
         $data = DB::table('data_cuses')
               ->where('data_cuses.Cus_id',$id)->first();
         $Gettype = $type;
-        return view('Debtor.editasset',compact('data','Gettype'));
+        return view('Debtor.editcourtcase',compact('data','Gettype'));
       }
     }
 
@@ -191,6 +197,7 @@ class DebtorController extends Controller
           }
           $DataCus->Name_Cus = $request->get('Namedeptor');
           $DataCus->Number_Cus = $request->get('Contractdeptor');
+          $DataCus->Branch_Cus = $request->get('BranchCus');
           $DataCus->Address_Cus = $request->get('Addressdeptor');
           $DataCus->DateCon_Cus = $request->get('DateContract');
           $DataCus->Principle_Cus = $Setprinciple;
@@ -235,34 +242,90 @@ class DebtorController extends Controller
             $Uploaddb ->save();
         }
       }
-      elseif ($request->type == 2) {
-        $DataCourt = new ClassCourt([
-          'DataCus_id' => $id,
-          'Datefilling' => $request->get('Datefilling'),
-          'Branch' => $request->get('Branch'),
-          'NumBlack' => $request->get('NumBlack'),
-          'NumRed' => $request->get('NumRed'),
-          'Principal' => $request->get('Principal'),
-          'Sue' => $request->get('Sue'),
-          'Notefilling' => $request->get('Notefilling'),
-          'DateExamine' => $request->get('DateExamine'),
-          'NextExamine' => $request->get('NextExamine'),
-          'NoteExamine' => $request->get('NoteExamine'),
-          'DateCompulsory' => $request->get('DateCompulsory'),
-          'NextCompulsory' => $request->get('NextCompulsory'),
-          'DateSentence' => $request->get('DateSentence'),
-          'NoteCompulsory' => $request->get('NoteCompulsory'),
-          'DateSetofficer' => $request->get('DateSetofficer'),
-          'NextSetofficer' => $request->get('NextSetofficer'),
-          'NoteSetofficer' => $request->get('NoteSetofficer'),
-          'DateWarrant' => $request->get('DateWarrant'),
-          'NextWarrant' => $request->get('NextWarrant'),
-          'NoteWarrant' => $request->get('NoteWarrant'),
-          'Warrant_Flag' => $request->get('radio-receivedflag'),
-          'DateCall' => $request->get('DateCall'),
-          'UpdateCall' => $request->get('UpdateCall'),
-        ]);
-        $DataCourt->save();
+      elseif ($request->type == 2) {    //ชั้นศาล
+        $DataCourt = ClassCourt::where('DataCus_id',$id)->first();
+
+        if ($DataCourt != NULL) {
+            $DataCourt->Datefilling = $request->get('Datefilling');
+            $DataCourt->Branch = $request->get('Branch');
+            $DataCourt->NumBlack = $request->get('NumBlack');
+            $DataCourt->NumRed = $request->get('NumRed');
+            $DataCourt->Principal = $request->get('Principal');
+            $DataCourt->Sue = $request->get('Sue');
+            $DataCourt->Notefilling = $request->get('Notefilling');
+            $DataCourt->DateExamine = $request->get('DateExamine');
+            $DataCourt->NextExamine = $request->get('NextExamine');
+            $DataCourt->NoteExamine = $request->get('NoteExamine');
+            $DataCourt->DateCompulsory = $request->get('DateCompulsory');
+            $DataCourt->NextCompulsory = $request->get('NextCompulsory');
+            $DataCourt->DateSentence = $request->get('DateSentence');
+            $DataCourt->NoteCompulsory = $request->get('NoteCompulsory');
+            $DataCourt->DateSetofficer = $request->get('DateSetofficer');
+            $DataCourt->NextSetofficer = $request->get('NextSetofficer');
+            $DataCourt->NoteSetofficer = $request->get('NoteSetofficer');
+            $DataCourt->DateWarrant = $request->get('DateWarrant');
+            $DataCourt->NextWarrant = $request->get('NextWarrant');
+            $DataCourt->NoteWarrant = $request->get('NoteWarrant');
+            $DataCourt->Warrant_Flag = $request->get('radio-receivedflag');
+            $DataCourt->DateCall = $request->get('DateCall');
+            $DataCourt->UpdateCall = $request->get('UpdateCall');
+          $DataCourt->update();
+        }else {
+          $DataCourt = new ClassCourt([
+            'DataCus_id' => $id,
+            'Datefilling' => $request->get('Datefilling'),
+            'Branch' => $request->get('Branch'),
+            'NumBlack' => $request->get('NumBlack'),
+            'NumRed' => $request->get('NumRed'),
+            'Principal' => $request->get('Principal'),
+            'Sue' => $request->get('Sue'),
+            'Notefilling' => $request->get('Notefilling'),
+            'DateExamine' => $request->get('DateExamine'),
+            'NextExamine' => $request->get('NextExamine'),
+            'NoteExamine' => $request->get('NoteExamine'),
+            'DateCompulsory' => $request->get('DateCompulsory'),
+            'NextCompulsory' => $request->get('NextCompulsory'),
+            'DateSentence' => $request->get('DateSentence'),
+            'NoteCompulsory' => $request->get('NoteCompulsory'),
+            'DateSetofficer' => $request->get('DateSetofficer'),
+            'NextSetofficer' => $request->get('NextSetofficer'),
+            'NoteSetofficer' => $request->get('NoteSetofficer'),
+            'DateWarrant' => $request->get('DateWarrant'),
+            'NextWarrant' => $request->get('NextWarrant'),
+            'NoteWarrant' => $request->get('NoteWarrant'),
+            'Warrant_Flag' => $request->get('radio-receivedflag'),
+            'DateCall' => $request->get('DateCall'),
+            'UpdateCall' => $request->get('UpdateCall'),
+          ]);
+          $DataCourt->save();
+        }
+      }
+      elseif ($request->type == 3) {    //สืบทรัพย์
+        $DataAssets = ClassAssets::where('DataCus_id',$id)->first();
+
+        if ($DataAssets != NULL) {
+            $DataAssets->DateAssets = $request->get('DateAssets');
+            $DataAssets->Determine = $request->get('Determine');
+            $DataAssets->Consequence = $request->get('Consequence');
+            $DataAssets->Charges = $request->get('Charges');
+            $DataAssets->NextDateAssets = $request->get('NextDateAssets');
+            $DataAssets->NoteAssets = $request->get('NoteAssets');
+          $DataAssets->update();
+        }else {
+          $DataAssets = new ClassAssets([
+            'DataCus_id' => $id,
+            'DateAssets' => $request->get('DateAssets'),
+            'Determine' => $request->get('Determine'),
+            'Consequence' => $request->get('Consequence'),
+            'Charges' => $request->get('Charges'),
+            'NextDateAssets' => $request->get('NextDateAssets'),
+            'NoteAssets' => $request->get('NoteAssets'),
+          ]);
+          $DataAssets->save();
+        }
+      }
+      elseif ($request->type == 4) {
+        # code...
       }
       return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
     }

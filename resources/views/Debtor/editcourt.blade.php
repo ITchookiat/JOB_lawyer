@@ -143,10 +143,10 @@
                                 <a class="nav-link active" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
+                                <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">สืบทรัพย์</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
+                                <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
                               </li>
                             </ul>
                           </div>
@@ -491,40 +491,40 @@
                               <div class="row">
                                 <div class="col-md-3">
                                   วันที่ฟ้อง
-                                  <input type="date" id="Datefilling" name="Datefilling" class="form-control form-control-sm" value="" required/>
+                                  <input type="date" id="Datefilling" name="Datefilling" class="form-control form-control-sm" value="{{ $data->Datefilling }}" required/>
                                 </div>
                                 <div class="col-md-3">
                                   ศาล
                                   <select name="Branch" class="form-control form-control-sm">
                                     <option value="" selected>--- ศาล ---</option>
-                                    <option value="ศาลปัตตานี">ศาลปัตตานี</option>
-                                    <option value="ศาลยะลา" >ศาลยะลา</option>
-                                    <option value="ศาลนราธิวาส" >ศาลนราธิวาส</option>
-                                    <option value="ศาลเบตง" >ศาลเบตง</option>
-                                    <option value="ศาลนาทวี" >ศาลนาทวี</option>
+                                    <option value="ศาลปัตตานี" {{ ($data->Branch === 'ศาลปัตตานี') ? 'selected' : '' }}>ศาลปัตตานี</option>
+                                    <option value="ศาลยะลา" {{ ($data->Branch === 'ศาลยะลา') ? 'selected' : '' }}>ศาลยะลา</option>
+                                    <option value="ศาลนราธิวาส" {{ ($data->Branch === 'ศาลนราธิวาส') ? 'selected' : '' }}>ศาลนราธิวาส</option>
+                                    <option value="ศาลเบตง" {{ ($data->Branch === 'ศาลเบตง') ? 'selected' : '' }}>ศาลเบตง</option>
+                                    <option value="ศาลนาทวี" {{ ($data->Branch === 'ศาลนาทวี') ? 'selected' : '' }}>ศาลนาทวี</option>
                                   </select>
                                 </div>
                                 <div class="col-md-3">
                                   เลขคดีดำ
-                                  <input type="text" name="NumBlack" class="form-control form-control-sm" value="" />
+                                  <input type="text" name="NumBlack" class="form-control form-control-sm" value="{{ $data->NumBlack }}"/>
                                 </div>
                                 <div class="col-md-3">
                                   เลขคดีแดง
-                                  <input type="text" name="NumRed" class="form-control form-control-sm" value=""  />
+                                  <input type="text" name="NumRed" class="form-control form-control-sm" value="{{ $data->NumRed }}"/>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-3">
                                   ทุนทรัพย์
-                                  <input type="text" id="Principal" name="Principal" class="form-control form-control-sm" value="" oninput="CalculateCap();"/>
+                                  <input type="text" id="Principal" name="Principal" class="form-control form-control-sm" value="{{ $data->Principal }}" oninput="CalculateCap();"/>
                                 </div>
                                 <div class="col-md-3">
                                   ค่าฟ้อง
-                                  <input type="text" id="Sue" name="Sue" class="form-control form-control-sm" value="" placeholder="5,000.00"  oninput="CalculateCap();"/>
+                                  <input type="text" id="Sue" name="Sue" class="form-control form-control-sm" value="{{ $data->Sue }}" placeholder="5,000.00"  oninput="CalculateCap();"/>
                                 </div>
                                 <div class="col-md-6">
                                   บันทึกเหตุขัดข้อง
-                                  <textarea name="Notefilling" class="form-control" style="width:100%" rows="2"></textarea>
+                                  <textarea name="Notefilling" class="form-control" style="width:100%" rows="2">{{ $data->Notefilling }}</textarea>
                                 </div>
                               </div>
                             </div>      
@@ -532,35 +532,35 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่สืบพยาน
-                                  <input type="date" id="DateExamine" name="DateExamine" class="form-control form-control-sm" value="" oninput="CourtDate();" />
+                                  <input type="date" id="DateExamine" name="DateExamine" class="form-control form-control-sm" value="{{ $data->DateExamine }}" oninput="CourtDate();" />
                                 </div>
                                 <div class="col-md-6">
                                   วันที่เลือน
-                                  <input type="date" id="NextExamine" name="NextExamine" class="form-control form-control-sm" value="" oninput="CourtDate();" />
+                                  <input type="date" id="NextExamine" name="NextExamine" class="form-control form-control-sm" value="{{ $data->NextExamine }}" oninput="CourtDate();" />
                                 </div>
                               </div>
                               บันทึกเหตุขัดข้อง
-                              <textarea name="NoteExamine" class="form-control" rows="2"></textarea>
+                              <textarea name="NoteExamine" class="form-control" rows="2">{{ $data->NoteExamine }}</textarea>
                             </div>
                             <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่ส่งคำบังคับ
-                                  <input type="date" id="DateCompulsory" name="DateCompulsory" class="form-control form-control-sm" value="" readonly/>
+                                  <input type="date" id="DateCompulsory" name="DateCompulsory" class="form-control form-control-sm" value="{{ $data->DateCompulsory }}" readonly/>
                                 </div>
                                 <div class="col-md-6">
                                   วันที่ส่งจริง
-                                  <input type="date" id="NextCompulsory" name="NextCompulsory" class="form-control form-control-sm" value="" oninput="CourtDate();" />
+                                  <input type="date" id="NextCompulsory" name="NextCompulsory" class="form-control form-control-sm" value="{{ $data->NextCompulsory }}" oninput="CourtDate();" />
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-6">
                                   วันคัดคำพิพากษา
-                                  <input type="date" id="DateSentence" name="DateSentence" class="form-control form-control-sm" value=""/>
+                                  <input type="date" id="DateSentence" name="DateSentence" class="form-control form-control-sm" value="{{ $data->DateSentence }}"/>
                                 </div>
                                 <div class="col-md-6">
                                   บันทึกเหตุขัดข้อง
-                                  <textarea name="NoteCompulsory" class="form-control" style="width:100%" rows="2"></textarea>
+                                  <textarea name="NoteCompulsory" class="form-control" style="width:100%" rows="2">{{ $data->NoteCompulsory }}</textarea>
                                 </div>
                               </div>
                             </div>
@@ -568,17 +568,17 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันทีตั้งเจ้าพนักงาน
-                                  <input type="date" id="DateSetofficer" name="DateSetofficer" class="form-control form-control-sm" value="" readonly/>
+                                  <input type="date" id="DateSetofficer" name="DateSetofficer" class="form-control form-control-sm" value="{{ $data->DateSetofficer }}" readonly/>
                                 </div>
                                 <div class="col-md-6">
                                   วันที่ส่งจริง
-                                  <input type="date" id="NextSetofficer" name="NextSetofficer" class="form-control form-control-sm" value="" oninput="CheckMessege();CourtDate2();"/>
+                                  <input type="date" id="NextSetofficer" name="NextSetofficer" class="form-control form-control-sm" value="{{ $data->NextSetofficer }}" oninput="CheckMessege();CourtDate2();"/>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-12">
                                   บันทึกเหตุขัดข้อง
-                                  <textarea name="NoteSetofficer" class="form-control" style="width:100%" rows="2"></textarea>
+                                  <textarea name="NoteSetofficer" class="form-control" style="width:100%" rows="2">{{ $data->NoteSetofficer }}</textarea>
                                 </div>
                               </div>
                             </div>
@@ -588,35 +588,39 @@
                                   <div class="row">
                                     <div class="col-md-6">
                                       วันที่ตรวจผลหมายตั้ง
-                                      <input type="date" id="DateWarrant" name="DateWarrant" class="form-control form-control-sm" value="" readonly/>
+                                      <input type="date" id="DateWarrant" name="DateWarrant" class="form-control form-control-sm" value="{{ $data->DateWarrant }}" readonly/>
                                     </div>
                                     <div class="col-md-6">
                                       วันที่ตรวจจริง
-                                      <input type="date" id="NextWarrant" name="NextWarrant" class="form-control form-control-sm" value="" oninput="Datesuccess();"/>
+                                      <input type="date" id="NextWarrant" name="NextWarrant" class="form-control form-control-sm" value="{{ $data->NextWarrant }}" oninput="Datesuccess();"/>
                                     </div>
                                     <div class="col-md-12">
                                       บันทึกเหตุขัดข้อง
-                                      <textarea name="NoteWarrant" class="form-control" style="width:100%" rows="2"></textarea>
+                                      <textarea name="NoteWarrant" class="form-control" style="width:100%" rows="2">{{ $data->NoteWarrant }}</textarea>
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="row" align="center">
                                     <div class="col-md-6">
-                                      <input type="radio" id="test3" name="radio-receivedflag" value="ได้รับ" onclick="Functionhidden2()" />
+                                      <input type="radio" id="test3" name="radio-receivedflag" value="ได้รับ" {{ ($data->Warrant_Flag === 'ได้รับ') ? 'checked' : '' }} onclick="Functionhidden2()" />
                                       <label for="test3">ได้รับ</label>
                                     </div>
                                     <div class="col-md-6">
-                                      <input type="radio" id="test4" name="radio-receivedflag" value="ไม่ได้รับ" onclick="FunctionRadio2()" />
+                                      <input type="radio" id="test4" name="radio-receivedflag" value="ไม่ได้รับ" {{ ($data->Warrant_Flag === 'ไม่ได้รับ') ? 'checked' : '' }} onclick="FunctionRadio2()" />
                                       <label for="test4">ไม่ได้รับ</label>
                                     </div>
                                   </div>
                                   <div class="col-md-12">
-                                    <div id="myDIV" style="display:none;">
+                                    @if($data->Warrant_Flag == 'ไม่ได้รับ')
+                                      <div id="myDIV">
+                                    @else
+                                      <div id="myDIV" style="display:none;">
+                                    @endif
                                       วันทีโทร
-                                      <input type="date" id="DateCall" name="DateCall" class="form-control form-control-sm" value="" />
+                                      <input type="date" id="DateCall" name="DateCall" class="form-control form-control-sm" value="{{ $data->Notefilling }}" />
                                       วันทีไปรับ
-                                      <input type="date" id="UpdateCall" name="UpdateCall" class="form-control form-control-sm" value="" oninput="Datesuccess()"/>
+                                      <input type="date" id="UpdateCall" name="UpdateCall" class="form-control form-control-sm" value="{{ $data->Notefilling }}" oninput="Datesuccess()"/>
                                     </div>
                                   </div>
                                 </div>

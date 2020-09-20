@@ -73,10 +73,10 @@
                               <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
+                              <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">สืบทรัพย์</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link active" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
+                              <a class="nav-link active" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
                             </li>
                           </ul>
                         </div>
@@ -110,12 +110,12 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่คัดโฉนด
-                                  <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control form-control-sm" value="" onchange="CourtcaseDate();" />
+                                  <input type="date" id="DateDeed" name="DateDeed" class="form-control form-control-sm" value="" onchange="CourtcaseDate();" />
                                   <br>
                                 </div>
                                 <div class="col-md-6">
                                   หมายเหตุ
-                                  <textarea name="noteprepare" class="form-control" rows="3"></textarea>
+                                  <textarea name="NoteDocCase" class="form-control" rows="3"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -123,12 +123,12 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
-                                  <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control form-control-sm" value="" />
+                                  <input type="date" id="seizure" name="seizure" class="form-control form-control-sm" value="" />
                                 </div>
                                 
                                 <div class="col-md-6">
                                   ประกาศขาย
-                                  <select id="ResultSequester" name="ResultSequester" class="form-control form-control-sm">
+                                  <select id="Selling" name="Selling" class="form-control form-control-sm">
                                     <option value="" selected>--- เลือกผลการประกาศขาย ---</option>
                                     <option value="ขายได้">ขายได้</option>
                                     <option value="ขายไม่ได้">ขายไม่ได้</option>
@@ -137,8 +137,8 @@
                               </div>
 
                               <script>
-                                  $('#ResultSequester').change(function(){
-                                    var value = document.getElementById('ResultSequester').value;
+                                  $('#Selling').change(function(){
+                                    var value = document.getElementById('Selling').value;
                                       if(value == 'ขายไม่ได้'){
                                         $('#ShowDetail1').show();
                                         $('#ShowDetail2').hide();
@@ -163,58 +163,6 @@
 
                               <div class="row">
                                 <div class="col-md-6">
-                                  {{-- สถานะบังคับคดี
-                                  <select id="StatusCase" name="StatusCase" class="form-control">
-                                    <option value="" selected>--- สถานะ ---</option>
-                                    <option value="ถอนบังคับคดีปิดบัญชี">ถอนบังคับคดีปิดบัญชี</option>
-                                    <option value="ถอนบังคับคดียึดรถ">ถอนบังคับคดียึดรถ</option>
-                                    <option value="ประนอมหลังยึดทรัพย์">ประนอมหลังยึดทรัพย์</option>
-                                    <option value="ถอนบังคับคดียอดเหลือน้อย">ถอนบังคับคดียอดเหลือน้อย</option>
-                                    <option value="ถอนบังคับคดีขายเต็มจำนวน">ถอนบังคับคดีขายเต็มจำนวน</option>
-                                  </select> --}}
-                                
-                                  <div id="StatusShow1" style="display:none;">
-                                    <div class="form-inline">
-                                      <br><br><br>
-                                      <div class="col-md-7">
-                                        วันที่เลือกสถานะ
-                                        <input type="date" id="DateStatusCase1" name="DateStatusCase1" class="form-control" value="" readonly/> 
-                                      </div>
-                                      <div class="col-md-5">
-                                        ยอดพิพากษา
-                                        <input type="text" id="txtStatusCase1" name="txtStatusCase1" class="form-control" style="width: 130px;" value="" />
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div id="StatusShow2" style="display:none;">
-                                    <div class="form-inline">
-                                      <br><br><br>
-                                      <div class="col-md-7">
-                                        วันที่เลือกสถานะ
-                                        <input type="date" id="DateStatusCase2" name="DateStatusCase2" class="form-control" value="" readonly/> 
-                                      </div>
-                                      <div class="col-md-5">
-                                        วันที่ยึดรถ
-                                        <input type="date" id="txtStatusCase2" name="txtStatusCase2" class="form-control" style="width: 150px;" value="" />
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div id="StatusShow3" style="display:none;">
-                                    <div class="form-inline">
-                                      <br><br><br>
-                                      <div class="col-md-7">
-                                        วันที่เลือกสถานะ
-                                        <input type="date" id="DateStatusCase3" name="DateStatusCase3" class="form-control" value="" readonly/> 
-                                      </div>
-                                      <div class="col-md-5">
-                                        ยอดเหลือน้อย
-                                        <input type="text" id="txtStatusCase3" name="txtStatusCase3" class="form-control" style="width: 120px;" value="" />
-                                      </div>
-                                    </div>
-                                  </div>
-
                                   หมายเหตุ
                                   <textarea name="Notesequester" class="form-control" rows="3"></textarea>
                                 </div>
@@ -224,7 +172,7 @@
                                     <div class="row">
                                       <div class="col-md-12">
                                         วันที่จ่ายเงิน
-                                        <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control form-control-sm" value="" />
+                                        <input type="date" id="DatePrice" name="DatePrice" class="form-control form-control-sm" value="" />
                                       </div>
                                     </div>
                                     <br>
@@ -237,7 +185,7 @@
                                           </div>
                                           <div class="col-md-5">
                                             เงินค่าใช้จ่าย
-                                            <input type="text" id="Paidseguester" name="Paidseguester" class="form-control form-control-sm" style="width: 130px;" value="" />
+                                            <input type="text" id="Cashpay" name="Cashpay" class="form-control form-control-sm" style="width: 130px;" value="" />
                                           </div>
                                         </div>
                                       </div>

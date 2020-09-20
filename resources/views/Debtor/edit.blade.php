@@ -95,10 +95,10 @@
                                   <a class="nav-link" href="{{ action('DebtorController@edit',[2,$data->Cus_id]) }}">ชั้นศาล</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">สืบทรัพย์</a>
+                                  <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">สืบทรัพย์</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" href="{{ action('DebtorController@edit',[3,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
+                                  <a class="nav-link" href="{{ action('DebtorController@edit',[4,$data->Cus_id]) }}">ชั้นบังคับคดี</a>
                                 </li>
                               </ul>
                             </div>
@@ -151,6 +151,10 @@
                               <div class="col-md-6">
                                 เลขที่สัญญา :
                                 <input type="text" name="Contractdeptor" value="{{ $data->Number_Cus }}" class="form-control form-control-sm">
+                              </div>
+                              <div class="col-md-6">
+                                สาขา :
+                                <input type="text" name="BranchCus" value="{{ $data->Branch_Cus }}" class="form-control form-control-sm">
                               </div>
                             </div>
 
