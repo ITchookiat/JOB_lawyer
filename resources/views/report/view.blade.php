@@ -33,19 +33,17 @@
                   <div class="row">
                     <div class="col-8">
                       <div class="form-inline">
-                        <h4>
                         @if($type == 1)
-                          <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้ กู้-บุคคล</b></h4>
+                          <h5 class="" style="text-align:center;"><b>รายงานลูกหนี้ กู้-บุคคล</b></h5>
                         @elseif($type == 2)
-                          <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้ กู้-ทรัพย์</b></h4>
+                          <h5 class="" style="text-align:center;"><b>รายงานลูกหนี้ กู้-ทรัพย์</b></h5>
                         @elseif($type == 3)
-                        <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้สืบทรัพย์</b></h4>
+                          <h5 class="" style="text-align:center;"><b>รายงานลูกหนี้สืบทรัพย์</b></h5>
                         @elseif($type == 4)
-                        <h4 class="" style="text-align:center;"><b>รายงานเบิกค่าใช้จ่ายลูกหนี้</b></h4>
+                          <h5 class="" style="text-align:center;"><b>รายงานเบิกค่าใช้จ่ายลูกหนี้</b></h5>
                         @elseif($type == 5)
-                        <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้ปิดจบงาน</b></h4>
+                          <h5 class="" style="text-align:center;"><b>รายงานลูกหนี้ปิดจบงาน</b></h5>
                         @endif
-                        </h4>
                       </div>
                     </div>
                     <!-- <div class="col-4">
@@ -69,9 +67,9 @@
                               <span class="fas fa-print"></span> ปริ้นรายงาน
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                              <li><a target="_blank" class="dropdown-item" href="#"><i class="fas fa-file-pdf text-red"></i> &nbsp;Export PDF</a></li>
+                              <li><a target="_blank" class="dropdown-item" href="{{ route('MasterReport.show',[1]) }}?typeCus={{$typeCus}}"><i class="fas fa-file-pdf text-red"></i> &nbsp;Export PDF</a></li>
                               <li class="divider"></li>
-                              <li><a target="_blank" class="dropdown-item" href="#"><i class="fas fa-file-excel text-green"></i> &nbsp;Export EXCEL</a></li>
+                              <li><a target="_blank" class="dropdown-item" href="{{ route('MasterReport.show',[2]) }}?typeCus={{$typeCus}}"><i class="fas fa-file-excel text-green"></i> &nbsp;Export EXCEL</a></li>
                             </ul>
                           </div>
                           <button type="submit" class="btn bg-warning btn-app">

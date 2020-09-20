@@ -157,7 +157,7 @@
                             <div class="row">
                               <div class="col-md-12">
                                 ที่อยู่ :
-                                <textarea name="Addressdeptor" class="form-control" style="width:100%" rows="3">{{ $data->Address_Mortgager }}</textarea>
+                                <textarea name="Addressdeptor" class="form-control" style="width:100%" rows="3">{{ $data->Address_Cus }}</textarea>
                               </div>
                             </div>
                             <p></p>

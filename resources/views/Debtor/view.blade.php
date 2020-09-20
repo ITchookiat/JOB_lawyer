@@ -29,19 +29,34 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  @if($type == 1)
-                    <h5 class="" style="text-align:center;"><b>ติดตามลูกหนี้หลังฟ้อง</b></h5>
-                  @elseif($type == 2)
-                    <h4 class="" style="text-align:center;"><b>รายงานลูกหนี้</b></h4>
-                  @endif
+                <div class="row">
+                    <div class="col-8">
+                      <div class="form-inline">
+                        @if($type == 1)
+                          <h5 class="" style="text-align:center;"><b>ติดตามลูกหนี้หลังฟ้อง</b></h5>
+                        @elseif($type == 2)
+                          <h5 class="" style="text-align:center;"><b>สรุปผลลูกหนี้หลังฟ้อง</b></h5>
+                        @endif
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-tools d-inline float-right">
+                        @if(auth::user()->type == "Admin")
+                          <a class="btn bg-primary" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
+                            <span class="fas fa-plus-circle"></span> เพิ่ม
+                          </a>
+                        @endif
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="card-body text-sm">
                   @if($type == 1)
                     <form method="get" action="#">
                       <div class="float-right form-inline">
-                        <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
+                        <!-- <a class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-add" data-backdrop="static">
                           <span class="fas fa-plus"></span> เพิ่มรายการ
-                        </a>
+                        </a> -->
                         <button type="submit" class="btn bg-warning btn-app">
                           <span class="fas fa-search"></span> Search
                         </button>
@@ -104,71 +119,114 @@
                     </div>
                   
                   @elseif($type == 2)
-                    <form method="get" action="{{ route('Debtor',2) }}">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="float-right form-inline">
-                            <a target="_blank" class="btn bg-blue btn-app" data-toggle="modal" data-target="#modal-report">
-                              <i class="fas fa-print"></i> ปริ้นรายงาน
-                            </a>
-                            <button type="submit" class="btn bg-warning btn-app">
-                              <span class="fas fa-search"></span> Search
-                            </button>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="card card-primary">
+                          <div class="card-header ui-sortable-handle" style="cursor: move;">
+                              <h3 class="card-title">
+                              <i class="fas fa-chart-pie mr-1"></i>
+                              สรุปผลลูกหนี้
+                              </h3>
+                              <div class="card-tools">
+                                  <ul class="nav nav-pills ml-auto">
+                                      <li class="nav-item">
+                                      <a class="nav-link" href="#tab_1" data-toggle="tab">
+                                          Donut
+                                      </a>
+                                      </li>
+                                      <li class="nav-item">
+                                      <a class="nav-link" href="#tab_2" data-toggle="tab">
+                                          Chart
+                                      </a>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="table-responsive">
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <div id="donutchart" align="center" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_2">
+                                        <div id="columnchart_values" align="center" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="float-right form-inline">
-                            <label>จากวันที่ : </label>
-                            <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-                            <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-                            <!-- <label>ประเภทสัญญา : </label>
-                            <select name="status" class="form-control" id="text">
-                              <option selected value="">--- เลือกประเภท ---</option>
-                              <option value="กู้-บุคคล" {{ ($status == 'กู้-บุคคล') ? 'selected' : '' }}>กู้-บุคคล</otion>
-                              <option value="กู้-ทรัพย์" {{ ($status == 'กู้-ทรัพย์') ? 'selected' : '' }}>กู้-ทรัพย์</otion>
-                            </select> -->
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <hr>
-                    <div class="table-responsive">
-                      <table id="table1" class="table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <th class="text-center" >ลำดับ</th>
-                            <th class="text-center" >เลขที่สัญญา</th>
-                            <th class="text-center" >ชื่อ - สกุล</th>
-                            <!-- <th class="text-center" >เลขที่สมาชิก</th>
-                            <th class="text-center" >วันทำสัญญา</th>-->
-                            <th class="text-center" >จำนวนเงิน</th>
-                            <th class="text-center" >ประเภทสัญญา</th>
-                            <th class="text-center" >สถานะ</th> 
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($data as $key => $row)
-                            <tr>
-                              <td class="text-center">{{$key+1}}</td>
-                              <td class="text-left">{{$row->Number_Cus}}</td>
-                              <td class="text-left">{{$row->Name_Cus}}</td>
-                              <td class="text-right">{{number_format($row->Cash_Cus,2)}}</td>
-                              <td class="text-center">
-                                <button type="button" class="btn btn-success btn-xs">
-                                  <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
+                      <div class="col-md-6">
+                        <form method="get" action="{{ route('Debtor',2) }}">
+                          <div class="row">
+                            <div class="col-md-10 col-12">
+                              <div class="float-right form-inline">
+                                <label>ประเภทสัญญา : </label>
+                                <select name="status" class="form-control" id="text">
+                                  <option selected value="">---- เลือกประเภท ----</option>
+                                  <option value="กู้-บุคคล" {{ ($status == 'กู้-บุคคล') ? 'selected' : '' }}>กู้-บุคคล</otion>
+                                  <option value="กู้-ทรัพย์" {{ ($status == 'กู้-ทรัพย์') ? 'selected' : '' }}>กู้-ทรัพย์</otion>
+                                </select>
+                              </div>
+                              <div class="float-right form-inline">
+                                <label>จากวันที่ : </label>
+                                <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                                <label>ถึงวันที่ : </label>
+                                <input type="date" name="Todate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="float-right form-inline">
+                                <!-- <a target="_blank" class="btn bg-blue btn-app" data-toggle="modal" data-target="#modal-report">
+                                  <i class="fas fa-print"></i> ปริ้นรายงาน
+                                </a> -->
+                                <button type="submit" class="btn bg-warning btn-app">
+                                  <span class="fas fa-search"></span> Search
                                 </button>
-                              </td>
-                              <td class="text-center">
-                                -
-                              </td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                        <hr>
+                        <div class="table-responsive">
+                          <table id="table1" class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th class="text-center" >ลำดับ</th>
+                                <th class="text-center" >เลขที่สัญญา</th>
+                                <th class="text-center" >ชื่อ - สกุล</th>
+                                <!-- <th class="text-center" >เลขที่สมาชิก</th>
+                                <th class="text-center" >วันทำสัญญา</th>-->
+                                <!-- <th class="text-center" >จำนวนเงิน</th> -->
+                                <th class="text-center" >ประเภทสัญญา</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($data as $key => $row)
+                                <tr>
+                                  <td class="text-center">{{$key+1}}</td>
+                                  <td class="text-left">{{$row->Number_Cus}}</td>
+                                  <td class="text-left">{{$row->Name_Cus}}</td>
+                                  <!-- <td class="text-right">{{number_format($row->Cash_Cus,2)}}</td> -->
+                                  <td class="text-center">
+                                   @if($row->Type_Cus == 'กู้-บุคคล')
+                                    <button type="button" class="btn btn-primary btn-xs">
+                                      <i class="fas fa-user-check prem"></i> {{$row->Type_Cus}}
+                                    </button>
+                                   @elseif($row->Type_Cus == 'กู้-ทรัพย์')
+                                    <button type="button" class="btn btn-danger btn-xs">
+                                        <i class="fas fa-suitcase prem"></i> {{$row->Type_Cus}}
+                                      </button>
+                                   @endif
+                                  </td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
+                    
                   
                   @endif
                 </div>
@@ -392,32 +450,13 @@
     $(function () {
       $('#table1').DataTable({
         "paging": true,
-        "lengthChange": true,
-        "searching": true,
+        "lengthChange": false,
+        "searching": false,
         "ordering": false,
-        "info": true,
+        "info": false,
         "autoWidth": false,
       });
     });
-  </script>
-
-  <script>
-    function addCommas(nStr){
-      nStr += '';
-      x = nStr.split('.');
-      x1 = x[0];
-      x2 = x.length > 1 ? '.' + x[1] : '';
-      var rgx = /(\d+)(\d{3})/;
-      while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-        }
-      return x1 + x2;
-    }
-    function addcomma(){
-      var num11 = document.getElementById('Amountdeptor').value;
-      var num1 = num11.replace(",","");
-      document.form2.Amountdeptor.value = addCommas(num1);
-    }
   </script>
 
   <script>
@@ -427,5 +466,60 @@
     }
     setInterval(blinker, 1500);
   </script>
+
+@if($type == 2)
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['ประเภทสัญญา', 'จำนวน'],
+        ['กู้-บุคคล', {{$countPerson}}],
+        ['กู้-ทรัพย์', {{$countProperty}}],
+      ]);
+
+      var options = {
+      //   title: 'สถิติฟ้องประจำวัน',
+        pieHole: 0.4,
+        width: 550,
+        height: 400,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      chart.draw(data, options);
+    }
+  </script>
+
+  <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+              ["ประเภทสัญญา", "จำนวน", { role: "style" } ],
+              ["กู้-บุคคล", {{$countPerson}}, "blue"],
+              ["กู้-ทรัพย์", {{$countProperty}}, "red"]
+          ]);
+
+          var view = new google.visualization.DataView(data);
+          view.setColumns([0, 1,
+                          { calc: "stringify",
+                              sourceColumn: 1,
+                              type: "string",
+                              role: "annotation" },
+                          2]);
+
+          var options = {
+              // title: "แผนภูมิแท่ง",
+              width: 400,
+              height: 400,
+              bar: {groupWidth: "95%"},
+              legend: { position: "none" },
+          };
+          var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+          chart.draw(view, options);
+      }
+  </script>
+@endif
 
 @endsection

@@ -109,16 +109,26 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['ปัตตานี', 11],
-          ['ยะลา', 2],
+          ['สาขา', 'จำนวน'],
+          ['สำนักงานใหญ่', 11],
+          ['ปัตตานี', 2],
           ['รูสะมิแล', 2],
-          ['สาขาหนึ่ง', 5],
-          ['สาขาสอง', 6],
-          ['สาขาสาม', 3],
-          ['สาขาสี่', 1],
-          ['สาขาห้า', 2],
-          ['สาขาหก', 7]
+          ['สายบุรี', 5],
+          ['โคกโพธิ์', 6],
+          ['อาเซี่ยนมอลล์', 6],
+
+          ['นราธิวาส', 3],
+          ['สุไหง-โกลก', 1],
+          ['ตันหยงมัส', 2],
+          ['รือเสาะ', 7],
+          ['ศรีสาคร', 7],
+
+          ['ยะลา', 7],
+          ['ยะหา', 7],
+          ['เบตง', 7],
+
+          ['จะนะ', 7]
+        
         ]);
 
         var options = {
@@ -135,37 +145,48 @@
         google.charts.load("current", {packages:['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ["Element", "Density", { role: "style" } ],
-            ["ปัตตานี", 8.94, "#b87333"],
-            ["ยะลา", 10.49, "silver"],
-            ["รูสะมิแล", 19.30, "gold"],
-            ["สาขาหนึ่ง", 15.30, "gold"],
-            ["สาขาสอง", 10.30, "gold"],
-            ["สาขาสาม", 11.30, "gold"],
-            ["สาขาสี่", 7.30, "gold"],
-            ["สาขาห้า", 19.30, "gold"],
-            ["สาขาหก", 21.45, "color: #e5e4e2"]
-        ]);
+            var data = google.visualization.arrayToDataTable([
+                ["สาขา", "จำนวน", { role: "style" } ],
+                ["สำนักงานใหญ่", 8.94, "gold"],
+                ["ปัตตานี", 8.94, "gold"],
+                ["รูสะมิแล", 19.30, "gold"],
+                ["สายบุรี", 15.30, "gold"],
+                ["โคกโพธิ์", 10.30, "gold"],
+                ["อาเซี่ยนมอลล์", 21.45, "gold"],
 
-        var view = new google.visualization.DataView(data);
-        view.setColumns([0, 1,
-                        { calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation" },
-                        2]);
+                ["นราธิวาส", 11.30, "green"],
+                ["สุไหง-โกลก", 10.49, "green"],
+                ["ตันหยงมัส", 7.30, "green"],
+                ["รือเสาะ", 19.30, "green"],
+                ["ศรีสาคร", 21.45, "green"],
 
-        var options = {
-            title: "Density of Precious Metals, in g/cm^3",
-            width: 750,
-            height: 400,
-            bar: {groupWidth: "95%"},
-            legend: { position: "none" },
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-        chart.draw(view, options);
-    }
+                ["ยะลา", 21.45, "red"],
+                ["ยะหา", 21.45, "red"],
+                ["เบตง", 21.45, "red"],
+
+                ["จะนะ", 21.45, "blue"],
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                            { 
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" 
+                            },
+                            2]);
+
+            var options = {
+                // title: "Density of Precious Metals, in g/cm^3",
+                width: 750,
+                height: 400,
+                // bar: {groupWidth: "95%"},
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+        }
     </script>
 
 @endsection

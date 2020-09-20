@@ -72,7 +72,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Debtor/view/1') ? 'menu-open' : '' }}{{ Request::is('Debtor/edit/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Debtor/view/*') ? 'menu-open' : '' }}{{ Request::is('Debtor/edit/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-user-tag"></i>
               <p>
@@ -86,7 +86,7 @@
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>ติดตามลูกหนี้หลังฟ้อง</p>
                 </a>
-                <a href="#" class="nav-link">
+                <a href="{{ route('Debtor', 2) }}" class="nav-link {{ Request::is('Debtor/view/2') ? 'active' : '' }}">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>สรุปผลลูกหนี้หลังฟ้อง</p>
                 </a>
