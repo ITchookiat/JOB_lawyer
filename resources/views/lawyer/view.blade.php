@@ -169,13 +169,6 @@
               </ul>
               </div>
             @endif
-
-            @if($message = Session::get('success'))
-            <div class="alert alert-success alert-block">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-            </div>
-            @endif
             <div class="modal-body">
                 <!-- <div class="row">
                   <div class="col-12">
@@ -198,7 +191,7 @@
                         <div class="form-group">
                           <div class="input-group">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="exampleInputFile">
+                              <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
                               <label class="custom-file-label" for="exampleInputFile"> </label>
                             </div>
                           </div>

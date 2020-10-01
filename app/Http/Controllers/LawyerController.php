@@ -147,10 +147,11 @@ class LawyerController extends Controller
 
     function import(Request $request)
     {
-     $file = $request->file;
-     Excel::import(new ExcelImport, $file);
-    //  echo "Inserted Successfully";
-     return back()->with('success', 'Excel Data Imported successfully.');
+        // dd($request->file);
+        $file = $request->file;
+        Excel::import(new ExcelImport, $file);
+        echo "Inserted Successfully";
+        return back()->with('success', 'Excel Data Imported successfully.');
     }
 
 }

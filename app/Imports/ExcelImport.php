@@ -26,7 +26,7 @@ class ExcelImport implements ToCollection
         $date = date('Y-m-d');
         foreach($collection as $key => $value)
         {
-            if($key > 0)
+            if($key > 1)
             {
                 DB::table('law_datas')->insert
                 (
@@ -36,10 +36,11 @@ class ExcelImport implements ToCollection
                     'Member_no' => $value[2],
                     'Date_contract' => $value[3],
                     'Date_firstdue' => $value[4],
-                    'Finance_approve' => $value[5],
-                    'Service_charge' => $value[6],
-                    'Total_amount' => $value[7],
-                    'Balance_amount' => $value[8],
+                    'Date_lastdue' => $value[5],
+                    'Finance_approve' => $value[6],
+                    'Service_charge' => $value[7],
+                    'Total_amount' => $value[8],
+                    'Balance_amount' => $value[9],
                     'created_at' => $date,
                     'updated_at' => $date
                     ]
